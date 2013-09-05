@@ -1,0 +1,27 @@
+[nosetests]
+match=^test
+nocapture=1
+cover-package=c3sintent
+with-coverage=1
+cover-erase=1
+
+[compile_catalog]
+directory = c3sintent/locale
+domain = C3Sintent
+statistics = true
+
+[extract_messages]
+add_comments = TRANSLATORS:
+output_file = c3sintent/locale/C3Sintent.pot
+width = 80
+
+[init_catalog]
+domain = C3Sintent
+input_file = c3sintent/locale/C3Sintent.pot
+output_dir = c3sintent/locale
+
+[update_catalog]
+domain = C3Sintent
+input_file = c3sintent/locale/C3Sintent.pot
+output_dir = c3sintent/locale
+previous = true

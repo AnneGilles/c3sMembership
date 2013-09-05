@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+      metal:use-macro="base"
+      i18n:domain="C3Sintent">
+  <tal:block metal:fill-slot="deform-js-css">
+    <!-- link rel="stylesheet" href="$ off {request.static_url('c3smembership:static/deform/form.css')}" type="text/css" media="screen" charset="utf-8" / -->
+  </tal:block>
+  <tal:block metal:fill-slot="middle">
+    <h1 i18n:translate="verify-email-title">C3S Membership Application: Email Verification</h1>
+    <div style="color:red">${result_msg}</div>
+  </tal:block>
+  <tal:block metal:fill-slot="bottom">
+    <div tal:condition="namepart">
+    <h3 i18n:translate="verified-email-headline" class="deform">Your Email has been confirmed, ${firstname} ${lastname}!</h3>
+    <p i18n:translate="verified-email-paragraph">
+      Now that your email address has been confirmed, you may download your PDF.
+    </p>
+    <p>
+      <a href="/C3S_DeclarationOfIntent_${namepart}.pdf">
+        C3S_MembershipApplication_${namepart}.pdf
+      </a>
+    </p>
+    </div>
+    <p>
+      &nbsp;
+    </p>
+
+  </tal:block>
+</html>

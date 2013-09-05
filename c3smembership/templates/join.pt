@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+      metal:use-macro="base"
+      i18n:domain="c3smembership">
+  <tal:block metal:fill-slot="deform-js-css">
+    <link rel="stylesheet" href="${request.static_url('c3smembership:static/deform/form.css')}" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" src="/static/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/deform/deform.js"></script>
+  </tal:block>
+  <tal:block metal:fill-slot="middle">
+    <h1 i18n:translate="join-form-title">Join Cultural Commons Collecting Society (C3S)</h1>
+  </tal:block>
+  <tal:block metal:fill-slot="bottom">
+    <div style="text-align:left;">
+      <strong style="color:red;" tal:repeat="message request.session.peek_flash('message_above_form')">
+	${message}
+      </strong>
+    </div> &nbsp;
+    <div style="text-align:right;">
+      <a href="/?en"><img src="static/images/en.png" title="English"
+				   alt="switch to English language" /></a>
+      <a href="/?de"><img src="static/images/de.png" title="Deutsch"
+				   alt="auf deutsche Sprache umschalten" /></a>
+    </div>
+    <h2 i18n:translate="join-form-headline-6" class="deform">Application for membership of the European Cooperative in formation Cultural Commons Collecting Society SCE Limited (C3S SCE)</h2>
+    <p i18n:translate="join-form-print-send">
+      Please fill out the form, check your email for a verification code, print your PDF, sign and send back.
+    </p>
+    <p i18n:translate="join-form-answer-all">
+      All questions <strong i18n:name="with_an_asterisk" i18n:translate="with_an_asterisk">with an asterisk</strong> must be answered:
+    </p>
+    <div id="form" tal:content="structure form"/>
+    <p><script type="text/javascript">
+$(document).ready(function(){
+  //Hide div w/id extra
+  $("li#item-colsoc_name").css("display","none");
+  // if member_of_colsoc show text input
+  if ($("#other_colsoc")) 
+  {
+    $("li#item-colsoc_name").css("display","block");
+  }
+  // show/hide text input 
+  $("#other_colsoc").click(function() {
+    //alert("yes got clicked");
+    $("li#item-colsoc_name").css("display","block");
+  });
+  $("#other_colsoc-1").click(function() {
+    //alert("no got clicked");
+    $("li#item-colsoc_name").css("display","none");
+  });
+});
+    </script>
+      </p>
+  
+    <h2 i18n:translate="join-form-headline-6" class="deform">The Fine Print</h2>
+  </tal:block>
+    <p i18n:translate="" class="infoIndent">
+      <a href="/disclaimer" target="_blank" 
+	 i18n:name="join-form-statute-title"
+	 i18n:translate="intent-form-disclaimer-title">The C3S SCE statute (preliminary version, to be finalized during the founding ceremony)</a>
+    </p>
+    <p i18n:translate="" class="infoIndent">
+      <a href="/disclaimer" target="_blank" 
+	 i18n:name="join-form-disclaimer-title"
+	 i18n:translate="intent-form-disclaimer-title">Disclaimer (Data Protection)</a>
+    </p>
+    <p i18n:translate="" class="infoIndent">
+      <a href="/faq" target="_blank" 
+	 i18n:name="join-form-faq-title"
+	 i18n:translate="join-form-faq-title">Frequently Asked Questions</a>
+    </p>
+
+  <tal:block metal:fill-slot="deform-load">
+    <!--! loading deform --> 
+    <script type="text/javascript">deform.load()</script>
+  </tal:block>
+</html>
