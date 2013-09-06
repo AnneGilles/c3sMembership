@@ -194,24 +194,26 @@ def success_verify_email(request):
     #dbsession = DBSession()
     # collect data from the URL/matchdict
     user_email = request.matchdict['email']
+    print(user_email)
     confirm_code = request.matchdict['code']
-
+    print(confirm_code)
     # get matching dataset from DB
     member = C3sMember.get_by_code(confirm_code)  # returns a member or None
+    print(member)
     # check if info from DB makes sense
     # -member
     from types import NoneType
     if isinstance(member, NoneType):
         # member not found: FAIL!
-        #print("a matching entry for this code was not found.")
+        print("a matching entry for this code was not found.")
         return {
             #'firstname': '',
             #'lastname': '',
             'namepart': '',
-            'result_msg': "Not found. check URL."
+            'result_msg': "Not found. check URL. If all seems right, please use the form again."
         }
     elif (member.email == user_email):
-        #print("-- found signee, code matches. COOL!")
+        print("-- found member, code matches. COOL!")
         # set the email_is_confirmed flag in the DB for this signee
         member.email_is_confirmed = True
         #dbsession.flush()
@@ -238,6 +240,8 @@ def success_verify_email(request):
             'firstname': member.firstname,
             'lastname': member.lastname,
             'email': member.email,
+            'address1': member.address1,
+            'address2': member.address2,
             'city': member.city,
             'country': member.country,
             '_LOCALE_': member.locale,
@@ -407,7 +411,8 @@ def join_c3s(request):
             title=_(u"address cont'd"))
         postCode = colander.SchemaNode(
             colander.String(),
-            title=_(u'Post Code'))
+            title=_(u'Post Code'),
+            oid="postcode")
         city = colander.SchemaNode(
             colander.String(),
             title=_(u'City'),

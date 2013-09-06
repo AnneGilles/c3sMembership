@@ -51,11 +51,12 @@ class TestUtilities(unittest.TestCase):
         mock_appstruct = {
             'firstname': u'Anne',
             'lastname': u'Gilles',
-            'city': u'Müsterstädt',
             'email': u'foo@example.com',
             'date_of_birth': '1987-06-05',
             'address1': 'addr one',
             'address2': 'addr two',
+            'postcode': u'54321',
+            'city': u'Müsterstädt',
             'country': u'some country',
             #'opt_band': u'Moin Meldön',
             #'opt_URL': 'http://moin.meldon.foo',
@@ -63,7 +64,7 @@ class TestUtilities(unittest.TestCase):
             'member_of_colsoc': 'member_of_colsoc',
             'name_of_colsoc': 'Foo Colsoc',
             'invest_member': 'yes',
-            'num_shares': 42,
+            'num_shares': '42',
             #'noticed_dataProtection': 'noticed_dataProtection',
             '_LOCALE_': 'en',
         }
@@ -100,17 +101,21 @@ class TestUtilities(unittest.TestCase):
         mock_appstruct = {
             'firstname': u'Anne',
             'lastname': u'Gilles',
+            'address1': u'addr one',
+            'address2': u'addr two',
+            'postcode': u'54321',
             'city': u'Müsterstädt',
             'email': u'foo@example.com',
             'date_of_birth': u'1987-06-05',
             'country': u'my country',
-            'activity': set([u'composer', u'lyricist', u'dj']),
-            'opt_band': u'Moin Meldön',
-            'opt_URL': 'http://moin.meldon.foo',
-            'member_of_colsoc': 'member_of_colsoc',
-            'name_of_colsoc': 'Foo colsoc',
-            'invest_member': 'yes',
-            'noticed_dataProtection': 'noticed_dataProtection',
+            #'activity': set([u'composer', u'lyricist', u'dj']),
+            #'opt_band': u'Moin Meldön',
+            #'opt_URL': 'http://moin.meldon.foo',
+            #'member_of_colsoc': 'member_of_colsoc',
+            #'name_of_colsoc': 'Foo colsoc',
+            'invest_member': u'yes',
+            #'noticed_dataProtection': 'noticed_dataProtection',
+            'num_shares': u'23',
             '_LOCALE_': 'de',
             }
 
@@ -127,6 +132,7 @@ class TestUtilities(unittest.TestCase):
                 self.assertEquals(result.content_type,
                                   'application/pdf')
                 #print("size of pdf: " + str(len(result.body)))
+                #print(result)
                 # check pdf size
                 self.assertTrue(100000 > len(result.body) > 50000)
 

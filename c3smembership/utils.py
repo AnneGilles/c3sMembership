@@ -9,6 +9,7 @@ from pyramid_mailer.message import (
     Attachment,
 )
 DEBUG = False
+#DEBUG = True
 
 
 def generate_pdf(appstruct):
@@ -17,7 +18,7 @@ def generate_pdf(appstruct):
     (a datastructure received via formsubmission)
     and prepares and returns a PDF using pdftk
     """
-    DEBUG = False
+    DEBUG = True
 
     fdf_file = tempfile.NamedTemporaryFile()
     pdf_file = tempfile.NamedTemporaryFile()
@@ -28,8 +29,8 @@ def generate_pdf(appstruct):
 
     import os
     here = os.path.dirname(__file__)
-    declaration_pdf_de = os.path.join(here, "../pdftk/DOIv2_de.pdf")
-    declaration_pdf_en = os.path.join(here, "../pdftk/DOIv2_en.pdf")
+    declaration_pdf_de = os.path.join(here, "../pdftk/C3S-SCE-AFM-de-v01-20130905.pdf")
+    declaration_pdf_en = os.path.join(here, "../pdftk/C3S-SCE-AFM-en-v01-20130905.pdf")
 
     # check for _LOCALE_, decide which language to use
     #print(appstruct['_LOCALE_'])
@@ -62,28 +63,32 @@ def generate_pdf(appstruct):
     fields = [
         ('FirstName', appstruct['firstname']),
         ('LastName', appstruct['lastname']),
-        ('city', appstruct['city']),
+        ('streetNo', appstruct['address1']),
+        ('address2', appstruct['address2']),
+        ('postcode', appstruct['postcode']),
+        ('town', appstruct['city']),
         ('email', appstruct['email']),
         ('country', appstruct['country']),
-        ('composer',
-         'Yes' if appstruct['activity'].issuperset(['composer']) else 'Off'),
-        ('lyricist',
-         'Yes' if appstruct['activity'].issuperset(['lyricist']) else 'Off'),
-        ('producer', 'Yes' if appstruct['activity'].issuperset(
-            ['music producer']) else 'Off'),
-        ('remixer',
-         'Yes' if appstruct['activity'].issuperset(['remixer']) else 'Off'),
-        ('dj',
-         'Yes' if appstruct['activity'].issuperset(['dj']) else 'Off'),
+        ('numshares', appstruct['num_shares']),
+#        ('composer',
+#         'Yes' if appstruct['activity'].issuperset(['composer']) else 'Off'),
+#        ('lyricist',
+#         'Yes' if appstruct['activity'].issuperset(['lyricist']) else 'Off'),
+#        ('producer', 'Yes' if appstruct['activity'].issuperset(
+#            ['music producer']) else 'Off'),
+#        ('remixer',
+#         'Yes' if appstruct['activity'].issuperset(['remixer']) else 'Off'),
+#        ('dj',
+#         'Yes' if appstruct['activity'].issuperset(['dj']) else 'Off'),
         #('YesDataProtection',
         #'Yes' if appstruct[
         #        #'noticed_dataProtection'] == u"(u'yes',)" else 'Off'),
-        ('inColSoc', '1' if appstruct['member_of_colsoc'] == u'yes' else '2'),
-        ('inColSocName',
-         appstruct['name_of_colsoc'] if appstruct['member_of_colsoc'] == u'yes' else ''),
-        ('URL', appstruct['opt_URL']),
-        ('bandPseudonym', appstruct['opt_band']),
-        ('investMmbr', '1' if appstruct['invest_member'] == u'yes' else '2'),
+#        ('inColSoc', '1' if appstruct['member_of_colsoc'] == u'yes' else '2'),
+#        ('inColSocName',
+#         appstruct['name_of_colsoc'] if appstruct['member_of_colsoc'] == u'yes' else ''),
+#        ('URL', appstruct['opt_URL']),
+#        ('bandPseudonym', appstruct['opt_band']),
+#        ('investMmbr', '1' if appstruct['invest_member'] == u'yes' else '2'),
         ('dateOfBirth', dob),
     ]
 
@@ -221,13 +226,9 @@ email:                          %s
 city:                           %s
 country:                        %s
 investing member:               %s
-homepage:                       %s
-band/pseudonym:                 %s
 
-activities:                     %s
 member of coll. soc.:           %s
   name of coll. soc.:           %s
-noticed data protection:        %s
 
 that's it.. bye!""" % (
         appstruct['firstname'],
@@ -237,12 +238,8 @@ that's it.. bye!""" % (
         appstruct['city'],
         appstruct['country'],
         appstruct['invest_member'],
-        appstruct['opt_URL'],
-        appstruct['opt_band'],
-        the_activities,
         appstruct['member_of_colsoc'],
         appstruct['name_of_colsoc'],
-        appstruct['noticed_dataProtection'],
     )
     if DEBUG:  # pragma: no cover
         print("the mail body: %s") % unencrypted
@@ -279,7 +276,7 @@ def accountant_mail(appstruct):
     #) % type(csv_payload_encd)
 
     attachment = Attachment(
-        "DOI.csv.gpg", "application/gpg-encryption",
+        "C3S-SCE-AFM.csv.gpg", "application/gpg-encryption",
         csv_payload_encd)
     message.attach(attachment)
 

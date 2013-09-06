@@ -41,6 +41,7 @@ class C3sMember(Base):
     email = Column(Unicode(255))
     address1 = Column(Unicode(255))
     address2 = Column(Unicode(255))
+    postcode = Column(Unicode(255))
     city = Column(Unicode(255))
     country = Column(Unicode(255))
     locale = Column(Unicode(255))
@@ -61,7 +62,7 @@ class C3sMember(Base):
 #    opt_URL = Column(Unicode(255))
 
     def __init__(self, firstname, lastname, email,
-                 address1, address2, city, country, locale,
+                 address1, address2, postcode, city, country, locale,
                  date_of_birth, email_is_confirmed, email_confirm_code,
                  num_shares,
                  #is_composer, is_lyricist, is_producer, is_remixer, is_dj,
@@ -74,6 +75,7 @@ class C3sMember(Base):
         self.email = email
         self.address1 = address1
         self.address2 = address2
+        self.postcode = postcode
         self.city = city
         self.country = country
         self.locale = locale
@@ -128,6 +130,7 @@ def populate():  # pragma: no coverage: not using this atm
         email=u"foo@shri.de",
         address1=u"address one",
         address2=u"address two",
+        postcode=u"12345 foo",
         city=u"Footown Mäh",
         country=u"Foocountry",
         locale=u"DE",
