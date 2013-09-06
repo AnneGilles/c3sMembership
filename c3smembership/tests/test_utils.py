@@ -199,20 +199,20 @@ class TestUtilities(unittest.TestCase):
             'firstname': u'Jöhn test_mail_body',
             'lastname': u'Döe',
             'date_of_birth': dob,
+            'address1': u'addr one',
+            'address2': u'addr two',
             'city': u'Town',
             'email': u'john@example.com',
             'country': u'af',
             'member_of_colsoc': u'yes',
-            'name_of_colsoc': u'Hessen',
+            'name_of_colsoc': u'Buma',
             'invest_member': u'yes',
-            'opt_band': u'the yes',
-            'opt_URL': u'http://the.yes',
-            'noticed_dataProtection': u'yes'
+            #'opt_band': u'the yes',
+            #'opt_URL': u'http://the.yes',
+            #'noticed_dataProtection': u'yes'
         }
         result = make_mail_body(my_appstruct)
-        #print("test_mail_body: result: \n %s") % result
-        self.failUnless(u'composer, ' in result)
-        self.failUnless(u'dj, ' in result)
+
         self.failUnless(u'Jöhn test_mail_body' in result)
         self.failUnless(u'Döe' in result)
         self.failUnless(u'Town' in result)
@@ -220,8 +220,6 @@ class TestUtilities(unittest.TestCase):
         self.failUnless(u'af' in result)
         self.failUnless(
             u'member of coll. soc.:           yes' in result)
-        self.failUnless(
-            u'noticed data protection:        yes' in result)
         self.failUnless(u"that's it.. bye!" in result)
 
     # def test_accountant_mail(self):

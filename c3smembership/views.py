@@ -56,7 +56,9 @@ DEBUG = False
 @view_config(renderer='templates/disclaimer.pt',
              route_name='disclaimer')
 def show_disclaimer(request):
-
+    """
+    This view simply shows a disclaimer, contained as text in a template.
+    """
     if hasattr(request, '_REDIRECT_'):
         #from pyramid.httpdexceptions import HTTPFound
         return HTTPFound(location=request.route_url('disclaimer'),
@@ -77,6 +79,9 @@ def show_disclaimer(request):
 @view_config(renderer='templates/faq.pt',
              route_name='faq')
 def show_faq(request):
+    """
+    This view simply shows an FAQ, contained as text in a template.
+    """
     if hasattr(request, '_REDIRECT_'):  # pragma: no cover
         return HTTPFound(location=request.route_url('faq'),
                          headers=request.response.headers)
@@ -160,20 +165,8 @@ https://yes.c3s.cc/verify/%s/%s
        appstruct['email'],
        appstruct['email_confirm_code'])
         )
-        #mailer.send(the_mail)  # XXX TODO
-        import pprint
-        pprint.pprint(the_mail)
-        print(appstruct['email_confirm_code'])
-        print(appstruct['email'])
-        # DEBUG
-        strrring = "http://0.0.0.0:6543/verify/" + appstruct['email_confirm_code'] + "/" + appstruct['email']
-        request.session.flash(
-            strrring,
-            'message_above_form',
-            allow_duplicate=False)
-        
-        # dasowohl
-        # import pdb; pdb.set_trace()
+        mailer.send(the_mail)  # XXX TODO
+
         return {
             'firstname': appstruct['firstname'],
             'lastname': appstruct['lastname'],

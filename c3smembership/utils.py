@@ -193,11 +193,10 @@ def make_mail_body(appstruct):
     """
     construct a multiline string to be used as the emails body
     """
-
-    the_activities = ''
-    for x in appstruct['activity']:
-        the_activities += x + ', '
-    appstruct['noticed_dataProtection'] = "yes"
+    #the_activities = ''
+    #for x in appstruct['activity']:
+    #    the_activities += x + ', '
+    #appstruct['noticed_dataProtection'] = "yes"
     # # test the types
     # for thing in [
     #     appstruct['firstname'],
@@ -218,11 +217,13 @@ def make_mail_body(appstruct):
 
     unencrypted = u"""
 Yay!
-we got a declaration of intent through the form: \n
+we got a membership application through the form: \n
 first name:                     %s
 last name:                      %s
 date of birth:                  %s
 email:                          %s
+street/no                       %s
+address cont'd                  %s
 city:                           %s
 country:                        %s
 investing member:               %s
@@ -235,14 +236,16 @@ that's it.. bye!""" % (
         appstruct['lastname'],
         appstruct['date_of_birth'],  # .strftime("%d.%m.%Y")),  # XXX
         appstruct['email'],
+        appstruct['address1'],
+        appstruct['address2'],
         appstruct['city'],
         appstruct['country'],
         appstruct['invest_member'],
         appstruct['member_of_colsoc'],
         appstruct['name_of_colsoc'],
     )
-    if DEBUG:  # pragma: no cover
-        print("the mail body: %s") % unencrypted
+    #if DEBUG:  # pragma: no cover
+    print("the mail body: %s") % unencrypted
     return unencrypted
 
 
