@@ -67,6 +67,7 @@ class TestUtilities(unittest.TestCase):
             'num_shares': '42',
             #'noticed_dataProtection': 'noticed_dataProtection',
             '_LOCALE_': 'en',
+            'date_of_submission': '2013-09-09 08:44:47.251588',
         }
 
         # a skipTest iff pdftk is not installed
@@ -117,7 +118,8 @@ class TestUtilities(unittest.TestCase):
             #'noticed_dataProtection': 'noticed_dataProtection',
             'num_shares': u'23',
             '_LOCALE_': 'de',
-            }
+            'date_of_submission': '2013-09-09 08:44:47.251588',
+        }
 
         # a skipTest iff pdftk is not installed
         import subprocess
@@ -148,30 +150,31 @@ class TestUtilities(unittest.TestCase):
         """
         from c3smembership.utils import generate_csv
         my_appstruct = {
-            'activity': ['composer', 'dj'],
-            'firstname': u'Jöhn',
-            'lastname': u'Doe',
-#            'address1': 'In the Middle',
-#            'address2': 'Of Nowhere',
-#            'postCode': '12345',
-            'city': u'My Town',
-            'email': u'john@example.com',
-#            'region': 'Hessen',
-            'country': u'de',
-            'date_of_birth': u'1987-06-05',
-            'member_of_colsoc': u'yes',
-            'name_of_colsoc': u'GEMA FöTT',
-            'opt_URL': u'http://foo.bar.baz',
-            'opt_band': u'Moin Meldn',
-            'consider_joining': u'yes',
-            'noticed_dataProtection': u'yes',
-            'invest_member': u'yes'
+            #'activity': ['composer', 'dj'],
+            'firstname': 'Jöhn',
+            'lastname': 'Doe',
+            'address1': 'In the Middle',
+            'address2': 'Of Nowhere',
+            'postcode': '12345',
+            'city': 'My Town',
+            'email': 'john@example.com',
+            #'region': 'Hessen',
+            'country': 'de',
+            'date_of_birth': '1987-06-05',
+            'member_of_colsoc': 'yes',
+            'name_of_colsoc': 'GEMA FöTT',
+            #'opt_URL': u'http://foo.bar.baz',
+            #'opt_band': u'Moin Meldn',
+            #'consider_joining': u'yes',
+            #'noticed_dataProtection': u'yes',
+            'invest_member': 'yes',
+            'num_shares': "25"
         }
         result = generate_csv(my_appstruct)
         #print("test_generate_csv: the result: %s") % result
         from datetime import date
         today = date.today().strftime("%Y-%m-%d")
-        expected_result = today + ',pending...,Jöhn,Doe,john@example.com,My Town,de,j,http://foo.bar.baz,Moin Meldn,1987-06-05,j,n,n,n,j,j,GEMA FöTT,j\r\n'
+        expected_result = today + ',pending...,Jöhn,Doe,john@example.com,In the Middle,Of Nowhere,12345,My Town,de,j,1987-06-05,j,GEMA FöTT,25\r\n'
         # note the \r\n at the end: that is line-ending foo!
 
         #print("type of today: %s ") % type(today)
@@ -179,7 +182,7 @@ class TestUtilities(unittest.TestCase):
         #print("type of expected_result: %s ") % type(expected_result)
         #print("result: \n%s ") % (result)
         #print("expected_result: \n%s ") % (expected_result)
-        self.assertEqual(result, expected_result)
+        self.assertEqual(str(result), str(expected_result))
 
 #            result == str(today + ';unknown;pending...;John;Doe;' +
 #                          'john@example.com;In the Middle;Of Nowhere;' +
@@ -201,12 +204,14 @@ class TestUtilities(unittest.TestCase):
             'date_of_birth': dob,
             'address1': u'addr one',
             'address2': u'addr two',
+            'postcode': u'12345 xyz',
             'city': u'Town',
             'email': u'john@example.com',
             'country': u'af',
             'member_of_colsoc': u'yes',
             'name_of_colsoc': u'Buma',
             'invest_member': u'yes',
+            'num_shares': u"23",
             #'opt_band': u'the yes',
             #'opt_URL': u'http://the.yes',
             #'noticed_dataProtection': u'yes'
@@ -215,9 +220,11 @@ class TestUtilities(unittest.TestCase):
 
         self.failUnless(u'Jöhn test_mail_body' in result)
         self.failUnless(u'Döe' in result)
+        self.failUnless(u'postcode:                       12345 xyz' in result)
         self.failUnless(u'Town' in result)
         self.failUnless(u'john@example.com' in result)
         self.failUnless(u'af' in result)
+        self.failUnless(u'number of shares                23' in result)
         self.failUnless(
             u'member of coll. soc.:           yes' in result)
         self.failUnless(u"that's it.. bye!" in result)

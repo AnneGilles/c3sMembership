@@ -142,10 +142,11 @@ def show_success_pdf(request):
 def success_check_email(request):
     """
     This view just returns a note to go check mail
+    and also sends out that email
     """
-    #check if user has used form or 'guessed' this URL
+    #check if user has used the form (good) or 'guessed' this URL (bad)
     if ('appstruct' in request.session):
-        # we do have valid info from the form in the session
+        # we do have valid info from the form in the session (good)
         appstruct = request.session['appstruct']
         from pyramid_mailer.message import Message
         mailer = get_mailer(request)
@@ -165,7 +166,8 @@ https://yes.c3s.cc/verify/%s/%s
        appstruct['email'],
        appstruct['email_confirm_code'])
         )
-        mailer.send(the_mail)  # XXX TODO
+        #mailer.send(the_mail)  # XXX TODO
+        print(the_mail.body)
 
         return {
             'firstname': appstruct['firstname'],
@@ -187,26 +189,28 @@ def success_verify_email(request):
     #dbsession = DBSession()
     # collect data from the URL/matchdict
     user_email = request.matchdict['email']
-    print(user_email)
+    #print(user_email)
     confirm_code = request.matchdict['code']
-    print(confirm_code)
+    #print(confirm_code)
     # get matching dataset from DB
     member = C3sMember.get_by_code(confirm_code)  # returns a member or None
-    print(member)
+    #print(member)
     # check if info from DB makes sense
     # -member
     from types import NoneType
     if isinstance(member, NoneType):
         # member not found: FAIL!
-        print("a matching entry for this code was not found.")
+        #print("a matching entry for this code was not found.")
+        not_found_msg = _(u"""Not found. check URL.
+        If all seems right, please use the form again.""")
         return {
             #'firstname': '',
             #'lastname': '',
             'namepart': '',
-            'result_msg': "Not found. check URL. If all seems right, please use the form again."
+            'result_msg': not_found_msg,
         }
     elif (member.email == user_email):
-        print("-- found member, code matches. COOL!")
+        #print("-- found member, code matches. COOL!")
         # set the email_is_confirmed flag in the DB for this signee
         member.email_is_confirmed = True
         #dbsession.flush()
@@ -235,16 +239,19 @@ def success_verify_email(request):
             'email': member.email,
             'address1': member.address1,
             'address2': member.address2,
+            'postcode': member.postcode,
             'city': member.city,
             'country': member.country,
             '_LOCALE_': member.locale,
             'date_of_birth': member.date_of_birth,
+            'date_of_submission': member.date_of_submission,
             #'activity': set(activities),
             'invest_member': u'yes' if member.invest_member else u'no',
             'member_of_colsoc': u'yes' if member.member_of_colsoc else 'no',
             'name_of_colsoc': member.name_of_colsoc,
             #'opt_band': signee.opt_band,
             #'opt_URL': signee.opt_URL,
+            'num_shares': member.num_shares,
         }
         request.session['appstruct'] = appstruct
         return {
@@ -365,11 +372,11 @@ def join_c3s(request):
    # set default of Country select widget according to locale
     LOCALE_COUNTRY_MAPPING = {
         'de': 'DE',
-   #    'da': 'DK',
+        #'da': 'DK',
         'en': 'GB',
-   #    'es': 'ES',
-   #    'fr': 'FR',
-        }
+        #'es': 'ES',
+        #'fr': 'FR',
+    }
     country_default = LOCALE_COUNTRY_MAPPING.get(locale_name)
     if DEBUG:  # pragma: no cover
         print("== locale is :" + str(locale_name))
@@ -383,34 +390,37 @@ def join_c3s(request):
             colander.String(),
             title=_(u"(Real) First Name"),
             oid="firstname",
-            )
+        )
         lastname = colander.SchemaNode(
             colander.String(),
             title=_(u"(Real) Last Name"),
             oid="lastname",
-            )
+        )
         email = colander.SchemaNode(
             colander.String(),
             title=_(u'Email'),
             validator=colander.Email(),
             oid="email",
-            )
+        )
         address1 = colander.SchemaNode(
             colander.String(),
-            title=_(u'Street & No.'))
+            title=_(u'Street & No.')
+        )
         address2 = colander.SchemaNode(
             colander.String(),
             missing=unicode(''),
-            title=_(u"address cont'd"))
-        postCode = colander.SchemaNode(
+            title=_(u"address cont'd")
+        )
+        postcode = colander.SchemaNode(
             colander.String(),
             title=_(u'Post Code'),
-            oid="postcode")
+            oid="postcode"
+        )
         city = colander.SchemaNode(
             colander.String(),
             title=_(u'City'),
             oid="city",
-            )
+        )
       #  region = colander.SchemaNode(
       #      colander.String(),
       #      title=_(u'Federal State / Province / County'),
@@ -422,7 +432,7 @@ def join_c3s(request):
             widget=deform.widget.SelectWidget(
                 values=country_codes),
             oid="country",
-            )
+        )
 
         # type_of_creator = (('composer', _(u'composer')),
         #                    ('lyricist', _(u'lyricist')),
@@ -454,40 +464,40 @@ def join_c3s(request):
         ## TODO: inColSocName if member_of_colsoc = yes
         ## css/jquery: fixed; TODO: validator
         def colsoc_validator(node, form):
-            log.info("validating...........................................")
+            #log.info("validating...........................................")
             #print(value['member_of_colsoc'])
-            log.info(node.get('other_colsoc'))
-            log.info(node.get('other_colsoc-1'))
-            log.info(node.cstruct_children('other_colsoc'))
+            #log.info(node.get('other_colsoc'))
+            #log.info(node.get('other_colsoc-1'))
+            #log.info(node.cstruct_children('other_colsoc'))
             #log.info(node.get_value('other_colsoc-1'))
-            log.info(dir(node))
+            #log.info(dir(node))
             #log.info(node['member_of_colsoc'])
             #import pdb; pdb.set_trace()
             #if value['member_of_colsoc']
             #exc = colander.Invalid(
             #    form, "if colsoc, give name!")
             #exc['name_of_colsoc'] = "if colsoc, give name!"
-            log.info("end----------------------------------------")
-
+            #log.info("end----------------------------------------")
+            pass
 
         member_of_colsoc = colander.SchemaNode(
             colander.String(),
             title=_(
                 u'Currently, I am a member of another collecting society.'),
-            #validator=colander.OneOf([x[0] for x in yes_no]),
+            validator=colander.OneOf([x[0] for x in yes_no]),
             widget=deform.widget.RadioChoiceWidget(values=yes_no),
             oid="other_colsoc",
-            validator=colsoc_validator
-            )
+            #validator=colsoc_validator
+        )
         name_of_colsoc = colander.SchemaNode(
             colander.String(),
             title=_(u'If so, which one?'),
             missing=unicode(''),
             oid="colsoc_name",
             validator=colander.All(
-                colsoc_validator,   
-                )
+                colsoc_validator,
             )
+        )
         invest_member = colander.SchemaNode(
             colander.String(),
             title=_(
@@ -497,7 +507,7 @@ def join_c3s(request):
             validator=colander.OneOf([x[0] for x in yes_no]),
             widget=deform.widget.RadioChoiceWidget(values=yes_no),
             oid="investing_member",
-            )
+        )
         num_shares = colander.SchemaNode(
             colander.Integer(),
             title=_(u"Number of Shares (50€ each"),
@@ -507,7 +517,7 @@ def join_c3s(request):
                 max=60,
                 min_err=_(u"You need at least one share of 50 Euro."),
                 max_err=_(u"You may choose 60 shares at most. (3000 Euro)"),
-                ),
+            ),
             oid="num_shares")
        # TODO:
        # Date of birth (dd/mm/yyyy) (three fields)
@@ -523,9 +533,9 @@ def join_c3s(request):
                 max=datetime.date(2000, 1, 1),
                 min_err=_(u'${val} is earlier than earliest date ${min}'),
                 max_err=_(u'${val} is later than latest date ${max}')
-                ),
+            ),
             oid="date_of_birth",
-            )
+        )
 
         # opt_band = colander.SchemaNode(
         #     colander.String(),
@@ -592,11 +602,11 @@ def join_c3s(request):
         controls = request.POST.items()
         try:
             appstruct = form.validate(controls)
-            #if DEBUG:  # pragma: no cover
-            print("the appstruct from the form: %s \n") % appstruct
-            for thing in appstruct:
-                print("the thing: %s") % thing
-                print("type: %s") % type(thing)
+            if DEBUG:  # pragma: no cover
+                print("the appstruct from the form: %s \n") % appstruct
+                for thing in appstruct:
+                    print("the thing: %s") % thing
+                    print("type: %s") % type(thing)
         except ValidationFailure, e:
             #print("the appstruct from the form: %s \n") % appstruct
             #for thing in appstruct:
@@ -630,7 +640,10 @@ def join_c3s(request):
             randomstring = make_random_string()  # pragma: no cover
 
         from datetime import datetime
-        from sqlalchemy.exc import InvalidRequestError
+        from sqlalchemy.exc import (
+            InvalidRequestError,
+            IntegrityError
+        )
         # to store the data in the DB, an objet is created
         member = C3sMember(
             firstname=appstruct['firstname'],
@@ -638,6 +651,7 @@ def join_c3s(request):
             email=appstruct['email'],
             address1=appstruct['address1'],
             address2=appstruct['address2'],
+            postcode=appstruct['postcode'],
             city=appstruct['city'],
             country=appstruct['country'],
             locale=appstruct['_LOCALE_'],
@@ -663,6 +677,9 @@ def join_c3s(request):
             appstruct['email_confirm_code'] = randomstring
         except InvalidRequestError, e:  # pragma: no cover
             print("InvalidRequestError! %s") % e
+        except IntegrityError, ie: # pragma: no cover
+            print("IntegrityError! %s") % ie
+
         # send mail to accountants // prepare a mailer
         #mailer = get_mailer(request)
         # prepare mail
@@ -676,6 +693,10 @@ def join_c3s(request):
         # first, store appstruct in session
         request.session['appstruct'] = appstruct
         #from pyramid.httpexceptions import HTTPFound
+        #
+        # empty the messages queue (as validation worked anyways)
+        deleted_msg = request.session.pop_flash()
+        del deleted_msg
         return HTTPFound(  # redirect to success page
             location=request.route_url('success'),
         )

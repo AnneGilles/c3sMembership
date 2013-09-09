@@ -4,15 +4,12 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
       metal:use-macro="base"
-      i18n:domain="C3Sintent">
-  <tal:block metal:fill-slot="deform-js-css">
-    <!-- link rel="stylesheet" href="$ off {request.static_url('c3sintent:static/deform/form.css')}" type="text/css" media="screen" charset="utf-8" / -->
-  </tal:block>
+      i18n:domain="c3smembership">
   <tal:block metal:fill-slot="middle">
-    <h1 i18n:translate="check-email-title">C3S Declaration of Intent: Check your email</h1>
+    <h1 i18n:translate="check-email-title">C3S Membership Application: Check your email</h1>
   </tal:block>
   <tal:block metal:fill-slot="bottom">
-    <h3 i18n:translate="check-email-headline" class="deform">Email was sent, ${firstname} ${lastname}!</h3>
+    <h3 i18n:translate="check-email-headline" class="deform">An email was sent, ${firstname} ${lastname}!</h3>
     <p i18n:translate="check-email-paragraph-check-email">
       You will receive an email from noreply@c3s.cc with a link. Please check your email!
     </p>

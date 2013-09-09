@@ -4,9 +4,9 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal">
 <head>
-  <title i18n:translate="intent-form-title">Declaration of Intent to Join Cultural Commons Collecting Society (C3S)</title>
+  <title i18n:translate="membership-form-title">Membership Application for Cultural Commons Collecting Society (C3S SCE)</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-  <meta name="keywords" content="Declaration of Intent to join C3S" />
+  <meta name="keywords" content="Membership Application to join C3S SCE" />
   <meta name="description" content="" />
   <link rel="shortcut icon" href="${request.static_url('c3smembership:static/favicon.ico')}" />
   <link rel="stylesheet" href="${request.static_url('c3smembership:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />

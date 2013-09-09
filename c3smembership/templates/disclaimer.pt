@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+      metal:use-macro="base"
+      i18n:domain="c3smembership">
+  <tal:block metal:fill-slot="middle">
+    <h1 i18n:translate="disclaimer-title">Data Protection Declaration</h1>
+  </tal:block>
+  <tal:block metal:fill-slot="bottom">
+    <div style="text-align:right;">
+      <a href="/disclaimer?en"><img src="static/images/en.png" title="English"
+				   alt="switch to English language" /></a>
+      <a href="/disclaimer?de"><img src="static/images/de.png" title="Deutsch"
+				   alt="auf deutsche Sprache umschalten" /></a>
+    </div>
+    <p i18n:translate="disclaimer-v2-paragraph-1">
+      We will use the data you have provided in the Declaration of Intent to join the Cultural Commons Collecting Society (C3S) in order to ask you whether you really want to become a member. If not, your declaration will be deleted. It will also be deleted if you have second thoughts and notify us in writing that you wish to withdraw your declaration.
+    </p>
+    <p i18n:translate="disclaimer-v2-paragraph-2">
+      In order to prevent falsifications, we will ask you not only for your name, but also for your e-mail and date of birth. Of course we will only use your data for the founding process of the C3S and will neither pass them on to third parties, nor use them for other purposes, or publish them. They will be stored in Germany by the registered association OpenMusicContest.org as representative of the C3S foundation initiative, according to the requirements of the Federal Data Protection Act.
+    </p>
+    <p i18n:translate="disclaimer-paragraph-3-part1">
+	By sending an e-mail to
+    </p>
+    <br />
+    <center><strong>data@c3s.cc</strong></center>
+    <br />
+    <p i18n:translate="disclaimer-paragraph-3-part2">
+      you may order your data to be deleted at any time, and without giving reasons. Upon request to the same address, you may also ask for information about the data we have stored about you. However, a deletion of your data will have the result that we can not get in touch with you, should you wish to join the collecting society.
+    </p>
+    <p i18n:translate="disclaimer-paragraph-4">
+      The Cultural Commons Collecting Society is a project of:
+    </p>
+    <p>
+      <code>
+	OpenMusicContest.org e.V.<br />
+	c/o Michalke<br />
+	Am Straussenkreuz 11<br />
+	40229 D&uuml;sseldorf<br />
+      </code>
+    </p>
+    <p i18n:translate="disclaimer-paragraph-5">
+      Authorised to represent:
+    </p>
+    <p>
+      <code>
+        Meik Michalke (Vorsitzender)<br />
+	Christoph Scheid (stellv. Vorsitzender)<br />
+	Marcel Hennes (stellv. Vorsitzender)<br />
+	Sebastian Schmachtel (stellv. Vorsitzender)<br />
+      </code><br /><br />
+    </p>
+    <p i18n:translate="disclaimer-paragraph-6">
+      See the <a href="http://www.openmusiccontest.org/impressum"
+		 i18n:name="OMC-imprint-link-title"
+		 i18n:translate="OMC-imprint-link-title">imprint of the OpenMusicContest.org e.V.</a>
+      for more information. 
+    </p>
+  </tal:block>
+</html>

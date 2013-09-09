@@ -33,6 +33,7 @@ Base = declarative_base()
 #def hash_password(password):
 #    return unicode(crypt.encode(password))
 
+
 class C3sMember(Base):
     __tablename__ = 'members'
     id = Column(Integer, primary_key=True)
@@ -120,6 +121,7 @@ class C3sMember(Base):
             return True
         else:
             return False
+
 
 def populate():  # pragma: no coverage: not using this atm
     session = DBSession()

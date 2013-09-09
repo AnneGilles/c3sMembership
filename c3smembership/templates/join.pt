@@ -25,8 +25,8 @@
       <a href="/?de"><img src="static/images/de.png" title="Deutsch"
 				   alt="auf deutsche Sprache umschalten" /></a>
     </div>
-    <h2 i18n:translate="join-form-headline-6" class="deform">Application for membership of the European Cooperative in formation Cultural Commons Collecting Society SCE Limited (C3S SCE)</h2>
-    <p i18n:translate="join-form-print-send">
+    <h2 i18n:translate="join-form-headline" class="deform">Application for Membership of the European Cooperative 'Cultural Commons Collecting Society SCE Limited' (C3S SCE)</h2>
+    <p i18n:translate="join-form-fill-verify-print-send">
       Please fill out the form, check your email for a verification code, print your PDF, sign and send back.
     </p>
     <p i18n:translate="join-form-answer-all">
@@ -55,23 +55,23 @@ $(document).ready(function(){
     </script>
       </p>
   
-    <h2 i18n:translate="join-form-headline-6" class="deform">The Fine Print</h2>
-  </tal:block>
+    <h2 i18n:translate="join-form-headline-fine-print" class="deform">The Fine Print</h2>
     <p i18n:translate="" class="infoIndent">
-      <a href="/disclaimer" target="_blank" 
+      <a href="/statute" target="_blank" 
 	 i18n:name="join-form-statute-title"
-	 i18n:translate="intent-form-disclaimer-title">The C3S SCE statute (preliminary version, to be finalized during the founding ceremony)</a>
+	 i18n:translate="join-form-statute-title">The C3S SCE statute</a>
     </p>
     <p i18n:translate="" class="infoIndent">
       <a href="/disclaimer" target="_blank" 
 	 i18n:name="join-form-disclaimer-title"
-	 i18n:translate="intent-form-disclaimer-title">Disclaimer (Data Protection)</a>
+	 i18n:translate="join-form-disclaimer-title">Disclaimer (Data Protection)</a>
     </p>
     <p i18n:translate="" class="infoIndent">
       <a href="/faq" target="_blank" 
 	 i18n:name="join-form-faq-title"
 	 i18n:translate="join-form-faq-title">Frequently Asked Questions</a>
     </p>
+  </tal:block>
 
   <tal:block metal:fill-slot="deform-load">
     <!--! loading deform --> 

@@ -34,7 +34,7 @@ def main(global_config, **settings):
     config.add_route('success', '/success')
     config.add_route('success_check_email', '/check_email')
     config.add_route('success_verify_email', '/verify/{email}/{code}')
-    config.add_route('success_pdf', '/C3S_Membership_{namepart}.pdf')
+    config.add_route('success_pdf', '/C3S_SCE_AFM_{namepart}.pdf')
 
     config.scan()
     return config.make_wsgi_app()

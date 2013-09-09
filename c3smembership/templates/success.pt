@@ -4,12 +4,9 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
       metal:use-macro="base"
-      i18n:domain="C3Sintent">
-  <tal:block metal:fill-slot="deform-js-css">
-    <!--link rel="stylesheet" href="$ off {request.static_url('c3sintent:static/deform/form.css')}" type="text/css" media="screen" charset="utf-8" / -->
-  </tal:block>
+      i18n:domain="c3smembership">
   <tal:block metal:fill-slot="middle">
-    <h1 i18n:translate="success-title">C3S Declaration of Intent: Success</h1>
+    <h1 i18n:translate="success-title">C3S Membership Application: Success</h1>
   </tal:block>
   <tal:block metal:fill-slot="bottom">
     <h3><span i18n:translate="success-headline-thanks" class="deform">That worked, </span> ${firstname} ${lastname}!</h3>
@@ -25,14 +22,14 @@
       Lastname: ${lastname}<br />
       Email: ${request.session['appstruct']['email']} <br />
       Day of Birth: ${request.session['appstruct']['date_of_birth']} <br />
+      Street &amp; No.: ${request.session['appstruct']['address1']} <br />
+      Address  cont'd.: ${request.session['appstruct']['address2']} <br />
       City: ${request.session['appstruct']['city']} <br />
       Country: ${request.session['appstruct']['country']} <br />
-      <!-- Band/Artist: $ off {request.session['appstruct']['opt_band']} <br /> --->
-      <!-- Homepage: $ off {request.session['appstruct']['opt_URL']} <br / -->
-      <!-- Activities: $ off {activities} <br / -->
       Member of other Collecting Society: ${request.session['appstruct']['member_of_colsoc']} <br />
       Which one? ${request.session['appstruct']['name_of_colsoc']} <br />
       Supporting Member?: ${request.session['appstruct']['invest_member']} <br />
+      Number of Shares: ${request.session['appstruct']['num_shares']} <br />
     </p>
     
     <p tal:condition="request.session['appstruct']['_LOCALE_'] == 'de'"> <!-- german -->
@@ -40,14 +37,15 @@
       Nachname: ${lastname}<br />
       Email: ${request.session['appstruct']['email']} <br />
       Geburtstag: ${request.session['appstruct']['date_of_birth']} <br />
+      Stra&szlig;e, Nr.: ${request.session['appstruct']['address1']} <br />
+      Addresszusatz: ${request.session['appstruct']['address2']} <br />
+      Postleitzahl: ${request.session['appstruct']['postcode']} <br />
       Ort: ${request.session['appstruct']['city']} <br />
       Land: ${request.session['appstruct']['country']} <br />
-      <!--Band/Künstlername: $ off {request.session['appstruct']['opt_band']} <br / -->
-      <!-- Homepage: $ off {request.session['appstruct']['opt_URL']} <br / -->
-      <!-- Tätigkeiten: $ off {activities} <br / -->
       Mitglied einer anderen Verwertungsgesellschaft: ${'ja' if (request.session['appstruct']['member_of_colsoc'] == 'yes') else 'nein'} <br />
       Welcher? ${request.session['appstruct']['name_of_colsoc']} <br />
       Fördermitglied?: ${'ja' if (request.session['appstruct']['invest_member'] == 'yes') else 'nein'} <br />
+      Anzahl Anteile: ${request.session['appstruct']['num_shares']} <br />
     </p>
     <p i18n:translate="success-paragraph-change-details">
       In case there are errors or you want to change details

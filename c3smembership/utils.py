@@ -18,7 +18,7 @@ def generate_pdf(appstruct):
     (a datastructure received via formsubmission)
     and prepares and returns a PDF using pdftk
     """
-    DEBUG = True
+    DEBUG = False
 
     fdf_file = tempfile.NamedTemporaryFile()
     pdf_file = tempfile.NamedTemporaryFile()
@@ -29,8 +29,8 @@ def generate_pdf(appstruct):
 
     import os
     here = os.path.dirname(__file__)
-    declaration_pdf_de = os.path.join(here, "../pdftk/C3S-SCE-AFM-de-v01-20130905.pdf")
-    declaration_pdf_en = os.path.join(here, "../pdftk/C3S-SCE-AFM-en-v01-20130905.pdf")
+    declaration_pdf_de = os.path.join(here, "../pdftk/C3S-SCE-AFM-de-v01-20130909.pdf")
+    declaration_pdf_en = os.path.join(here, "../pdftk/C3S-SCE-AFM-en-v01-20130909.pdf")
 
     # check for _LOCALE_, decide which language to use
     #print(appstruct['_LOCALE_'])
@@ -52,24 +52,36 @@ def generate_pdf(appstruct):
     #print(
     #    "generate_pdf: str of appstruct: date of birth: %s") % str(
     #        appstruct['date_of_birth'])
-    dob = time.strptime(str(appstruct['date_of_birth']), '%Y-%m-%d')
+    #print("appstruct: date of birth: %s") % appstruct['date_of_birth']
+    #print("appstruct: date of submission: %s") % appstruct['date_of_submission']
+    dob_ = time.strptime(str(appstruct['date_of_birth']), '%Y-%m-%d')
+    #print("generate_pdf: date of birth: %s") % dob_
+    dob = time.strftime("%d.%m.%Y", dob_)
     #print("generate_pdf: date of birth: %s") % dob
-    dob = time.strftime("%d.%m.%Y", dob)
+    #dos_ = time.strptime(
+    #    str(appstruct['date_of_submission']),
+    #    '%Y-%m-%d %H:%M:%S'
+    #)
+    #print("generate_pdf: date of submission: %s") % dos_
+    dos = str(appstruct['date_of_submission'])
+    #print("generate_pdf: date of submission: %s") % dos
     #print("generate_pdf: type of date of birth: %s") % type(dob)
     #print("generate_pdf: date of birth: %s") % dob
 
 # here we gather all information from the supplied data to prepare pdf-filling
 
+    from datetime import datetime
+
     fields = [
-        ('FirstName', appstruct['firstname']),
-        ('LastName', appstruct['lastname']),
+        ('firstname', appstruct['firstname']),
+        ('lastname', appstruct['lastname']),
         ('streetNo', appstruct['address1']),
         ('address2', appstruct['address2']),
         ('postcode', appstruct['postcode']),
         ('town', appstruct['city']),
         ('email', appstruct['email']),
         ('country', appstruct['country']),
-        ('numshares', appstruct['num_shares']),
+        ('numshares', str(appstruct['num_shares'])),
 #        ('composer',
 #         'Yes' if appstruct['activity'].issuperset(['composer']) else 'Off'),
 #        ('lyricist',
@@ -85,11 +97,13 @@ def generate_pdf(appstruct):
         #        #'noticed_dataProtection'] == u"(u'yes',)" else 'Off'),
 #        ('inColSoc', '1' if appstruct['member_of_colsoc'] == u'yes' else '2'),
 #        ('inColSocName',
-#         appstruct['name_of_colsoc'] if appstruct['member_of_colsoc'] == u'yes' else ''),
+#        appstruct['name_of_colsoc'] if appstruct['member_of_colsoc'] == u'yes' else ''),
 #        ('URL', appstruct['opt_URL']),
 #        ('bandPseudonym', appstruct['opt_band']),
 #        ('investMmbr', '1' if appstruct['invest_member'] == u'yes' else '2'),
-        ('dateOfBirth', dob),
+        ('dateofbirth', dob),
+        ('submitted', dos),
+        ('generated', str(datetime.now()))
     ]
 
 # generate fdf string
@@ -154,25 +168,29 @@ def generate_csv(appstruct):
     csv = tempfile.TemporaryFile()
     csvw = unicodecsv.writer(csv, encoding='utf-8')
     fields = (
-        date.today().strftime("%Y-%m-%d"),  # e.g. 2012-09-02
-        'pending...',  # #                           # has signature
+        date.today().strftime("%Y-%m-%d"),  # e.g. 2012-09-02 date of subm.
+        'pending...',  # #                  # has signature ?
         appstruct['firstname'],  # #    # firstname
         appstruct['lastname'],  # #    # surname
         appstruct['email'],  # #   # email
+        appstruct['address1'],
+        appstruct['address2'],
+        appstruct['postcode'],
         appstruct['city'],
         appstruct['country'],  # # # country
         'j' if appstruct['invest_member'] == 'yes' else 'n',
-        appstruct['opt_URL'],
-        appstruct['opt_band'],
+        #appstruct['opt_URL'],
+        #appstruct['opt_band'],
         appstruct['date_of_birth'],
-        'j' if 'composer' in appstruct['activity'] else 'n',
-        'j' if 'lyricist' in appstruct['activity'] else 'n',
-        'j' if 'producer' in appstruct['activity'] else 'n',
-        'j' if 'remixer' in appstruct['activity'] else 'n',
-        'j' if 'dj' in appstruct['activity'] else 'n',
+        #'j' if 'composer' in appstruct['activity'] else 'n',
+        #'j' if 'lyricist' in appstruct['activity'] else 'n',
+        #'j' if 'producer' in appstruct['activity'] else 'n',
+        #'j' if 'remixer' in appstruct['activity'] else 'n',
+        #'j' if 'dj' in appstruct['activity'] else 'n',
         'j' if appstruct['member_of_colsoc'] == 'yes' else 'n',
         appstruct['name_of_colsoc'],
-        'j' if appstruct['noticed_dataProtection'] == 'yes' else 'n',
+        appstruct['num_shares'],
+        #'j' if appstruct['noticed_dataProtection'] == 'yes' else 'n',
     )
 
     csvw.writerow(fields)
@@ -224,9 +242,11 @@ date of birth:                  %s
 email:                          %s
 street/no                       %s
 address cont'd                  %s
+postcode:                       %s
 city:                           %s
 country:                        %s
 investing member:               %s
+number of shares                %s
 
 member of coll. soc.:           %s
   name of coll. soc.:           %s
@@ -238,14 +258,16 @@ that's it.. bye!""" % (
         appstruct['email'],
         appstruct['address1'],
         appstruct['address2'],
+        appstruct['postcode'],
         appstruct['city'],
         appstruct['country'],
         appstruct['invest_member'],
+        appstruct['num_shares'],
         appstruct['member_of_colsoc'],
         appstruct['name_of_colsoc'],
     )
-    #if DEBUG:  # pragma: no cover
-    print("the mail body: %s") % unencrypted
+    if DEBUG:  # pragma: no cover
+        print("the mail body: %s") % unencrypted
     return unencrypted
 
 

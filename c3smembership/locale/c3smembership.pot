@@ -1,0 +1,714 @@
+# Translations template for c3smembership.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the c3smembership project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: c3smembership 0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-09-09 13:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: c3smembership/views.py:154
+msgid "C3S: confirm your email address and load your PDF"
+msgstr ""
+
+#: c3smembership/views.py:260
+msgid "Success. Load your PDF!"
+msgstr ""
+
+#: c3smembership/views.py:340
+msgid "Austria"
+msgstr ""
+
+#: c3smembership/views.py:341
+msgid "Belgium"
+msgstr ""
+
+#: c3smembership/views.py:342
+msgid "Bulgaria"
+msgstr ""
+
+#: c3smembership/views.py:343
+msgid "Switzerland"
+msgstr ""
+
+#: c3smembership/views.py:344
+msgid "Czech Republic"
+msgstr ""
+
+#: c3smembership/views.py:345
+msgid "Germany"
+msgstr ""
+
+#: c3smembership/views.py:346
+msgid "Denmark"
+msgstr ""
+
+#: c3smembership/views.py:347
+msgid "Spain"
+msgstr ""
+
+#: c3smembership/views.py:348
+msgid "Estonia"
+msgstr ""
+
+#: c3smembership/views.py:349
+msgid "Finland"
+msgstr ""
+
+#: c3smembership/views.py:350
+msgid "France"
+msgstr ""
+
+#: c3smembership/views.py:351
+msgid "United Kingdom"
+msgstr ""
+
+#: c3smembership/views.py:352
+msgid "Greece"
+msgstr ""
+
+#: c3smembership/views.py:353
+msgid "Hungary"
+msgstr ""
+
+#: c3smembership/views.py:354
+msgid "Croatia"
+msgstr ""
+
+#: c3smembership/views.py:355
+msgid "Israel"
+msgstr ""
+
+#: c3smembership/views.py:356
+msgid "Ireland"
+msgstr ""
+
+#: c3smembership/views.py:357
+msgid "Italy"
+msgstr ""
+
+#: c3smembership/views.py:358
+msgid "Lithuania"
+msgstr ""
+
+#: c3smembership/views.py:359
+msgid "Latvia"
+msgstr ""
+
+#: c3smembership/views.py:360
+msgid "Luxembourg"
+msgstr ""
+
+#: c3smembership/views.py:361
+msgid "Malta"
+msgstr ""
+
+#: c3smembership/views.py:362
+msgid "Netherlands"
+msgstr ""
+
+#: c3smembership/views.py:363
+msgid "Poland"
+msgstr ""
+
+#: c3smembership/views.py:364
+msgid "Portugal"
+msgstr ""
+
+#: c3smembership/views.py:365
+msgid "Slovakia"
+msgstr ""
+
+#: c3smembership/views.py:366
+msgid "Slovenia"
+msgstr ""
+
+#: c3smembership/views.py:367
+msgid "Sweden"
+msgstr ""
+
+#: c3smembership/views.py:368
+msgid "other"
+msgstr ""
+
+#: c3smembership/views.py:390
+msgid "(Real) First Name"
+msgstr ""
+
+#: c3smembership/views.py:395
+msgid "(Real) Last Name"
+msgstr ""
+
+#: c3smembership/views.py:400
+msgid "Email"
+msgstr ""
+
+#: c3smembership/views.py:406
+msgid "Street & No."
+msgstr ""
+
+#: c3smembership/views.py:411
+msgid "address cont'd"
+msgstr ""
+
+#: c3smembership/views.py:415
+msgid "Post Code"
+msgstr ""
+
+#: c3smembership/views.py:420
+msgid "City"
+msgstr ""
+
+#: c3smembership/views.py:429
+msgid "Country"
+msgstr ""
+
+#: c3smembership/views.py:453
+msgid "Yes"
+msgstr ""
+
+#: c3smembership/views.py:454
+msgid "No"
+msgstr ""
+
+#: c3smembership/views.py:484
+msgid "Currently, I am a member of another collecting society."
+msgstr ""
+
+#: c3smembership/views.py:493
+msgid "If so, which one?"
+msgstr ""
+
+#: c3smembership/views.py:502
+msgid ""
+"I am considering to join C3S as a supporting member only. This option is also"
+" available to members of other collecting societies without quitting those."
+msgstr ""
+
+#: c3smembership/views.py:512
+msgid "Number of Shares (50€ each"
+msgstr ""
+
+#: c3smembership/views.py:517
+msgid "You need at least one share of 50 Euro."
+msgstr ""
+
+#: c3smembership/views.py:518
+msgid "You may choose 60 shares at most. (3000 Euro)"
+msgstr ""
+
+#: c3smembership/views.py:526
+msgid "Date of Birth"
+msgstr ""
+
+#: c3smembership/views.py:533
+msgid "${val} is earlier than earliest date ${min}"
+msgstr ""
+
+#: c3smembership/views.py:534
+msgid "${val} is later than latest date ${max}"
+msgstr ""
+
+#: c3smembership/views.py:592
+msgid "Submit"
+msgstr ""
+
+#: c3smembership/views.py:593
+msgid "Reset"
+msgstr ""
+
+#: c3smembership/views.py:617
+msgid "Please note: There were errors, please check the form below."
+msgstr ""
+
+#. Default: Membership Application for Cultural Commons Collecting Society (C3S
+#. SCE)
+#: c3smembership/templates/base.pt:7
+msgid "membership-form-title"
+msgstr ""
+
+#. Default: C3S Membership Application: Check your email
+#: c3smembership/templates/check-mail.pt:9
+msgid "check-email-title"
+msgstr ""
+
+#. Default: An email was sent, ${firstname} ${lastname}!
+#: c3smembership/templates/check-mail.pt:12
+msgid "check-email-headline"
+msgstr ""
+
+#. Default: You will receive an email from noreply@c3s.cc with a link. Please check
+#. your email!
+#: c3smembership/templates/check-mail.pt:13
+msgid "check-email-paragraph-check-email"
+msgstr ""
+
+#. Default: Data Protection Declaration
+#: c3smembership/templates/disclaimer.pt:9
+msgid "disclaimer-title"
+msgstr ""
+
+#. Default: We will use the data you have provided in the Declaration of Intent to
+#. join the Cultural Commons Collecting Society (C3S) in order to ask you whether
+#. you really want to become a member. If not, your declaration will be deleted. It
+#. will also be deleted if you have second thoughts and notify us in writing that
+#. you wish to withdraw your declaration.
+#: c3smembership/templates/disclaimer.pt:18
+msgid "disclaimer-v2-paragraph-1"
+msgstr ""
+
+#. Default: In order to prevent falsifications, we will ask you not only for your
+#. name, but also for your e-mail and date of birth. Of course we will only use
+#. your data for the founding process of the C3S and will neither pass them on to
+#. third parties, nor use them for other purposes, or publish them. They will be
+#. stored in Germany by the registered association OpenMusicContest.org as
+#. representative of the C3S foundation initiative, according to the requirements
+#. of the Federal Data Protection Act.
+#: c3smembership/templates/disclaimer.pt:21
+msgid "disclaimer-v2-paragraph-2"
+msgstr ""
+
+#. Default: By sending an e-mail to
+#: c3smembership/templates/disclaimer.pt:24
+msgid "disclaimer-paragraph-3-part1"
+msgstr ""
+
+#. Default: you may order your data to be deleted at any time, and without giving
+#. reasons. Upon request to the same address, you may also ask for information
+#. about the data we have stored about you. However, a deletion of your data will
+#. have the result that we can not get in touch with you, should you wish to join
+#. the collecting society.
+#: c3smembership/templates/disclaimer.pt:30
+msgid "disclaimer-paragraph-3-part2"
+msgstr ""
+
+#. Default: The Cultural Commons Collecting Society is a project of:
+#: c3smembership/templates/disclaimer.pt:33
+msgid "disclaimer-paragraph-4"
+msgstr ""
+
+#. Default: Authorised to represent:
+#: c3smembership/templates/disclaimer.pt:44
+msgid "disclaimer-paragraph-5"
+msgstr ""
+
+#. Default: imprint of the OpenMusicContest.org e.V.
+#: c3smembership/templates/disclaimer.pt:56
+msgid "OMC-imprint-link-title"
+msgstr ""
+
+#. Default: See the ${OMC-imprint-link-title} for more information.
+#: c3smembership/templates/disclaimer.pt:55
+msgid "disclaimer-paragraph-6"
+msgstr ""
+
+#. Default: C3S SCE Membership: FAQ
+#: c3smembership/templates/faq.pt:9
+msgid "faq-title"
+msgstr ""
+
+#. Default: Why is it that C3S wants me to sign?
+#: c3smembership/templates/faq.pt:18
+msgid "faq-headline-why"
+msgstr ""
+
+#. Default: If you want us to, the legal forming can take off.
+#: c3smembership/templates/faq.pt:21
+msgid "faq-strong-why"
+msgstr ""
+
+#. Default: It's you who are the founders. <dynamic element> Therefore – show your
+#. support! Now!
+#: c3smembership/templates/faq.pt:19
+msgid "faq-paragraph-why"
+msgstr ""
+
+#. Default: How many signings does C3S require for the launch?
+#: c3smembership/templates/faq.pt:26
+msgid "faq-headline-howmany"
+msgstr ""
+
+#. Default: A number of 1,000 people willing to join C3S will make a safe launch.
+#: c3smembership/templates/faq.pt:28
+msgid "faq-strong-howmany1"
+msgstr ""
+
+#. Default: <dynamic element> The sooner we meet this number, the sooner we launch.
+#. But our aim is to add far more members. More than that, we are eager to have
+#. jobs on offer for developers.
+#: c3smembership/templates/faq.pt:27
+msgid "faq-paragraph-howmany1"
+msgstr ""
+
+#. Default: But this time, it is about 3,000 members who are required.
+#: c3smembership/templates/faq.pt:35
+msgid "faq-strong-howmany2"
+msgstr ""
+
+#. Default: The more of you are signing, the sooner we meet the requirements of
+#. German Patent and Branding Office (DPMA) which are even more strict. Only after
+#. legally forming C3S, DPMA can grant the licence to work as a collecting society.
+#. <dynamic element>
+#: c3smembership/templates/faq.pt:33
+msgid "faq-paragraph-howmany2"
+msgstr ""
+
+#. Default: Who may sign the declaration?
+#: c3smembership/templates/faq.pt:39
+msgid "faq-headline-whysign"
+msgstr ""
+
+#. Default: Anyone who likes to can become a member of C3S!
+#: c3smembership/templates/faq.pt:41
+msgid "faq-strong-whysign1"
+msgstr ""
+
+#. Default: <dynamic element> You may be musically active, or not. Supporting C3S
+#. is available to all – even to members of other collecting societies.
+#: c3smembership/templates/faq.pt:40
+msgid "faq-paragraph-whysign1"
+msgstr ""
+
+#. Default: Basic requirement: You have to seriously consider joining C3S.
+#: c3smembership/templates/faq.pt:47
+msgid "faq-paragraph-whysign2"
+msgstr ""
+
+#. Default: How to join?
+#: c3smembership/templates/faq.pt:51
+msgid "faq-headline-join"
+msgstr ""
+
+#. Default: a musician who writes, arranges or remixes songs you can purchase
+#. shares in C3S
+#: c3smembership/templates/faq.pt:54
+msgid "faq-strong-join1"
+msgstr ""
+
+#. Default: a) Basically, as <dynamic element> during the crowdfunding and become a
+#. member. Each member participates directly in the registered cooperative. One
+#. share comes at a cost of 50 €. Upon leaving C3S each member will be returned the
+#. full value of shares he or she initially paid.
+#: c3smembership/templates/faq.pt:52
+msgid "faq-paragraph-join1"
+msgstr ""
+
+#. Default: supporter of C3S
+#: c3smembership/templates/faq.pt:61
+msgid "faq-strong-join2"
+msgstr ""
+
+#. Default: b) Anyone else can join as a <dynamic element> and be a valuable help
+#. to make the vision come true. As with musicians you may purchase one or more
+#. shares, but voting is the privilege of musicians.
+#: c3smembership/templates/faq.pt:59
+msgid "faq-paragraph-join2"
+msgstr ""
+
+#. Default: When the crowdfunding launches, the cooperative's statutes will be
+#. available for download.
+#: c3smembership/templates/faq.pt:66
+msgid "faq-paragraph-join3"
+msgstr ""
+
+#. Default: No German, no European citizen? Don't fear – join anyway!
+#: c3smembership/templates/faq.pt:70
+msgid "faq-headline-i11l"
+msgstr ""
+
+#. Default: Any European citizen can freely decide to join
+#: c3smembership/templates/faq.pt:72
+msgid "faq-strong-i11l1"
+msgstr ""
+
+#. Default: <dynamic element> whichever collecting society in Europe she/he wants
+#. to. However, we won't be able to handle each and every use case of licence from
+#. launch on. But we are eager to offer those first that you are longing for most.
+#. The detailed list is going to be available at the start of the crowdfunding.
+#: c3smembership/templates/faq.pt:71
+msgid "faq-paragraph-i11l1"
+msgstr ""
+
+#. Default: Even if you are not from Europe, you may join.
+#: c3smembership/templates/faq.pt:81
+msgid "faq-strong-i11l2"
+msgstr ""
+
+#. Default: for Germany.
+#: c3smembership/templates/faq.pt:85
+msgid "faq-strong-i11l3"
+msgstr ""
+
+#. Default: <dynamic element> Starting with receiving the licence from the German
+#. Patent and Trademark Office, C3S can administer your rights <dynamic element>
+#. More countries to follow.
+#: c3smembership/templates/faq.pt:80
+msgid "faq-paragraph-i11l2"
+msgstr ""
+
+#. Default: Are there other rewards &amp; options going to be available for the
+#. crowdfunding besides membership?
+#: c3smembership/templates/faq.pt:91
+msgid "faq-headline-rewards"
+msgstr ""
+
+#. Default: there will be more than the glory of the Hall of Fame.
+#: c3smembership/templates/faq.pt:97
+msgid "faq-strong-rewards"
+msgstr ""
+
+#. Default: Of course. Only those who sign the Declaration of Intent will receive
+#. the link to the crowdfunding in advance. And certainly, <dynamic element> More
+#. than an awesome T-Shirt. You know it first. Feeling tempted?
+#: c3smembership/templates/faq.pt:94
+msgid "faq-paragraph-rewards"
+msgstr ""
+
+#. Default: What are the advantages of C3S?
+#: c3smembership/templates/faq.pt:103
+msgid "faq-headline-benefits"
+msgstr ""
+
+#. Default: For the first time ever, with C3S a collecting society will offer:
+#: c3smembership/templates/faq.pt:104
+msgid "faq-paragraph-benefits"
+msgstr ""
+
+#. Default: Entirely individual choice of licences:
+#: c3smembership/templates/faq.pt:109
+msgid "faq-strong-choose-licence1"
+msgstr ""
+
+#. Default: It's your song, and you're in control.
+#: c3smembership/templates/faq.pt:115
+msgid "faq-strong-choose-licence2"
+msgstr ""
+
+#. Default: <dynamic element> You decide if and to which conditions your song is
+#. licenced for a fee or at no cost (e.g. for marketing or beneficiary use). You
+#. can choose between „all rights reserved“ or Creative Commons - separately per
+#. song. <dynamic element>
+#: c3smembership/templates/faq.pt:108
+msgid "faq-benefits-li-choose-licence"
+msgstr ""
+
+#. Default: for which of your songs
+#: c3smembership/templates/faq.pt:120
+msgid "faq-strong-choose-works"
+msgstr ""
+
+#. Default: It's you who decides <dynamic element> we are going to administer the
+#. rights.
+#: c3smembership/templates/faq.pt:119
+msgid "faq-benefits-li-choose-works"
+msgstr ""
+
+#. Default: equal voting rights for all User Members.
+#: c3smembership/templates/faq.pt:125
+msgid "faq-strong-cooperative"
+msgstr ""
+
+#. Default: C3S is going to be a registered cooperative, with <dynamic element>
+#: c3smembership/templates/faq.pt:123
+msgid "faq-benefits-li-cooperative"
+msgstr ""
+
+#. Default: most exact billing and distribution methods
+#: c3smembership/templates/faq.pt:129
+msgid "faq-strong-payperplay"
+msgstr ""
+
+#. Default: Pay-per-Play: We are aiming at the <dynamic element> with estimates
+#. being only used for unspecified data.
+#: c3smembership/templates/faq.pt:127
+msgid "faq-benefits-li-payperplay"
+msgstr ""
+
+#. Default: social media, donations &amp; micro payment.
+#: c3smembership/templates/faq.pt:133
+msgid "faq-strong-micropayment"
+msgstr ""
+
+#. Default: Integration of <dynamic element>
+#: c3smembership/templates/faq.pt:132
+msgid "faq-benefits-li-micropayment"
+msgstr ""
+
+#. Default: first full-fledged and cross-European collecting society
+#: c3smembership/templates/faq.pt:137
+msgid "faq-strong-european"
+msgstr ""
+
+#. Default: Legal form of a European Cooperative Society (SCE), to become the
+#. <dynamic element> in the long term.
+#: c3smembership/templates/faq.pt:135
+msgid "faq-benefits-li-european"
+msgstr ""
+
+#. Default: How secure is my data? Is it possible to request the deletion of my
+#. data?
+#: c3smembership/templates/faq.pt:142
+msgid "faq-headline-data"
+msgstr ""
+
+#. Default: Of course we will only use the data you provided to notify you of the
+#. launch of the upcoming crowdfunding. After the forming of C3S the data will be
+#. deleted. Data will also be deleted if you reconsider your decision and you want
+#. to revoke your declaration of intent. If you want us to delete your data or
+#. revoke your declaration, please send us a written notification.
+#: c3smembership/templates/faq.pt:143
+msgid "faq-paragraph-data1"
+msgstr ""
+
+#. Default: We will neither pass them on to third parties, nor use them for other
+#. purposes, or publish them. They will be stored in Germany by the registered
+#. association OpenMusicContest.org as a representative of the C3S foundation
+#. initiative, according to the requirements of the Federal Data Protection Act. By
+#. sending an email to
+#: c3smembership/templates/faq.pt:146
+msgid "faq-paragraph-data4"
+msgstr ""
+
+#. Default: you may order your data to be deleted at any time, and without giving
+#. reasons. Upon request to the same address, you may also ask for information
+#. about the data we have stored about you. However, a deletion of your data will
+#. have the result that we can not get in touch with you, should you wish to join
+#. the collecting society. You can read the details about how we handle your data
+#. (Data Protection Declaration) separately on our website at
+#: c3smembership/templates/faq.pt:152
+msgid "faq-paragraph-data2"
+msgstr ""
+
+#. Default: http://www.c3s.cc/disclaimer-en.html
+#: c3smembership/templates/faq.pt:160
+msgid "faq-strong-data-url"
+msgstr ""
+
+#. Default: At first, please get information about the C3S and its aims, and then
+#. we can get going!
+#: c3smembership/templates/faq.pt:162
+msgid "faq-paragraph-data3"
+msgstr ""
+
+#. Default: Join Cultural Commons Collecting Society (C3S)
+#: c3smembership/templates/join.pt:14
+msgid "join-form-title"
+msgstr ""
+
+#. Default: Application for Membership of the European Cooperative 'Cultural
+#. Commons Collecting Society SCE Limited' (C3S SCE)
+#: c3smembership/templates/join.pt:28
+msgid "join-form-headline"
+msgstr ""
+
+#. Default: Please fill out the form, check your email for a verification code,
+#. print your PDF, sign and send back.
+#: c3smembership/templates/join.pt:29
+msgid "join-form-fill-verify-print-send"
+msgstr ""
+
+#. Default: with an asterisk
+#: c3smembership/templates/join.pt:33
+msgid "with_an_asterisk"
+msgstr ""
+
+#. Default: All questions ${with_an_asterisk} must be answered:
+#: c3smembership/templates/join.pt:32
+msgid "join-form-answer-all"
+msgstr ""
+
+#. Default: The Fine Print
+#: c3smembership/templates/join.pt:58
+msgid "join-form-headline-fine-print"
+msgstr ""
+
+#. Default: The C3S SCE statute
+#: c3smembership/templates/join.pt:60
+msgid "join-form-statute-title"
+msgstr ""
+
+#. Default: Disclaimer (Data Protection)
+#: c3smembership/templates/join.pt:65
+msgid "join-form-disclaimer-title"
+msgstr ""
+
+#. Default: Frequently Asked Questions
+#: c3smembership/templates/join.pt:70
+msgid "join-form-faq-title"
+msgstr ""
+
+#. Default: C3S Membership Application: Success
+#: c3smembership/templates/success.pt:9
+msgid "success-title"
+msgstr ""
+
+#. Default: That worked,
+#: c3smembership/templates/success.pt:12
+msgid "success-headline-thanks"
+msgstr ""
+
+#. Default: What happens next: You need to check the information below to be
+#. correct, receive an email to verify your address, download the form with your
+#. data, print out the form, sign it and send it back to us.
+#: c3smembership/templates/success.pt:13
+msgid "success-paragraph-thanks"
+msgstr ""
+
+#. Default: Your data we received
+#: c3smembership/templates/success.pt:18
+msgid "success-headline-data-received"
+msgstr ""
+
+#. Default: please use the form again
+#: c3smembership/templates/success.pt:52
+msgid "revisit-the-form"
+msgstr ""
+
+#. Default: In case there are errors or you want to change details <dynamic
+#. element>. If all information above is correct...
+#: c3smembership/templates/success.pt:50
+msgid "success-paragraph-change-details"
+msgstr ""
+
+#. Default: Next: verify your email
+#: c3smembership/templates/success.pt:55
+msgid "success-headline-verify-email"
+msgstr ""
+
+#. Default: Click the button to have an email sent to your account. Then, check
+#. your email and use the link we send you to get your PDF. This needs to be
+#. printed out, signed, and sent back to us.
+#: c3smembership/templates/success.pt:56
+msgid "success-paragraph-verify-email"
+msgstr ""
+
+#: c3smembership/templates/success.pt:63
+msgid "Send Mail"
+msgstr ""
+
+#. Default: C3S Membership Application: Email Verification
+#: c3smembership/templates/verify-mail.pt:9
+msgid "verify-email-title"
+msgstr ""
+
+#. Default: Your Email has been confirmed, ${firstname} ${lastname}!
+#: c3smembership/templates/verify-mail.pt:14
+msgid "verified-email-headline"
+msgstr ""
+
+#. Default: Now that your email address has been confirmed, you may download your
+#. PDF.
+#: c3smembership/templates/verify-mail.pt:15
+msgid "verified-email-paragraph"
+msgstr ""
+

@@ -1,0 +1,166 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+      metal:use-macro="base"
+      i18n:domain="c3smembership">
+  <tal:block metal:fill-slot="middle">
+    <h1 i18n:translate="faq-title">C3S SCE Membership: FAQ</h1>
+  </tal:block>
+  <tal:block metal:fill-slot="bottom">
+    <div style="text-align:right;">
+      <a href="/faq?en"><img src="static/images/en.png" title="English"
+			     alt="switch to English language" /></a>
+      <a href="/faq?de"><img src="static/images/de.png" title="Deutsch"
+			     alt="auf deutsche Sprache umschalten" /></a>
+    </div>
+    <h3 i18n:translate="faq-headline-why" class="deform">Why is it that C3S wants me to sign?</h3>
+    <p i18n:translate="faq-paragraph-why">
+      It's you who are the founders.
+      <strong i18n:translate="faq-strong-why">
+        If you want us to, the legal forming can take off.
+      </strong>
+      Therefore – show your support! Now!
+    </p>
+    <h3 i18n:translate="faq-headline-howmany" class="deform">How many signings does C3S require for the launch?</h3>
+    <p i18n:translate="faq-paragraph-howmany1">
+			<strong i18n:translate="faq-strong-howmany1">
+				A number of 1,000 people willing to join C3S will make a safe launch.
+			</strong>
+			The sooner we meet this number, the sooner we launch. But our aim is to add far more members. More than that, we are eager to have jobs on offer for developers.
+    </p>
+    <p i18n:translate="faq-paragraph-howmany2">
+			The more of you are signing, the sooner we meet the requirements of German Patent and Branding Office (DPMA) which are even more strict. Only after legally forming C3S, DPMA can  grant the licence to work as a collecting society.
+			<strong i18n:translate="faq-strong-howmany2">
+				But this time, it is about 3,000 members who are required.
+			</strong>
+    </p>
+    <h3 i18n:translate="faq-headline-whysign" class="deform">Who may sign the declaration?</h3>
+    <p i18n:translate="faq-paragraph-whysign1">
+      <strong i18n:translate="faq-strong-whysign1">
+        Anyone who likes to can become a member of C3S!
+      </strong>
+      You may be musically active, or not.
+      Supporting C3S is available to all – even to members of other collecting societies.
+    </p>
+    <p i18n:translate="faq-paragraph-whysign2">
+      Basic requirement: You have to seriously consider joining C3S.
+    </p>
+
+    <h3 i18n:translate="faq-headline-join" class="deform">How to join?</h3>
+    <p i18n:translate="faq-paragraph-join1">
+			a) Basically, as 
+			<strong i18n:translate="faq-strong-join1">
+				a musician who writes, arranges or remixes songs you can purchase shares in C3S
+			</strong>
+			during the crowdfunding and become a member. Each member participates directly in the registered cooperative. One share comes at a cost of 50 €. Upon leaving C3S each member will be returned the full value of shares he or she initially paid.
+    </p>
+    <p i18n:translate="faq-paragraph-join2">
+			b) Anyone else can join as a
+			<strong i18n:translate="faq-strong-join2">
+				supporter of C3S
+			</strong>
+			and be a valuable help to make the vision come true. As with musicians you may purchase one or more shares, but voting is the privilege of musicians.
+    </p>
+    <p i18n:translate="faq-paragraph-join3">
+			When the crowdfunding launches, the cooperative's statutes will be available for download.
+    </p>
+
+    <h3 i18n:translate="faq-headline-i11l" class="deform">No German, no European citizen? Don't fear – join anyway!</h3>
+    <p i18n:translate="faq-paragraph-i11l1">
+      <strong i18n:translate="faq-strong-i11l1">
+				Any European citizen can freely decide to join
+			</strong>
+      whichever collecting society in Europe she/he wants to.
+      However, we won't be able to handle each and every use case of licence from launch on.
+      But we are eager to offer those first that you are longing for most.
+      The detailed list is going to be available at the start of the crowdfunding.
+    </p>
+    <p i18n:translate="faq-paragraph-i11l2">
+			<strong i18n:translate="faq-strong-i11l2">
+				Even if you are not from Europe, you may join.
+			</strong>
+			Starting with receiving the licence from the German Patent and Trademark Office, C3S can administer your rights
+			<strong i18n:translate="faq-strong-i11l3">
+				for Germany.
+			</strong>
+			More countries to follow. 
+    </p>
+
+    <h3 i18n:translate="faq-headline-rewards" class="deform">
+      Are there other rewards &amp; options going to be available for the crowdfunding besides membership?
+    </h3>
+    <p i18n:translate="faq-paragraph-rewards">
+      Of course. Only those who sign the Declaration of Intent will receive the link to the crowdfunding in advance.
+      And certainly,
+      <strong i18n:translate="faq-strong-rewards">
+				there will be more than the glory of the Hall of Fame.
+			</strong>
+      More than an awesome T-Shirt. You know it first. Feeling tempted?
+    </p>
+
+    <h3 i18n:translate="faq-headline-benefits" class="deform">What are the advantages of C3S?</h3>
+    <p i18n:translate="faq-paragraph-benefits">
+      For the first time ever, with C3S a collecting society will offer:
+    </p>
+    <ul>
+      <li i18n:translate="faq-benefits-li-choose-licence">
+		<strong i18n:translate="faq-strong-choose-licence1">
+			Entirely individual choice of licences:
+		</strong>
+        You decide if and to which conditions your song is licenced
+        for a fee or at no cost  (e.g. for marketing or beneficiary use).
+        You can choose between „all rights reserved“ or Creative Commons - separately per song.
+        <strong i18n:translate="faq-strong-choose-licence2">
+					It's your song, and you're in control.
+				</strong>
+      </li>
+      <li i18n:translate="faq-benefits-li-choose-works">
+	It's you who decides <strong i18n:translate="faq-strong-choose-works">for which of your songs</strong>
+        we are going to administer the rights.
+      </li>
+      <li i18n:translate="faq-benefits-li-cooperative">
+	C3S is going to be a registered cooperative, with
+        <strong i18n:translate="faq-strong-cooperative">equal voting rights for all User Members.</strong>
+      </li>
+      <li i18n:translate="faq-benefits-li-payperplay">
+	Pay-per-Play: We are aiming at the
+        <strong i18n:translate="faq-strong-payperplay">most exact billing and distribution methods</strong>
+        with estimates being only used for unspecified data.
+      </li>
+      <li i18n:translate="faq-benefits-li-micropayment">
+	Integration of <strong i18n:translate="faq-strong-micropayment">social media, donations &amp; micro payment.</strong>
+      </li>
+      <li i18n:translate="faq-benefits-li-european">
+	Legal form of a European Cooperative Society (SCE), to become the
+        <strong i18n:translate="faq-strong-european">first full-fledged and cross-European collecting society</strong>
+        in the long term.
+      </li>
+    </ul>
+    
+    <h3 i18n:translate="faq-headline-data" class="deform">How secure is my data? Is it possible to request the deletion of my data?</h3>
+    <p i18n:translate="faq-paragraph-data1">
+			Of course we will only use the data you provided to notify you of the launch of the upcoming crowdfunding. After the forming of C3S the data will be deleted. Data will also be deleted if you reconsider your decision and you want to revoke your declaration of intent. If you want us to delete your data or revoke your declaration, please send us a written notification.
+    </p>
+    <p i18n:translate="faq-paragraph-data4">
+			We will neither pass them on to third parties, nor use them for other purposes, or publish them. They will be stored in Germany by the registered association OpenMusicContest.org as a representative of the C3S foundation initiative, according to the requirements of the Federal Data Protection Act. By sending an email to
+    </p>
+    <p>
+      <center><strong>data (at) c3s.cc</strong></center>
+    </p>
+    <p i18n:translate="faq-paragraph-data2">
+      you may order your data to be deleted at any time, and without giving reasons.
+      Upon request to the same address, you may also ask for information about the data we have stored about you.
+      However, a deletion of your data will have the result that we can not get in touch with you,
+      should you wish to join the collecting society.
+      You can read the details about how we handle your data (Data Protection Declaration) separately on our website at
+    </p>
+    <p>
+      <center><strong i18n:translate="faq-strong-data-url">http://www.c3s.cc/disclaimer-en.html</strong></center>
+    </p>
+    <p i18n:translate="faq-paragraph-data3">
+      At first, please get information about the C3S and its aims, and then we can get going!
+    </p>
+  </tal:block>
+</html>
