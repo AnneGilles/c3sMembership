@@ -141,8 +141,10 @@ def show_success_pdf(request):
     route_name='success_check_email')
 def success_check_email(request):
     """
-    This view just returns a note to go check mail
-    and also sends out that email
+    This view is called from the page that show a user her data for correction
+    by clicking a "send email" button.
+    This view then sends out the email w/ verification link
+    and returns a note to go check mail
     """
     #check if user has used the form (good) or 'guessed' this URL (bad)
     if ('appstruct' in request.session):
@@ -160,14 +162,14 @@ def success_check_email(request):
 please use this link to verify your email address
 and download your personalised PDF:
 
-https://yes.c3s.cc/verify/%s/%s
+https://pretest.c3s.cc/verify/%s/%s
 """ % (appstruct['firstname'],
        appstruct['lastname'],
        appstruct['email'],
        appstruct['email_confirm_code'])
         )
-        #mailer.send(the_mail)  # XXX TODO
-        print(the_mail.body)
+        mailer.send(the_mail)
+        #print(the_mail.body)
 
         return {
             'firstname': appstruct['firstname'],

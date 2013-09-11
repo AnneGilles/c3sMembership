@@ -287,7 +287,7 @@ def accountant_mail(appstruct):
     message = Message(
         subject="[C3S] Yes! a new member",
         sender="noreply@c3s.cc",
-        recipients=["c@c3s.cc"],
+        recipients=["yes@c3s.cc"],
         body=encrypted
     )
     #print("accountant_mail: csv_payload: \n%s") % generate_csv(appstruct)
