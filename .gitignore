@@ -5,3 +5,6 @@
 *~
 env/
 .coverage
+python-eggs/
+*.log
+*.wsgi
