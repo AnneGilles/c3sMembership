@@ -45,7 +45,7 @@ body h6{font-family:"NeutonRegular","Lucida Grande",Lucida,Verdana,sans-serif;fo
 .top,.top-small,.middle,.bottom{width:750px;margin-right:auto;margin-left:auto;}
 .top{padding-top:10px;}
 .top-small{padding-top:10px;}
-#middle{width:100%;height:120px;border-top:2px solid #ffffff;border-bottom:2px solid #b2b2b2;}
+#middle{width:100%;height:60px;border-top:2px solid #ffffff;border-bottom:2px solid #b2b2b2;}
 .app-welcome{margin-top:10px;}
 .app-name{color:#000000;font-weight:bold;}
 .bottom{padding-top:50px;}
