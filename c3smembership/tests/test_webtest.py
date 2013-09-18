@@ -3,7 +3,7 @@
 # http://docs.pylonsproject.org/projects/pyramid/dev/narr/testing.html
 #                                            #creating-functional-tests
 import unittest
-
+import transaction
 
 class FunctionalTests(unittest.TestCase):
     """
@@ -14,18 +14,18 @@ class FunctionalTests(unittest.TestCase):
     def setUp(self):
         my_settings = {'sqlalchemy.url': 'sqlite://',
                        'available_languages': 'da de en es fr'}
-        my_other_settings = {'sqlalchemy.url': 'sqlite:///test.db',
-                       'available_languages': 'da de en es fr'}
+        #my_other_settings = {'sqlalchemy.url': 'sqlite:///test.db',
+        #                     'available_languages': 'da de en es fr'}
                         # mock, not even used!?
         #from sqlalchemy import engine_from_config
         #engine = engine_from_config(my_settings)
 
         from c3smembership import main
-        try:
-            app = main({}, **my_settings)
-        except:
-            app = main({}, **my_other_settings)
-            pass
+        #try:
+        app = main({}, **my_settings)
+        #except:
+        #    app = main({}, **my_other_settings)
+        #    pass
         from webtest import TestApp
         self.testapp = TestApp(app)
 
@@ -34,7 +34,71 @@ class FunctionalTests(unittest.TestCase):
         # so the other tests are not compromised
         #del engine
         from c3smembership.models import DBSession
-        DBSession.remove()
+        #DBSession.remove()
+        DBSession.close()
+
+    def test_login_and_dashboard(self):
+        """
+        load the login form, dashboard, member detail
+        """
+        res = self.testapp.get('/login', status=200)
+        self.failUnless('login' in res.body)
+        # try invalid user
+        form = res.form
+        form['login'] = 'foo'
+        form['password'] = 'bar'
+        res2 = form.submit('submit')
+        self.failUnless(
+            'Please note: There were errors' in res2.body)
+        # try valid user & invalid password
+        form = res2.form
+        form['login'] = 'rut'
+        form['password'] = 'berry'
+        res3 = form.submit('submit', status=200)
+        # try valid user, valid password
+        form = res2.form
+        form['login'] = 'rut'
+        form['password'] = 'berries'
+        res3 = form.submit('submit', status=302)
+        res4 = res3.follow()
+        #print(res4.body)
+        self.failUnless(
+            'Dashboard' in res4.body)
+        # now that we are logged in,
+        # the login view should redirect us to the dashboard
+        res5 = self.testapp.get('/login', status=302)
+        # so yes: that was a redirect
+        res6 = res5.follow()
+        #print(res4.body)
+        self.failUnless(
+            'Dashboard' in res6.body)
+        # now look at some members details
+        res7 = self.testapp.get('/detail/5', status=302)
+        res7a = res7.follow()
+        self.failUnless('Dashboard' in res7a.body)
+
+        # now look at some members details
+        res7 = self.testapp.get('/detail/1', status=200)
+        self.failUnless('Firstnäme' in res7.body)
+        self.failUnless(
+            "<td>signature received?</td><td>No</td>" in res7.body)
+        self.failUnless(
+            "<td>payment received?</td><td>No</td>" in res7.body)
+
+        form = res7.form
+        form['signature_received'] = True
+        form['payment_received'] = True
+        res8 = form.submit('submit')
+        #print(res8.body)
+        self.failUnless(
+            "<td>signature received?</td><td>True</td>" in res8.body)
+        self.failUnless(
+            "<td>payment received?</td><td>True</td>" in res8.body)
+        # finally log out
+        res9 = self.testapp.get('/logout', status=302)  # redirects to login
+        res10 = res9.follow()
+        self.failUnless('login' in res10.body)
+#    def test_detail_wrong_id(self):
 
     def test_base_template(self):
         """load the front page, check string exists"""

@@ -116,6 +116,24 @@ class C3sMembershipModelTests(unittest.TestCase):
         self.assertEqual(instance.firstname, u'SomeFirstnäme')
         self.assertEqual(instance_from_DB.email, u'some@email.de')
 
+    def test_get_by_id(self):
+        instance = self._makeOne()
+        #session = DBSession()
+        self.session.add(instance)
+        myMembershipSigneeClass = self._getTargetClass()
+        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
+        #self.session.commit()
+        #self.session.remove()
+        #print instance_from_DB.email
+        if DEBUG:
+            print "myMembershipSigneeClass: " + str(myMembershipSigneeClass)
+            #        print "str(myUserClass.get_by_username('SomeUsername')): "
+            # + str(myUserClass.get_by_username('SomeUsername'))
+            #        foo = myUserClass.get_by_username(instance.username)
+            #        print "test_get_by_username: type(foo): " + str(type(foo))
+        self.assertEqual(instance.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_DB.email, u'some@email.de')
+
     # def test_check_for_existing_confirm_code(self):
     #     instance = self._makeOne()
     #     self.session.add(instance)
