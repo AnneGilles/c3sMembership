@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+  <!-- metal : use-macro="loggedinpt" -->
+  
+  <tal:block metal:fill-slot="bottom">
+    <div id="main">
+      <h1>Details for Member Application #${member.id}</h1>
+      
+      <p>
+        Please <a href="${request.route_url('logout')}">log out</a>
+        when you are done.
+        Or go <a href="${request.route_url('dashboard')}">back to dashboard</a>.
+      </p>
+      
+      <table border="1" cellpadding="10" width="90%">
+	<tr>
+          <td>firstname</td>
+	  <td>${member.firstname}</td>
+        </tr>
+	<tr>
+          <td>lastname</td>
+	  <td>${member.lastname}</td>
+        </tr>
+	<tr>
+          <td>email</td>
+	  <td><a href="mailto:${member.email}">${member.email}</a></td>
+        </tr>
+	<tr>
+          <td>email confirmed?</td>
+	  <td>${member.email_is_confirmed}</td>
+        </tr>
+	<tr>
+          <td>address1</td>
+	  <td>${member.address1}</td>
+        </tr>
+	<tr>
+          <td>address2</td>
+	  <td>${member.address2}</td>
+        </tr>
+	<tr>
+          <td>postcode</td>
+	  <td>${member.postcode}</td>
+        </tr>
+	<tr>
+          <td>city</td>
+	  <td>${member.city}</td>
+        </tr>
+	<tr>
+          <td>country</td>
+	  <td>${member.country}</td>
+        </tr>
+	<tr>
+          <td>date_of_birth</td>
+	  <td>${member.date_of_birth}</td>
+        </tr>
+	<tr>
+          <td>date_of_submission</td>
+	  <td>${member.date_of_submission}</td>
+        </tr>
+	<tr>
+          <td>investing member</td>
+	  <td>${member.invest_member}</td>
+        </tr>
+	<tr>
+          <td>member_of_colsoc</td>
+	  <td>${member.member_of_colsoc}</td>
+        </tr>
+	<tr>
+          <td>name_of_colsoc</td>
+	  <td>${member.name_of_colsoc}</td>
+        </tr>
+	<tr>
+          <td>signature received?</td><td>${member.signature_received or "No"}</td>
+        </tr>
+	<tr>
+          <td>payment received?</td><td>${member.payment_received or "No"}</td>
+        </tr>
+	<tr>
+          <td># shares</td>
+	  <td>${member.num_shares}</td>
+        </tr>
+      </table>
+
+      <div id="form" tal:content="structure form"/>
+
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </div>
+  </tal:block>
+  <tal:block metal:fill-slot="deform-load">
+    <!--! loading deform --> 
+    <script type="text/javascript">deform.load()</script>
+  </tal:block>
+</html>

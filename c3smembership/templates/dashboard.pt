@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+  <!-- metal : use-macro="loggedinpt" -->
+  
+  <tal:block metal:fill-slot="bottom">
+    <div id="main">
+      <h1>Dashboard</h1>
+      
+      <p>Number of users: ${_number_of_members}</p>
+      
+      <p>
+        Please <a href="${request.route_url('logout')}">log out</a>
+        when you are done.
+      </p>
+      
+      <p>Showing (up to) 15 at a time:</p>
+      
+      <table border="1" cellpadding="10" width="90%">
+	<tr>
+          <td>id</td>
+          <td>firstname</td>
+          <td>lastname</td>
+          <td>email</td>
+          <td>email<br />confirmed?</td>
+          <td>signature<br />received?</td>
+          <td>payment<br />received?</td>
+          <td># shares</td>
+          <td>edit</td>
+        </tr>
+	<tr tal:repeat="member members">
+	  <td><a href="/detail/${member.id}">${member.id}</a></td>
+	  <td>${member.firstname}</td>
+	  <td>${member.lastname}</td>
+	  <td><a href="mailto:${member.email}">${member.email}</a></td>
+	  <td>${member.email_is_confirmed}</td>
+	  <td>${member.signature_received}</td>
+	  <td>${member.payment_received}</td>
+	  <td>${member.num_shares}</td>
+	  <td><a href="/detail/${member.id}">edit</a></td>
+	</tr>
+      </table>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </div>
+  </tal:block>
+</html>
