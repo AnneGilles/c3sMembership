@@ -49,6 +49,8 @@ def main(global_config, **settings):
     config.add_route('join', '/')
     config.add_route('disclaimer', '/disclaimer')
     config.add_route('faq', '/faq')
+    config.add_route('statute', '/statute')
+    config.add_route('manifesto', '/manifesto')
     config.add_route('success', '/success')
     config.add_route('success_check_email', '/check_email')
     config.add_route('success_verify_email', '/verify/{email}/{code}')

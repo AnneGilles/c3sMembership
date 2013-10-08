@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+      metal:use-macro="base"
+      i18n:domain="c3smembership">
+  <tal:block metal:fill-slot="middle">
+    <h1 i18n:translate="manifesto-title">The Cultural Commons Manifesto</h1>
+  </tal:block>
+  <tal:block metal:fill-slot="bottom">
+    <div style="text-align:right;">
+      <a href="/manifesto?en"><img src="static/images/en.png" title="English"
+			     alt="switch to English language" /></a>
+      <a href="/manifesto?de"><img src="static/images/de.png" title="Deutsch"
+			     alt="auf deutsche Sprache umschalten" /></a>
+    </div>
+    <p i18n:translate="manifesto-v1-paragraph-1">
+Art is communication. There is no freedom of expression without freedom of art. Communication is learning by doing, ever evolving, reacting on others, re-using the same expressions and re-combining them into new meaning, re-expressing the same meaning in new ways, paraphrasing what was understood. And so is art.
+    </p>
+    <p i18n:translate="manifesto-v1-paragraph-2">
+Art, as an expression of human culture, eventually cannot be restricted or limited, because each restriction and limitation calls to artists to overturn it, each taboo begs to be broken, in a picture, in a song, in a dance, in software code, maybe in silence. The only restrictions and limitations which can prevail are those we agree upon ourselves, through honest and open discourse. In other words, communication.
+    </p>
+    <h3 i18n:translate="manifesto-v1-headline-1" class="deform">Reflection and inspiration</h3>
+    <p i18n:translate="manifesto-v1-paragraph-3">
+Art is neither good nor bad in itself, as all evaluation is subject to its time, cultural customs, historic context and individual ethics, to name but a few. It is perhaps not even a piece of work itself, but an event happening inside of each individual that is confronted with it, experiences it, thinks about it or completely rejects it. Art is what it does to us; the reflection and inspiration it invites us to. Reflection and inspiration are neither good nor bad in themselves. They are simply a neccessity to make it through life. And so is art.
+    </p>
+    <p>
+      TODO: fixme!
+    </p>
+  </tal:block>
+</html>

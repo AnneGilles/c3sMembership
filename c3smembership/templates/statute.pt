@@ -6,18 +6,21 @@
       metal:use-macro="base"
       i18n:domain="c3smembership">
   <tal:block metal:fill-slot="middle">
-    <h1 i18n:translate="faq-title">C3S SCE Membership: FAQ</h1>
+    <h1 i18n:translate="statute-title">C3S SCE Statute</h1>
   </tal:block>
   <tal:block metal:fill-slot="bottom">
     <div style="text-align:right;">
-      <a href="/faq?en"><img src="static/images/en.png" title="English"
+      <a href="/statute?en"><img src="static/images/en.png" title="English"
 			     alt="switch to English language" /></a>
-      <a href="/faq?de"><img src="static/images/de.png" title="Deutsch"
+      <a href="/statute?de"><img src="static/images/de.png" title="Deutsch"
 			     alt="auf deutsche Sprache umschalten" /></a>
     </div>
-    <h3 i18n:translate="faq-headline-1">Fill me</h3>
-    <p i18n:translate="faq-paragraph-1">
-      Fill me
+    <h3 i18n:translate="statute-headline" class="deform">The Statute</h3>
+    <p i18n:translate="statute-paragraph-intro">
+      At this moment we only have a german version of our statute.
+    </p>
+    <p>
+      <a href="http://c3s.cc/legal/C3S_de_v1.0.pdf">http://c3s.cc/legal/C3S_de_v1.0.pdf</a>
     </p>
   </tal:block>
 </html>
