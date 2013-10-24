@@ -154,6 +154,10 @@ class C3sMember(Base):
     firstname = Column(Unicode(255))
     lastname = Column(Unicode(255))
     email = Column(Unicode(255))
+    _password = Column('password', Unicode(60))
+    last_password_change = Column(
+        DateTime,
+        default=func.current_timestamp())
     address1 = Column(Unicode(255))
     address2 = Column(Unicode(255))
     postcode = Column(Unicode(255))
@@ -178,7 +182,7 @@ class C3sMember(Base):
 #    opt_band = Column(Unicode(255))
 #    opt_URL = Column(Unicode(255))
 
-    def __init__(self, firstname, lastname, email,
+    def __init__(self, firstname, lastname, email, password,
                  address1, address2, postcode, city, country, locale,
                  date_of_birth, email_is_confirmed, email_confirm_code,
                  num_shares,
@@ -190,6 +194,8 @@ class C3sMember(Base):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
+        self.password = password
+        self.last_password_change = datetime.now()
         self.address1 = address1
         self.address2 = address2
         self.postcode = postcode
@@ -213,6 +219,15 @@ class C3sMember(Base):
         self.name_of_colsoc = name_of_colsoc
         #self.opt_band = opt_band
         #self.opt_URL = opt_URL
+
+    def _get_password(self):
+        return self._password
+
+    def _set_password(self, password):
+        self._password = hash_password(password)
+
+    password = property(_get_password, _set_password)
+    password = synonym('_password', descriptor=password)
 
     @classmethod
     def get_by_code(cls, email_confirm_code):
@@ -246,101 +261,39 @@ class C3sMember(Base):
         return DBSession.query(cls).filter(cls.id == _id).first()
 
     @classmethod
+    def delete_by_id(cls, _id):
+        """return one member by id"""
+        return DBSession.query(cls).filter(cls.id == _id).delete()
+
+    @classmethod
     def get_number(cls):
         """return number of members (by counting rows in table)"""
         return DBSession.query(cls).count()
 
     @classmethod
-    def member_listing(cls, order_by, how_many=10):
-        q = DBSession.query(cls).all()
-        # return q.order_by(order_by)[:how_many]
+    def member_listing(cls, order_by, how_many=10, offset=0):
+        print("offset: %s" % offset)
+        q = DBSession.query(cls).all()[offset:offset+how_many]
+        #return q.order_by(order_by)[:how_many]
         return q
 
+    @classmethod
+    def check_password(cls, _id, password):
+        #dbSession = DBSession()
+        member = cls.get_by_id(_id)
+        #if staffer is None:  # ?
+        #    return False
+        #if not staffer:  # ?
+        #    return False
+        return crypt.check(member.password, password)
 
-def populate():  # pragma: no coverage: not using this atm
-    session = DBSession()
-    #model = MyModel(name=u'root', value=55)
-
-    # a group for people who do accounting
-    accountants_group = Group(name=u"staff")
-
-    staffer1 = C3sStaff(
-        login=u"rut",
-        password=u"berries",
-        email=u"noreply@c3s.cc",
-    )
-    staffer1.groups = [accountants_group]
-
-    member1 = C3sMember(
-        firstname=u"Firstnäme",  # includes umlaut
-        lastname=u"Lastname",
-        email=u"foo@shri.de",
-        address1=u"address one",
-        address2=u"address two",
-        postcode=u"12345 foo",
-        city=u"Footown Mäh",
-        country=u"Foocountry",
-        locale=u"DE",
-        date_of_birth=date.today(),
-        email_is_confirmed=False,
-        email_confirm_code=u"ABCDEFGHIJ",
-        num_shares=u'10',
-#        is_composer=True,
-#        is_lyricist=True,
-#        is_producer=True,
-#        is_remixer=True,
-#        is_dj=True,
-        date_of_submission=datetime.now(),
-        invest_member=True,
-        member_of_colsoc=True,
-        name_of_colsoc=u"GEMA",
-#        opt_band=u"Moin Meldon",
-#        opt_URL=u"http://moin.meldon"
-    )
-    try:
-        #import pdb; pdb.set_trace()
-        session.add(accountants_group)
-    except:
-        print("es hat geknallt!!!!!!!!!!!!!!!!!!!!!!!!!! accountants_group")
-        #pass
-        #transaction.rollback()
-        #session.rollback()
-    try:
-        #session.add(model)
-        session.add(staffer1)
-    except:
-        print("es hat geknallt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! staffer1")
-        #transaction.rollback()
-        #session.rollback()
-    try:
-        session.add(member1)
-    except InvalidRequestError:  # this can happen, if a dataset already exists
-        pass
-        #, e:
-        #print("InvalidRequestError! %s") % e
-    except:
-        print("es hat geknallt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! member1")
-        #transaction.rollback()
-        #session.rollback()
-#    except OperationalError, ope:
-#        print("OperationalError! %s") % ope
-        #pass
-    session.flush()
-    #try:
-#        transaction.commit()
-    #except:
-    #    pass
-
-
-def initialize_sql(engine):
-
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    Base.metadata.create_all(engine)
-    try:
-        populate()
-    except IntegrityError, ie:  # pragma: no cover
-        #print "--- initialize_sql aborted due to IntegrityError: "
-        #print ie
-        transaction.abort()
-        # if data is already present in database the transaction is aborted
+    # this one is used by RequestWithUserAttribute
+    @classmethod
+    def check_user_or_None(cls, _id):
+        """
+        check whether a user by that username exists in the database.
+        if yes, return that object, else None.
+        returns None if username doesn't exist
+        """
+        login = cls.get_by_id(_id)  # is None if user not exists
+        return login

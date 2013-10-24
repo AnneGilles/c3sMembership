@@ -284,10 +284,12 @@ def accountant_mail(appstruct):
     #print("accountant_mail: mail body (enc'd): \n%s") % encrypted
     #print("accountant_mail: type of mail body (enc'd): %s") % type(encrypted)
 
+    message_recipient = appstruct['message_recipient']
+
     message = Message(
         subject="[C3S] Yes! a new member",
         sender="noreply@c3s.cc",
-        recipients=["yes@c3s.cc"],
+        recipients=[message_recipient],
         body=encrypted
     )
     #print("accountant_mail: csv_payload: \n%s") % generate_csv(appstruct)

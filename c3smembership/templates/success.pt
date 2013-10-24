@@ -17,39 +17,43 @@
     </p>
     <h3 i18n:translate="success-headline-data-received">Your data we received</h3>
     
-    <p tal:condition="request.session['appstruct']['_LOCALE_'] == 'en'"> <!-- english -->
+    <p tal:condition="request.session['appstruct']['_LOCALE_'] != 'de'"> <!-- english -->
       Firstname: ${firstname}<br />
       Lastname: ${lastname}<br />
-      Email: ${request.session['appstruct']['email']} <br />
-      Day of Birth: ${request.session['appstruct']['date_of_birth']} <br />
-      Street &amp; No.: ${request.session['appstruct']['address1']} <br />
-      Address  cont'd.: ${request.session['appstruct']['address2']} <br />
-      City: ${request.session['appstruct']['city']} <br />
-      Country: ${request.session['appstruct']['country']} <br />
-      Member of other Collecting Society: ${request.session['appstruct']['member_of_colsoc']} <br />
-      Which one? ${request.session['appstruct']['name_of_colsoc']} <br />
-      Supporting Member?: ${request.session['appstruct']['invest_member']} <br />
-      Number of Shares: ${request.session['appstruct']['num_shares']} <br />
+      Email: ${request.session['appstruct']['person']['email']} <br />
+      Day of Birth: ${request.session['appstruct']['person']['date_of_birth']} <br />
+      Street &amp; No.: ${request.session['appstruct']['person']['address1']} <br />
+      Address  cont'd.: ${request.session['appstruct']['person']['address2']} <br />
+      City: ${request.session['appstruct']['person']['city']} <br />
+      Country: ${request.session['appstruct']['person']['country']} <br />
+      Member of other Collecting Society: ${request.session['appstruct']['membership_info']['member_of_colsoc']} <br />
+      Which one? ${request.session['appstruct']['membership_info']['name_of_colsoc']} <br />
+      Supporting Member?: ${request.session['appstruct']['membership_info']['invest_member']} <br />
+      Number of Shares: ${request.session['appstruct']['shares']['num_shares']} <br />
     </p>
     
     <p tal:condition="request.session['appstruct']['_LOCALE_'] == 'de'"> <!-- german -->
       Vorname: ${firstname}<br />
       Nachname: ${lastname}<br />
-      Email: ${request.session['appstruct']['email']} <br />
-      Geburtstag: ${request.session['appstruct']['date_of_birth']} <br />
-      Stra&szlig;e, Nr.: ${request.session['appstruct']['address1']} <br />
-      Addresszusatz: ${request.session['appstruct']['address2']} <br />
-      Postleitzahl: ${request.session['appstruct']['postcode']} <br />
-      Ort: ${request.session['appstruct']['city']} <br />
-      Land: ${request.session['appstruct']['country']} <br />
-      Mitglied einer anderen Verwertungsgesellschaft: ${'ja' if (request.session['appstruct']['member_of_colsoc'] == 'yes') else 'nein'} <br />
-      Welcher? ${request.session['appstruct']['name_of_colsoc']} <br />
-      Fördermitglied?: ${'ja' if (request.session['appstruct']['invest_member'] == 'yes') else 'nein'} <br />
-      Anzahl Anteile: ${request.session['appstruct']['num_shares']} <br />
+      Email: ${request.session['appstruct']['person']['email']} <br />
+      Geburtstag: ${request.session['appstruct']['person']['date_of_birth']} <br />
+      Stra&szlig;e, Nr.: ${request.session['appstruct']['person']['address1']} <br />
+      Addresszusatz: ${request.session['appstruct']['person']['address2']} <br />
+      Postleitzahl: ${request.session['appstruct']['person']['postcode']} <br />
+      Ort: ${request.session['appstruct']['person']['city']} <br />
+      Land: ${request.session['appstruct']['person']['country']} <br />
+      Mitglied einer anderen Verwertungsgesellschaft: ${'ja' if (request.session['appstruct']['membership_info']['member_of_colsoc'] == 'yes') else 'nein'} <br />
+      Welcher? ${request.session['appstruct']['membership_info']['name_of_colsoc']} <br />
+      Fördermitglied?: ${'ja' if (request.session['appstruct']['membership_info']['invest_member'] == 'yes') else 'nein'} <br />
+      Anzahl Anteile: ${request.session['appstruct']['shares']['num_shares']} <br />
     </p>
     <p i18n:translate="success-paragraph-change-details">
       In case there are errors or you want to change details
-      <a href="${request.route_url('join')}" i18n:translate="revisit-the-form">please use the form again</a>.
+    </p>
+      <form method="POST" action="/">
+        <input type="submit" name="edit" value="Edit Again" i18n:attributes="value"/>
+      </form>
+    <p i18n:translate="success-paragraph-all-correct">
       If all information above is correct...
     </p>
     <h3 i18n:translate="success-headline-verify-email" class="deform">Next: verify your email</h3>

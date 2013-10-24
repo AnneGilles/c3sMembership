@@ -9,7 +9,7 @@
     <h1 i18n:translate="check-email-title">C3S Membership Application: Check your email</h1>
   </tal:block>
   <tal:block metal:fill-slot="bottom">
-    <h3 i18n:translate="check-email-headline" class="deform">An email was sent, ${firstname} ${lastname}!</h3>
+    <h3><span i18n:translate="check-email-headline" class="deform">An email was sent,</span> ${firstname} ${lastname}!</h3>
     <p i18n:translate="check-email-paragraph-check-email">
       You will receive an email from noreply@c3s.cc with a link. Please check your email!
     </p>

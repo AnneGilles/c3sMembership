@@ -4,17 +4,17 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="base">
   <!-- metal : use-macro="loggedinpt" -->
-  
+
   <tal:block metal:fill-slot="bottom">
     <div id="main">
-      <h1>Details for Member Application #${member.id}</h1>
-      
       <p>
         Please <a href="${request.route_url('logout')}">log out</a>
         when you are done.
         Or go <a href="${request.route_url('dashboard')}">back to dashboard</a>.
       </p>
-      
+
+      <h1>Details for Member Application #${member.id}</h1>
+
       <table border="1" cellpadding="10" width="90%">
 	<tr>
           <td>firstname</td>
@@ -91,7 +91,7 @@
     </div>
   </tal:block>
   <tal:block metal:fill-slot="deform-load">
-    <!--! loading deform --> 
+    <!--! loading deform -->
     <script type="text/javascript">deform.load()</script>
   </tal:block>
 </html>

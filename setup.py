@@ -17,7 +17,7 @@ requires = [
     'pyramid_mailer',
     'zope.sqlalchemy',
     'deform',
-    #'cryptacular',
+    'cryptacular',
     'pycountry',  # replacing 'webhelpers',
     'fdfgen',
     'Babel',
@@ -25,7 +25,7 @@ requires = [
     'waitress',
     'python-gnupg',
     'unicodecsv',
-    ]
+]
 # for the translations machinery using transifex you also need to
 # "pip install transifex-client"
 test_requirements = [
@@ -34,7 +34,7 @@ test_requirements = [
     'coverage',
     'slate',  # pdf to text helper
     'pdfminer',  # and its dependency
-    ]
+]
 
 if sys.version_info[:3] < (2, 5, 0):
     requires.append('pysqlite')
@@ -44,11 +44,11 @@ setup(name='c3smembership',
       description='Membership Form for C3S (form, PDF, email)',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Pylons",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
+          "Programming Language :: Python",
+          "Framework :: Pylons",
+          "Topic :: Internet :: WWW/HTTP",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+      ],
       author='Christoph Scheid',
       author_email='christoph@c3s.cc',
       url='http://www.c3s.cc',
@@ -61,11 +61,14 @@ setup(name='c3smembership',
       entry_points="""\
       [paste.app_factory]
       main = c3smembership:main
+      [console_scripts]
+      initialize_c3sMembership_db = c3smembership.scripts.initialize_db:main
       """,
       # http://opkode.com/media/blog/
       #        using-extract_messages-in-your-python-egg-with-a-src-directory
-      message_extractors={'c3smembership': [
-            ('**.py', 'lingua_python', None),
-            ('**.pt', 'lingua_xml', None),
-            ]},
+      message_extractors={
+          'c3smembership': [
+              ('**.py', 'lingua_python', None),
+              ('**.pt', 'lingua_xml', None),
+          ]},
       )

@@ -8,9 +8,10 @@ from c3smembership.models import DBSession
 
 
 def _initTestingDB():
-    from sqlalchemy import create_engine
-    from c3smembership.models import initialize_sql
-    session = initialize_sql(create_engine('sqlite://'))
+    #from sqlalchemy import create_engine
+    #from c3smembership.models import initialize_sql
+    #session = initialize_sql(create_engine('sqlite://'))
+    session = DBSession
     return session
 
 
@@ -27,6 +28,18 @@ class TestViews(unittest.TestCase):
     def tearDown(self):
         DBSession.remove()
         testing.tearDown()
+
+    # def test_dashboard_view(self):
+    #     from c3smembership.accountants_views import accountants_desk
+    #     request = testing.DummyRequest(
+    #         params={
+    #             'numdisplay': '20',  # this stopped working with the newly
+    #         }
+    #     )
+    #     print(str(dir(request)))
+    #     print("request.params: " + str(request.params.get('_LOCALE_')))
+    #     result = accountants_desk(request)
+    #     self.assertTrue('form' in result)
 
 #     def test_join_membership_view_nosubmit(self):
 #         from c3sintent.views import join_membership

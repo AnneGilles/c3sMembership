@@ -10,9 +10,11 @@ def _initTestingDB():
     set up a database to run tests against
     """
     from sqlalchemy import create_engine
-    from c3smembership.models import initialize_sql
+    #from c3smembership.models import initialize_sql
+    #from c3smembership.models import initialize_sql
     try:
-        session = initialize_sql(create_engine('sqlite:///:memory:'))
+        #session = initialize_sql(create_engine('sqlite:///:memory:'))
+        session = create_engine('sqlite:///:memory:')
     except:
         session = DBSession
     return session
@@ -51,7 +53,7 @@ class TestUtilities(unittest.TestCase):
         mock_appstruct = {
             'firstname': u'Anne',
             'lastname': u'Gilles',
-            'email': u'foo@example.com',
+            'email': u'devnull@c3s.cc',
             'date_of_birth': '1987-06-05',
             'address1': 'addr one',
             'address2': 'addr two',
@@ -106,7 +108,7 @@ class TestUtilities(unittest.TestCase):
             'address2': u'addr two',
             'postcode': u'54321',
             'city': u'Müsterstädt',
-            'email': u'foo@example.com',
+            'email': u'devnull@c3s.cc',
             'date_of_birth': u'1987-06-05',
             'country': u'my country',
             #'activity': set([u'composer', u'lyricist', u'dj']),
@@ -157,7 +159,7 @@ class TestUtilities(unittest.TestCase):
             'address2': 'Of Nowhere',
             'postcode': '12345',
             'city': 'My Town',
-            'email': 'john@example.com',
+            'email': 'devnull@c3s.cc',
             #'region': 'Hessen',
             'country': 'de',
             'date_of_birth': '1987-06-05',
@@ -174,7 +176,7 @@ class TestUtilities(unittest.TestCase):
         #print("test_generate_csv: the result: %s") % result
         from datetime import date
         today = date.today().strftime("%Y-%m-%d")
-        expected_result = today + ',pending...,Jöhn,Doe,john@example.com,In the Middle,Of Nowhere,12345,My Town,de,j,1987-06-05,j,GEMA FöTT,25\r\n'
+        expected_result = today + ',pending...,Jöhn,Doe,devnull@c3s.cc,In the Middle,Of Nowhere,12345,My Town,de,j,1987-06-05,j,GEMA FöTT,25\r\n'
         # note the \r\n at the end: that is line-ending foo!
 
         #print("type of today: %s ") % type(today)
@@ -185,7 +187,7 @@ class TestUtilities(unittest.TestCase):
         self.assertEqual(str(result), str(expected_result))
 
 #            result == str(today + ';unknown;pending...;John;Doe;' +
-#                          'john@example.com;In the Middle;Of Nowhere;' +
+#                          'devnull@c3s.cc;In the Middle;Of Nowhere;' +
 #                          '12345;My Town;Hessen;de;j;n;n;n;n;j;j;j;j;j;j'))
 
     def test_mail_body(self):
@@ -206,7 +208,7 @@ class TestUtilities(unittest.TestCase):
             'address2': u'addr two',
             'postcode': u'12345 xyz',
             'city': u'Town',
-            'email': u'john@example.com',
+            'email': u'devnull@c3s.cc',
             'country': u'af',
             'member_of_colsoc': u'yes',
             'name_of_colsoc': u'Buma',
@@ -222,7 +224,7 @@ class TestUtilities(unittest.TestCase):
         self.failUnless(u'Döe' in result)
         self.failUnless(u'postcode:                       12345 xyz' in result)
         self.failUnless(u'Town' in result)
-        self.failUnless(u'john@example.com' in result)
+        self.failUnless(u'devnull@c3s.cc' in result)
         self.failUnless(u'af' in result)
         self.failUnless(u'number of shares                23' in result)
         self.failUnless(
@@ -241,7 +243,7 @@ class TestUtilities(unittest.TestCase):
     #         'lastname': u'Doe',
     #         'date_of_birth': datetime.date(1987, 6, 5),
     #         'city': u'Town',
-    #         'email': u'john@example.com',
+    #         'email': u'devnull@example.com',
     #         'country': u'af',
     #         'member_of_colsoc': u'yes',
     #         'name_of_colsoc': u'Foo Colsoc',

@@ -10,12 +10,14 @@ def _initTestingDB():
     from sqlalchemy import create_engine
     from c3smembership.models import DBSession
     from c3smembership.models import Base
-    from c3smembership.models import initialize_sql
-    engine = create_engine('sqlite:///:memory:')
-    #session = initialize_sql(create_engine('sqlite:///:memory:'))
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    Base.metadata.create_all(engine)
+    #from c3smembership.models import initialize_sql
+    from c3smembership.scripts.initialize_db import init
+    init()
+    #engine = create_engine('sqlite:///:memory:')
+    ##session = initialize_sql(create_engine('sqlite:///:memory:'))
+    #DBSession.configure(bind=engine)
+    #Base.metadata.bind = engine
+    #Base.metadata.create_all(engine)
     return DBSession
 
 
@@ -59,6 +61,7 @@ class C3sMembershipModelTests(unittest.TestCase):
                  date_of_birth=date.today(),
                  email_is_confirmed=False,
                  email_confirm_code=u'ABCDEFGHIK',
+                 password=u'arandompassword',
                  #is_composer=True,
                  #is_lyricist=True,
                  #is_producer=True,
@@ -73,8 +76,9 @@ class C3sMembershipModelTests(unittest.TestCase):
                  num_shares=u'23',
                  ):
         #print "type(self.session): " + str(type(self.session))
-        return self._getTargetClass()(
+        return self._getTargetClass()(  # order of params DOES matter
             firstname, lastname, email,
+            password,
             address1, address2, postcode,
             city, country, locale,
             date_of_birth, email_is_confirmed, email_confirm_code,
@@ -87,7 +91,7 @@ class C3sMembershipModelTests(unittest.TestCase):
 
     def test_constructor(self):
         instance = self._makeOne()
-        #print(instance.firstname)
+        #print(instance.address1)
         self.assertEqual(instance.firstname, u'SomeFirstnäme', "No match!")
         self.assertEqual(instance.lastname, u'SomeLastnäme', "No match!")
         self.assertEqual(instance.email, u'some@email.de', "No match!")
@@ -132,19 +136,43 @@ class C3sMembershipModelTests(unittest.TestCase):
             #        foo = myUserClass.get_by_username(instance.username)
             #        print "test_get_by_username: type(foo): " + str(type(foo))
         self.assertEqual(instance.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@email.de')
+        self.assertEqual(instance_from_DB.email, u'foo@shri.de')
 
-    # def test_check_for_existing_confirm_code(self):
-    #     instance = self._makeOne()
-    #     self.session.add(instance)
-    #     myMembershipSigneeClass = self._getTargetClass()
-    #     instance_from_DB = myMembershipSigneeClass.get_by_code('ABCDEFGHIK')
-    #     print instance_from_DB.email
-    #     if DEBUG:
-    #         print "myMembershipSigneeClass: " + str(myMembershipSigneeClass)
-    #         #        print "str(myUserClass.get_by_username('SomeUsername')): "
-    #         # + str(myUserClass.get_by_username('SomeUsername'))
-    #         #        foo = myUserClass.get_by_username(instance.username)
-    #         #        print "test_get_by_username: type(foo): " + str(type(foo))
-    #     self.assertEqual(instance.firstname, 'SomeFirstname')
-    #     self.assertEqual(instance_from_DB.email, 'some@email.de')
+    def test_delete_by_id(self):
+        instance = self._makeOne()
+        #session = DBSession()
+        self.session.add(instance)
+        myMembershipSigneeClass = self._getTargetClass()
+        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
+        del_instance_from_DB = myMembershipSigneeClass.delete_by_id('1')
+        #print del_instance_from_DB
+        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
+        self.assertEqual(None, instance_from_DB)
+
+    def test_check_user_or_None(self):
+        instance = self._makeOne()
+        #session = DBSession()
+        self.session.add(instance)
+        myMembershipSigneeClass = self._getTargetClass()
+        # get first dataset (id = 1)
+        result1 = myMembershipSigneeClass.check_user_or_None('1')
+        #print check_user_or_None
+        self.assertEqual(1, result1.id)
+        # get invalid dataset
+        result2 = myMembershipSigneeClass.check_user_or_None('1234567')
+        #print check_user_or_None
+        self.assertEqual(None, result2)
+
+    def test_check_for_existing_confirm_code(self):
+        instance = self._makeOne()
+        self.session.add(instance)
+        myMembershipSigneeClass = self._getTargetClass()
+
+        result1 = myMembershipSigneeClass.check_for_existing_confirm_code(
+            'ABCDEFGHIK')
+        #print result1  # True
+        self.assertEqual(result1, True)
+        result2 = myMembershipSigneeClass.check_for_existing_confirm_code(
+            'ABCDEFGHIK0000000000')
+        #print result2  # False
+        self.assertEqual(result2, False)

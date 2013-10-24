@@ -9,14 +9,17 @@
     <div id="main">
       <h1>Dashboard</h1>
       
-      <p>Number of users: ${_number_of_members}</p>
+      <p>Number of data sets: ${_number_of_datasets}</p>
       
       <p>
         Please <a href="${request.route_url('logout')}">log out</a>
         when you are done.
       </p>
       
-      <p>Showing (up to) 15 at a time:</p>
+      <p>Showing (up to) ${num_display} at a time.       
+        <a href="${request.route_url('dashboard', number=previous)}">&lt;previous</a>
+        <a href="${request.route_url('dashboard', number=next)}">next&gt;</a>
+      </p>
       
       <table border="1" cellpadding="10" width="90%">
 	<tr>
@@ -29,6 +32,7 @@
           <td>payment<br />received?</td>
           <td># shares</td>
           <td>edit</td>
+          <td>delete</td>
         </tr>
 	<tr tal:repeat="member members">
 	  <td><a href="/detail/${member.id}">${member.id}</a></td>
@@ -36,13 +40,38 @@
 	  <td>${member.lastname}</td>
 	  <td><a href="mailto:${member.email}">${member.email}</a></td>
 	  <td>${member.email_is_confirmed}</td>
-	  <td>${member.signature_received}</td>
-	  <td>${member.payment_received}</td>
+	  <td>
+            <div tal:condition="not member.signature_received">
+              <a href="${request.route_url('switch_sig', memberid=member.id)}">
+                <img src="${request.static_url('c3smembership:static/flash_red.gif')}" width="20px" height="20px" />
+              </a>
+            </div>
+            <div tal:condition="member.signature_received">
+              <a href="${request.route_url('switch_sig', memberid=member.id)}">
+                <img src="${request.static_url('c3smembership:static/green.png')}" width="20px" height="20px" />
+              </a>
+            </div>
+          </td>
+	  <td>
+            <div tal:condition="not member.payment_received">
+              <a href="${request.route_url('switch_pay', memberid=member.id)}">
+                <img src="${request.static_url('c3smembership:static/flash_red.gif')}" width="20px" height="20px" />
+              </a>
+            </div>
+            <div tal:condition="member.payment_received">
+              <a href="${request.route_url('switch_pay', memberid=member.id)}">
+                <img src="${request.static_url('c3smembership:static/green.png')}" width="20px" height="20px" />
+              </a>
+            </div>
+          </td>
 	  <td>${member.num_shares}</td>
 	  <td><a href="/detail/${member.id}">edit</a></td>
+	  <td><a href="/delete/${member.id}">delete</a></td>
 	</tr>
       </table>
       <p>&nbsp;</p>
+      <a href="${request.route_url('dashboard', number=previous)}">&lt;previous</a>
+      <a href="${request.route_url('dashboard', number=next)}">next&gt;</a>
       <p>&nbsp;</p>
     </div>
   </tal:block>

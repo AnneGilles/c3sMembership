@@ -1,7 +1,7 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 
-from c3smembership.models import initialize_sql
+from c3smembership.models import DBSession, Base
 from c3smembership.security.request import RequestWithUserAttribute
 from c3smembership.security import (
     Root,
@@ -16,13 +16,15 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
-    initialize_sql(engine)
     session_factory = session_factory_from_settings(settings)
 
     authn_policy = AuthTktAuthenticationPolicy(
         's0secret!!',
         callback=groupfinder,)
     authz_policy = ACLAuthorizationPolicy()
+
+    DBSession.configure(bind=engine)
+    Base.metadata.bind = engine
 
     config = Configurator(settings=settings,
                           authentication_policy=authn_policy,
@@ -44,19 +46,25 @@ def main(global_config, **settings):
                           'pyramid.events.BeforeRender')
     config.add_subscriber('c3smembership.subscribers.add_locale_to_cookie',
                           'pyramid.events.NewRequest')
-    # home /
-    # intent form
+
+    # home is /, the membership application form
     config.add_route('join', '/')
+    # info pages
     config.add_route('disclaimer', '/disclaimer')
     config.add_route('faq', '/faq')
     config.add_route('statute', '/statute')
     config.add_route('manifesto', '/manifesto')
+    # success and further steps
     config.add_route('success', '/success')
     config.add_route('success_check_email', '/check_email')
-    config.add_route('success_verify_email', '/verify/{email}/{code}')
+    config.add_route('verify_email_password', '/verify/{email}/{code}')
     config.add_route('success_pdf', '/C3S_SCE_AFM_{namepart}.pdf')
-    config.add_route('dashboard', '/dashboard')
+    # routes & views for staff
+    config.add_route('dashboard', '/dashboard/{number}')
     config.add_route('detail', '/detail/{memberid}')
+    config.add_route('switch_sig', '/switch_sig/{memberid}')
+    config.add_route('switch_pay', '/switch_pay/{memberid}')
+    config.add_route('delete_entry', '/delete/{memberid}')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
     config.scan()
