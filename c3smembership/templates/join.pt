@@ -10,8 +10,8 @@
     <script type="text/javascript" src="/static/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/static/deform/deform.js"></script>
     <!-- script src="http://code.jquery.com/jquery-1.9.1.js" --><!-- /script -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/static/jquery-ui.1.10.3-smoothness.css" />
+    <script src="/static/jquery-ui.1.10.3.js"></script>
     
   </tal:block>
   <tal:block metal:fill-slot="middle">
