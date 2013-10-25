@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: c3smembership 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-10-07 23:25+0200\n"
-"PO-Revision-Date: 2013-10-08 00:55+0100\n"
+"PO-Revision-Date: 2013-10-25 13:18+0100\n"
 "Last-Translator: Christoph Scheid <christoph.scheid@c3s.cc>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: c3smembership/accountants_views.py:88
 msgid "login"
@@ -29,20 +30,17 @@ msgid "password"
 msgstr "Passwort"
 
 #: c3smembership/accountants_views.py:104
-#: c3smembership/accountants_views.py:238
-#: c3smembership/views.py:675
+#: c3smembership/accountants_views.py:238 c3smembership/views.py:675
 msgid "Submit"
 msgstr "Absenden"
 
 #: c3smembership/accountants_views.py:105
-#: c3smembership/accountants_views.py:239
-#: c3smembership/views.py:676
+#: c3smembership/accountants_views.py:239 c3smembership/views.py:676
 msgid "Reset"
 msgstr "Löschen"
 
 #: c3smembership/accountants_views.py:130
-#: c3smembership/accountants_views.py:259
-#: c3smembership/views.py:701
+#: c3smembership/accountants_views.py:259 c3smembership/views.py:701
 msgid "Please note: There were errors, please check the form below."
 msgstr "Bitte beachten: Es gab Fehler. Bitte Eingaben unten korrigieren."
 
@@ -62,7 +60,9 @@ msgstr "C3S: Bestätige deine Email-Adresse und lade Dein PDF"
 msgid ""
 "Not found. check URL.\n"
 "                              If all seems right, please use the form again."
-msgstr "Nicht gefunden. Bitte URL überprüfen. Wenn alles richtig sein müsste, bitte das Formular nochmals benutzen."
+msgstr ""
+"Nicht gefunden. Bitte URL überprüfen. Wenn alles richtig sein müsste, bitte "
+"das Formular nochmals benutzen."
 
 #: c3smembership/views.py:322
 msgid "Success. Load your PDF!"
@@ -205,8 +205,12 @@ msgid "Password"
 msgstr "Passwort"
 
 #: c3smembership/views.py:479
-msgid "We need a password to protect your data. After verifying your email you will have to enter it."
-msgstr "Wir brauchen ein Passwort, um deine Daten zu schützen. Nach der Bestätigung der Email-Adresse wird es abgefragt."
+msgid ""
+"We need a password to protect your data. After verifying your email you will "
+"have to enter it."
+msgstr ""
+"Wir brauchen ein Passwort, um deine Daten zu schützen. Nach der Bestätigung "
+"der Email-Adresse wird es abgefragt."
 
 #: c3smembership/views.py:486
 msgid "Street & No."
@@ -250,12 +254,20 @@ msgid "No"
 msgstr "Nein"
 
 #: c3smembership/views.py:588
-msgid "I am at least one of: composer, lyricist, remixer, arranger, producer, DJ (i.e. musician)"
-msgstr "Ich bin Musiker_in: Komponist_in, Texter_in, Remixer_in, Arrangeur_in, Produzent_in, DJ/DJane"
+msgid ""
+"I am at least one of: composer, lyricist, remixer, arranger, producer, DJ (i."
+"e. musician)"
+msgstr ""
+"Ich bin Musiker_in: Komponist_in, Texter_in, Remixer_in, Arrangeur_in, "
+"Produzent_in, DJ/DJane"
 
 #: c3smembership/views.py:591
-msgid "You have to be a musician to become a regular member of C3S SCE.Or choose to become a supporting member."
-msgstr "Du musst Musiker_in sein, um reguläres Mitglied der C3S SCE zu werden. Oder werde Fördermitglied. "
+msgid ""
+"You have to be a musician to become a regular member of C3S SCE.Or choose to "
+"become a supporting member."
+msgstr ""
+"Du musst Musiker_in sein, um reguläres Mitglied der C3S SCE zu werden. Oder "
+"werde Fördermitglied. "
 
 #: c3smembership/views.py:601
 msgid "Currently, I am a member of another collecting society."
@@ -270,11 +282,17 @@ msgid "Please tell us which collecting society you are a member of."
 msgstr "Bitte nenne uns die Verwertungsgesellschaft(en) wo du Mitglied bist."
 
 #: c3smembership/views.py:622
-msgid "I am considering to join C3S as a supporting member only. This option is also available to members of other collecting societies without quitting those."
+msgid ""
+"I am considering to join C3S as a supporting member only. This option is "
+"also available to members of other collecting societies without quitting "
+"those."
 msgstr "Ich möchte die C3S nur als Fördermitglied unterstützen."
 
 #: c3smembership/views.py:626
-msgid "Normal members are typically musicians with at least three works they produced themselves. If you are not a musician but still want to join and support C3S, become a suporting/investing member."
+msgid ""
+"Normal members are typically musicians with at least three works they "
+"produced themselves. If you are not a musician but still want to join and "
+"support C3S, become a suporting/investing member."
 msgstr ""
 
 #: c3smembership/views.py:639
@@ -319,14 +337,16 @@ msgstr "C3S Mitgliedsantrag: Bitte Emails abrufen."
 #. Default: An email was sent,
 #: c3smembership/templates/check-mail.pt:12
 msgid "check-email-headline"
-msgstr "Eine Email wurde verschickt, ${firstname} ${lastname}!"
+msgstr "Eine Email wurde verschickt,"
 
 #. Default: You will receive an email from noreply@c3s.cc with a link. Please
 #. check
 #. your email!
 #: c3smembership/templates/check-mail.pt:13
 msgid "check-email-paragraph-check-email"
-msgstr "Du wirst eine Email von noreply@c3s.cc mit einem Bestätigungslink erhalten. Bitte rufe Deine Emails ab."
+msgstr ""
+"Du wirst eine Email von noreply@c3s.cc mit einem Bestätigungslink erhalten. "
+"Bitte rufe Deine Emails ab."
 
 #. Default: Data Protection Declaration
 #: c3smembership/templates/disclaimer.pt:9
@@ -410,8 +430,7 @@ msgid "faq-paragraph-1"
 msgstr "Füll mich"
 
 #. Default: Join Cultural Commons Collecting Society (C3S)
-#: c3smembership/templates/join.pt:14
-#: c3smembership/templates/login.pt:14
+#: c3smembership/templates/join.pt:14 c3smembership/templates/login.pt:14
 #: c3smembership/templates/verify_password.pt:14
 msgid "join-form-title"
 msgstr "Werde Mitglied in der Cultural Commons Collecting Society"
@@ -420,18 +439,24 @@ msgstr "Werde Mitglied in der Cultural Commons Collecting Society"
 #. Commons Collecting Society SCE' (C3S SCE)
 #: c3smembership/templates/join.pt:28
 msgid "join-form-headline"
-msgstr "Mitgliedschaftsantrag für die Cultural Commons Collecting Society SCE mbH i.G. (C3S SCE)!"
+msgstr ""
+"Mitgliedschaftsantrag für die Cultural Commons Collecting Society SCE mbH i."
+"G. (C3S SCE)!"
 
 #. Default: Please fill out the form. Later, you need to check your email for a
 #. verification code.
 #: c3smembership/templates/join.pt:29
 msgid "join-form-fill-verify-print-send"
-msgstr "Zunächst musst Du bitte das Formular ausfüllen. Anschließend erhältst Du eine Email zur Bestätigung Deiner Anfrage."
+msgstr ""
+"Zunächst musst Du bitte das Formular ausfüllen. Anschließend erhältst Du "
+"eine Email zur Bestätigung Deiner Anfrage."
 
 #. Default: All questions marked with an asterisk must be answered.
 #: c3smembership/templates/join.pt:32
 msgid "join-form-answer-all"
-msgstr "Alle Felder, die mit einem roten Stern markiert sind, müssen beantwortet werden."
+msgstr ""
+"Alle Felder, die mit einem roten Stern markiert sind, müssen beantwortet "
+"werden."
 
 #. Default: The Fine Print
 #: c3smembership/templates/join.pt:58
@@ -547,7 +572,10 @@ msgstr "Das hat funktioniert,"
 #. data, print out the form, sign it and send it back to us.
 #: c3smembership/templates/success.pt:13
 msgid "success-paragraph-thanks"
-msgstr "Was nun passieren muss: Kontrolliere die Angaben unten, dann fordere eine Bestätigungsemail an, lade Dein PDF und sende es unterschrieben per Briefpost an uns zurück."
+msgstr ""
+"Was nun passieren muss: Kontrolliere die Angaben unten, dann fordere eine "
+"Bestätigungsemail an, lade Dein PDF und sende es unterschrieben per "
+"Briefpost an uns zurück."
 
 #. Default: Your data we received
 #: c3smembership/templates/success.pt:18
@@ -579,7 +607,10 @@ msgstr "Bestätige deine Email-Adresse"
 #. printed out, signed, and sent back to us.
 #: c3smembership/templates/success.pt:60
 msgid "success-paragraph-verify-email"
-msgstr "Nach Anfordern der Bestätigungsmail schicken wir eine Mail an deine Adresse. Rufe deine Emails ab und nutze den Bestätigungslink, um dein PDF zu laden. Dieses muss ausgedruckt und unterschrieben an uns zurückgesandt werden."
+msgstr ""
+"Nach Anfordern der Bestätigungsmail schicken wir eine Mail an deine Adresse. "
+"Rufe deine Emails ab und nutze den Bestätigungslink, um dein PDF zu laden. "
+"Dieses muss ausgedruckt und unterschrieben an uns zurückgesandt werden."
 
 #: c3smembership/templates/success.pt:67
 msgid "Send Mail"
@@ -618,162 +649,6 @@ msgstr "Lade dein PDF..."
 #: c3smembership/templates/verify_password.pt:43
 msgid "load-pdf-further-instructions"
 msgstr ""
-
-#~ msgid "join-form-headline-6"
-#~ msgstr ""
-
-#~ msgid "join-form-print-send"
-#~ msgstr ""
-
-#~ msgid "intent-form-title"
-#~ msgstr ""
-
-#~ msgid "intent-form-disclaimer-title"
-#~ msgstr ""
-
-#~ msgid "faq-headline-why"
-#~ msgstr ""
-
-#~ msgid "faq-strong-why"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-why"
-#~ msgstr ""
-
-#~ msgid "faq-headline-howmany"
-#~ msgstr ""
-
-#~ msgid "faq-strong-howmany1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-howmany1"
-#~ msgstr ""
-
-#~ msgid "faq-strong-howmany2"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-howmany2"
-#~ msgstr ""
-
-#~ msgid "faq-headline-whysign"
-#~ msgstr ""
-
-#~ msgid "faq-strong-whysign1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-whysign1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-whysign2"
-#~ msgstr ""
-
-#~ msgid "faq-headline-join"
-#~ msgstr ""
-
-#~ msgid "faq-strong-join1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-join1"
-#~ msgstr ""
-
-#~ msgid "faq-strong-join2"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-join2"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-join3"
-#~ msgstr ""
-
-#~ msgid "faq-headline-i11l"
-#~ msgstr ""
-
-#~ msgid "faq-strong-i11l1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-i11l1"
-#~ msgstr ""
-
-#~ msgid "faq-strong-i11l2"
-#~ msgstr ""
-
-#~ msgid "faq-strong-i11l3"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-i11l2"
-#~ msgstr ""
-
-#~ msgid "faq-headline-rewards"
-#~ msgstr ""
-
-#~ msgid "faq-strong-rewards"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-rewards"
-#~ msgstr ""
-
-#~ msgid "faq-headline-benefits"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-benefits"
-#~ msgstr ""
-
-#~ msgid "faq-strong-choose-licence1"
-#~ msgstr ""
-
-#~ msgid "faq-strong-choose-licence2"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-choose-licence"
-#~ msgstr ""
-
-#~ msgid "faq-strong-choose-works"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-choose-works"
-#~ msgstr ""
-
-#~ msgid "faq-strong-cooperative"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-cooperative"
-#~ msgstr ""
-
-#~ msgid "faq-strong-payperplay"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-payperplay"
-#~ msgstr ""
-
-#~ msgid "faq-strong-micropayment"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-micropayment"
-#~ msgstr ""
-
-#~ msgid "faq-strong-european"
-#~ msgstr ""
-
-#~ msgid "faq-benefits-li-european"
-#~ msgstr ""
-
-#~ msgid "faq-headline-data"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-data1"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-data4"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-data2"
-#~ msgstr ""
-
-#~ msgid "faq-strong-data-url"
-#~ msgstr ""
-
-#~ msgid "faq-paragraph-data3"
-#~ msgstr ""
 
 #~ msgid "with_an_asterisk"
 #~ msgstr "mit einem Stern markiert"
