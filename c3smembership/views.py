@@ -64,66 +64,69 @@ if LOGGING:  # pragma: no cover
     log = logging.getLogger(__name__)
 
 
-@view_config(renderer='templates/disclaimer.pt',
-             route_name='disclaimer')
-def show_disclaimer(request):
-    """
-    This view simply shows a disclaimer, contained as text in a template.
-    """
-    if hasattr(request, '_REDIRECT_'):
-        return HTTPFound(location=route_url('disclaimer', request),
-                         headers=request.response.headers)
-    return {'foo': 'bar'}  # dummy values: template contains all text
+#@view_config(renderer='templates/disclaimer.pt',
+#             route_name='disclaimer')
+#def show_disclaimer(request):
+#    """
+#    This view simply shows a disclaimer, contained as text in a template.
+#    """
+#    if hasattr(request, '_REDIRECT_'):
+#        return HTTPFound(location=route_url('disclaimer', request),
+#                         headers=request.response.headers)
+#    return {'foo': 'bar'}  # dummy values: template contains all text
 
 
-@view_config(renderer='templates/faq.pt',
-             route_name='faq')
-def show_faq(request):
-    """
-    This view simply shows an FAQ, contained as text in a template.
-    """
-    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
-        return HTTPFound(location=request.route_url('faq'),
-                         headers=request.response.headers)
-    return {'foo': 'bar'}  # dummy values: template contains all text
+#@view_config(renderer='templates/faq.pt',
+#             route_name='faq')
+#def show_faq(request):
+#    """
+#    This view simply shows an FAQ, contained as text in a template.
+#    """
+#    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
+#        return HTTPFound(location=request.route_url('faq'),
+#                         headers=request.response.headers)
+#    return {'foo': 'bar'}  # dummy values: template contains all text
 
 
-@view_config(renderer='templates/statute.pt',
-             route_name='statute')
-def show_statute(request):
-    """
-    This view simply shows the statute, contained as text in a template.
-    """
-    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
-        return HTTPFound(location=request.route_url('statute'),
-                         headers=request.response.headers)
-    return {'foo': 'bar'}  # dummy values: template contains all text
+#@view_config(renderer='templates/statute.pt',
+#             route_name='statute')
+#def show_statute(request):
+#    """
+#    This view simply shows the statute, contained as text in a template.
+#    """
+#    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
+#        return HTTPFound(location=request.route_url('statute'),
+#                         headers=request.response.headers)
+#    return {'foo': 'bar'}  # dummy values: template contains all text
 
 
-@view_config(renderer='templates/manifesto.pt',
-             route_name='manifesto')
-def show_manifesto(request):
-    """
-    This view simply shows the manifesto, contained as text in a template.
-    """
-    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
-        return HTTPFound(location=request.route_url('manifesto'),
-                         headers=request.response.headers)
-    return {'foo': 'bar'}  # dummy values: template contains all text
+#@view_config(renderer='templates/manifesto.pt',
+#             route_name='manifesto')
+#def show_manifesto(request):
+#    """
+#    This view simply shows the manifesto, contained as text in a template.
+#    """
+#    if hasattr(request, '_REDIRECT_'):  # pragma: no cover
+#        return HTTPFound(location=request.route_url('manifesto'),
+#                         headers=request.response.headers)
+#    return {'foo': 'bar'}  # dummy values: template contains all text
 
 
 @view_config(renderer='templates/success.pt',
              route_name='success')
 def show_success(request):
     """
-    This view shows a success page with the data gathered
-    and a link back to the form in case some data is wrong/needs correction
+    This view shows a success page with the data gathered through the form
+    and a link (button) back to the form
+    in case some data is wrong/needs correction.
+    There is also a button to confirm the dataset
+    and have an email set to the user for validation.
     """
-    #check if user has used form or 'guessed' this URL
+    #check if user has used the form or 'guessed' this URL
     if ('appstruct' in request.session):
         # we do have valid info from the form in the session
         appstruct = request.session['appstruct']
-        # delete old messages from the session
+        # delete old messages from the session (from invalid form input)
         request.session.pop_flash('message_above_form')
         #print("show_success: locale: %s") % appstruct['_LOCALE_']
         return {
@@ -137,7 +140,9 @@ def show_success(request):
 @view_config(route_name='success_pdf')
 def show_success_pdf(request):
     """
-    This view just returns a PDF, given there is valid info in session
+    Given there is valid information in the session
+    this view sends an encrypted mail to C3S staff with the users data set
+    and returns a PDF for the user.
     """
     #check if user has used form or 'guessed' this URL
     if ('appstruct' in request.session):
@@ -163,10 +168,10 @@ def show_success_pdf(request):
     route_name='success_check_email')
 def success_check_email(request):
     """
-    This view is called from the page that show a user her data for correction
+    This view is called from the page that shows a user her data for correction
     by clicking a "send email" button.
-    This view then sends out the email w/ verification link
-    and returns a note to go check mail
+    This view then sends out the email with a verification link
+    and returns a note to go check mail.
     """
     #check if user has used the form (good) or 'guessed' this URL (bad)
     if ('appstruct' in request.session):
@@ -175,23 +180,35 @@ def success_check_email(request):
         from pyramid_mailer.message import Message
         mailer = get_mailer(request)
         # XXX TODO: check for locale, choose language for body text
+        #import pdb; pdb.set_trace()
+        # build the emails body
+        body_lines = (  # a list of lines
+            _(u"hello"), ' ', appstruct['person']['firstname'], ' ',
+            appstruct['person']['lastname'], ''' !
+
+''',
+            _(u"please use this link to verify your email address "
+              "and download your personalised PDF:"),
+            u"""
+ https://pretest.c3s.cc/verify/""",
+            appstruct['person']['email'], '/',
+            appstruct['email_confirm_code'], '''
+
+''',
+            _(u"thanks!"), '''
+
+''',
+            _(u"your C3S team"),
+        )
+        the_mail_body = ''.join([line for line in body_lines])
         the_mail = Message(
             subject=_("C3S: confirm your email address and load your PDF"),
             sender="noreply@c3s.cc",
             recipients=[appstruct['person']['email']],
-            body="""hello %s %s,
-
-please use this link to verify your email address
-and download your personalised PDF:
-
-https://pretest.c3s.cc/verify/%s/%s
-""" % (appstruct['person']['firstname'],
-       appstruct['person']['lastname'],
-       appstruct['person']['email'],
-       appstruct['email_confirm_code'])
+            body=the_mail_body
         )
         mailer.send(the_mail)
-        #print(the_mail.body)
+        print(the_mail.body)
 
         # make the session go away
         request.session.invalidate()
@@ -636,9 +653,15 @@ def join_c3s(request):
         )
 
     class Shares(colander.Schema):
+        """
+        the number of shares a member wants to hold
+
+        this involves a slider widget: added to deforms widgets.
+        see README.slider.rst
+        """
         num_shares = colander.SchemaNode(
             colander.Integer(),
-            title=_(u"Number of Shares (50€ each"),
+            title=_(u"Number of Shares (50€ each, up to 3000€)"),
             description=_(
                 u'You can choose any amount of shares between 1 and 60.'),
             default="1",

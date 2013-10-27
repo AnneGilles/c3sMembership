@@ -37,8 +37,15 @@
       </div>
     </div>
   </div>
-  <div id="footer" style="height:auto;padding-top:10px">
-    <div class="footer">&copy; Copyright 2013, OpenMusicContest.org e.V. &nbsp; &nbsp;
+  <div id="footer">
+    <div class="footer">
+      &nbsp;<br />
+      &nbsp;<br />
+      &nbsp;<br />
+      &nbsp;<br />
+      &nbsp;<br />
+      &nbsp;<br />
+      &copy; Copyright 2013, C3S SCE. &nbsp; &nbsp;
       <!-- <a target="_blank" style="text-decoration:none; color:black; font-size:66%"
 	 href="https://www.transifex.com/projects/p/C3smembership/resource/POT/"
 	 title="Want more langages? Help us translate on Transifex.com">

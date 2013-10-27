@@ -23,6 +23,7 @@ BROWSER_LANGUAGES = {  # a dictionary of codes the browsers send
     # ... add new languages here, too!
     }
 
+
 def add_locale_to_cookie(event):
     """
     give user a cookie to determine the language to display.

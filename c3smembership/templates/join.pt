@@ -12,10 +12,10 @@
     <!-- script src="http://code.jquery.com/jquery-1.9.1.js" --><!-- /script -->
     <link rel="stylesheet" href="/static/jquery-ui.1.10.3-smoothness.css" />
     <script src="/static/jquery-ui.1.10.3.js"></script>
-    
+  <link rel="stylesheet" href="${request.static_url('c3smembership:static/c3sM.css')}" type="text/css" media="screen" charset="utf-8" />
   </tal:block>
   <tal:block metal:fill-slot="middle">
-    <h1 i18n:translate="join-form-title">Join Cultural Commons Collecting Society (C3S)</h1>
+    <h1 i18n:translate="join-form-title">Join the Cultural Commons Collecting Society (C3S)</h1>
   </tal:block>
   <tal:block metal:fill-slot="bottom">
     <div style="text-align:left;">
@@ -29,7 +29,7 @@
       <a href="/?de"><img src="static/images/de.png" title="Deutsch"
 				   alt="auf deutsche Sprache umschalten" /></a>
     </div>
-    <h2 i18n:translate="join-form-headline" class="deform">Application for Membership of the European Cooperative 'Cultural Commons Collecting Society SCE' (C3S SCE)</h2>
+    <h2 i18n:translate="join-form-headline" class="deform">Application for Membership of the 'Cultural Commons Collecting Society SCE' (C3S SCE)</h2>
     <p i18n:translate="join-form-fill-verify-print-send">
       Please fill out the form. Later, you need to check your email for a verification code.
     </p>
@@ -61,27 +61,29 @@ $(document).ready(function(){
 
     <h2 i18n:translate="join-form-headline-fine-print" class="deform">The Fine Print</h2>
     <p i18n:translate="" class="infoIndent">
-      <a href="/manifesto" target="_blank"
+      <a href="https://blog.c3s.cc/en-manifesto/" target="_blank"
 	 i18n:name="join-form-manifesto-title"
-	 i18n:translate="join-form-manifesto-title">The C3S Manifesto</a>
+	 i18n:translate="join-form-manifesto-title">The Cultural Commons Manifesto</a>
     </p>
     <p i18n:translate="" class="infoIndent">
-      <a href="/statute" target="_blank"
+      <a href="http://www.c3s.cc/legal/C3S_de_v1.0.pdf" target="_blank"
 	 i18n:name="join-form-statute-title"
 	 i18n:translate="join-form-statute-title">The C3S SCE Statute</a>
     </p>
-    <p i18n:translate="" class="infoIndent">
-      <a href="/disclaimer" target="_blank"
-	 i18n:name="join-form-disclaimer-title"
-	 i18n:translate="join-form-disclaimer-title">Disclaimer (Data Protection)</a>
+    <!--
+    <p i18n:translate="join-form-disclaimer-title" class="infoIndent">
+      Disclaimer (Data Protection)
     </p>
-    <p i18n:translate="" class="infoIndent">
-      <a href="/faq" target="_blank"
+    <p>
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+    -->
+    <!-- p i18n:translate="" class="infoIndent" -->
+      <!-- a href="/faq" target="_blank"
 	 i18n:name="join-form-faq-title"
-	 i18n:translate="join-form-faq-title">Frequently Asked Questions</a>
-    </p>
+	 i18n:translate="join-form-faq-title">Frequently Asked Questions</a -->
+    <!-- /p -->
   </tal:block>
-
   <tal:block metal:fill-slot="deform-load">
     <!--! loading deform -->
     <script type="text/javascript">deform.load()</script>
