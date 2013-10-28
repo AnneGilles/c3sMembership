@@ -178,7 +178,7 @@ def generate_csv(appstruct):
         appstruct['postcode'],
         appstruct['city'],
         appstruct['country'],  # # # country
-        'j' if appstruct['invest_member'] == 'yes' else 'n',
+        'j' if appstruct['membership_type'] == 'investing' else 'n',
         #appstruct['opt_URL'],
         #appstruct['opt_band'],
         appstruct['date_of_birth'],
@@ -261,7 +261,7 @@ that's it.. bye!""" % (
         appstruct['postcode'],
         appstruct['city'],
         appstruct['country'],
-        appstruct['invest_member'],
+        appstruct['membership_type'],
         appstruct['num_shares'],
         appstruct['member_of_colsoc'],
         appstruct['name_of_colsoc'],

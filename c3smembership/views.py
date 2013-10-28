@@ -321,7 +321,8 @@ def success_verify_email(request):
                 'date_of_birth': member.date_of_birth,
                 'date_of_submission': member.date_of_submission,
                 #'activity': set(activities),
-                'invest_member': u'yes' if member.invest_member else u'no',
+                #'invest_member': u'yes' if member.invest_member else u'no',
+                'membership_type': member.membership_type,
                 'member_of_colsoc': u'yes' if member.member_of_colsoc else 'no',
                 'name_of_colsoc': member.name_of_colsoc,
                 #'opt_band': signee.opt_band,
@@ -602,23 +603,44 @@ def join_c3s(request):
             #log.info("end----------------------------------------")
             pass
 
-        member_is_artist = colander.SchemaNode(
+        membership_type = colander.SchemaNode(
             colander.String(),
-            title=_(
-                u'I am at least one of: composer, lyricist, '
-                'remixer, arranger, producer, DJ (i.e. musician)'),
-            description=_(
-                u'You have to be a musician to become a regular member of C3S SCE.'
-                'Or choose to become a supporting member.'),
-            validator=colander.OneOf([x[0] for x in yes_no]),
+            title=_(u'I want to become a ... (choose membership type)'),
+            description=_(u'choose the type of membership.'),
             widget=deform.widget.RadioChoiceWidget(
-                values=(yes_no),
-            ),
+                values=(
+                    (u'normal',
+                     _(u'normal member. '
+                       'Normal members have to be natural persons '
+                       'who register at least three works with C3S '
+                       'they created themselves. This applies to composers, '
+                       'lyricists and remixers. They get a vote.')),
+                    (u'investing',
+                     _(u'investing member. '
+                       'Investing members can be natural persons or legal '
+                       'bodies that do not register works with C3S. '
+                       'They do not get a vote, but may counsel.'))
+                ),
+            )
         )
+
+        # member_is_artist = colander.SchemaNode(
+        #     colander.String(),
+        #     title=_(
+        #         u'I am at least one of: composer, lyricist, '
+        #         'remixer, arranger, producer, DJ (i.e. musician)'),
+        #     description=_(
+        #         u'You have to be a musician to become a regular member of C3S SCE.'
+        #         'Or choose to become a supporting member.'),
+        #     validator=colander.OneOf([x[0] for x in yes_no]),
+        #     widget=deform.widget.RadioChoiceWidget(
+        #         values=(yes_no),
+        #     ),
+        # )
         member_of_colsoc = colander.SchemaNode(
             colander.String(),
             title=_(
-                u'Currently, I am a member of another collecting society.'),
+                u'Currently, I am a member of (at least) one other collecting society.'),
             validator=colander.OneOf([x[0] for x in yes_no]),
             widget=deform.widget.RadioChoiceWidget(values=yes_no),
             oid="other_colsoc",
@@ -626,31 +648,32 @@ def join_c3s(request):
         )
         name_of_colsoc = colander.SchemaNode(
             colander.String(),
-            title=_(u'If so, which one?'),
+            title=_(u'If so, which one(s)? (comma separated)'),
             description=_(
-                u'Please tell us which collecting society '
-                'you are a member of.'),
+                u'Please tell us which collecting societies '
+                'you are a member of. '
+                'If more than one, please separate them by comma(s).'),
             missing=unicode(''),
             oid="colsoc_name",
             validator=colander.All(
                 colsoc_validator,
             )
         )
-        invest_member = colander.SchemaNode(
-            colander.String(),
-            title=_(
-                u'I am considering to join C3S as a supporting member only. '
-                'This option is also available to members of other collecting '
-                'societies without quitting those.'),
-            description=_(
-                u'Normal members are typically musicians '
-                'with at least three works they produced themselves. '
-                'If you are not a musician but still want to join '
-                'and support C3S, become a suporting/investing member.'),
-            validator=colander.OneOf([x[0] for x in yes_no]),
-            widget=deform.widget.RadioChoiceWidget(values=yes_no),
-            oid="investing_member",
-        )
+        # invest_member = colander.SchemaNode(
+        #     colander.String(),
+        #     title=_(
+        #         u'I am considering to join C3S as a supporting member only. '
+        #         'This option is also available to members of other collecting '
+        #         'societies without quitting those.'),
+        #     description=_(
+        #         u'Normal members are typically musicians '
+        #         'with at least three works they produced themselves. '
+        #         'If you are not a musician but still want to join '
+        #         'and support C3S, become a suporting/investing member.'),
+        #     validator=colander.OneOf([x[0] for x in yes_no]),
+        #     widget=deform.widget.RadioChoiceWidget(values=yes_no),
+        #     oid="investing_member",
+        # )
 
     class Shares(colander.Schema):
         """
@@ -661,7 +684,8 @@ def join_c3s(request):
         """
         num_shares = colander.SchemaNode(
             colander.Integer(),
-            title=_(u"Number of Shares (50€ each, up to 3000€)"),
+            title=_(u"I want to buy the following number "
+                    u"of Shares (50€ each, up to 3000€)"),
             description=_(
                 u'You can choose any amount of shares between 1 and 60.'),
             default="1",
@@ -781,8 +805,9 @@ def join_c3s(request):
             #is_remixer=('remixer' in appstruct['activity']),
             #is_dj=('dj' in appstruct['activity']),
             date_of_submission=datetime.now(),
-            invest_member=(
-                appstruct['membership_info']['invest_member'] == u'yes'),
+            #invest_member=(
+            #    appstruct['membership_info']['invest_member'] == u'yes'),
+            membership_type=appstruct['membership_info']['membership_type'],
             member_of_colsoc=(
                 appstruct['membership_info']['member_of_colsoc'] == u'yes'),
             name_of_colsoc=appstruct['membership_info']['name_of_colsoc'],
@@ -796,7 +821,7 @@ def join_c3s(request):
             appstruct['email_confirm_code'] = randomstring
         except InvalidRequestError, e:  # pragma: no cover
             print("InvalidRequestError! %s") % e
-        except IntegrityError, ie: # pragma: no cover
+        except IntegrityError, ie:  # pragma: no cover
             print("IntegrityError! %s") % ie
 
         # send mail to accountants // prepare a mailer

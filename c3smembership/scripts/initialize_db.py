@@ -39,12 +39,20 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
     with transaction.manager:
         accountants_group = Group(name=u"staff")
+        try:
+            DBSession.add(accountants_group)
+        except:
+            pass
         staffer1 = C3sStaff(
             login=u"rut",
             password=u"berries",
             email=u"noreply@c3s.cc",
         )
         staffer1.groups = [accountants_group]
+        try:
+            DBSession.add(staffer1)
+        except:
+            pass
 
         member1 = C3sMember(
             firstname=u"Firstnäme",  # includes umlaut
@@ -62,25 +70,21 @@ def main(argv=sys.argv):
             email_confirm_code=u"ABCDEFGHIJ",
             num_shares=u'10',
             date_of_submission=datetime.now(),
-            invest_member=True,
+            #invest_member=True,
+            membership_type=u'normal',
             member_of_colsoc=True,
             name_of_colsoc=u"GEMA",
         )
-        #DBSession.add(accountants_group)
-        #try:
-        #    DBSession.add(staffer1)
-        #except:
-        #    pass
-        #try:
-            #DBSession.add(member1)
-        #except IntegrityError:
-        #    DBSession.remove(member1)
-            #pass
+
+        try:
+            DBSession.add(member1)
+        except:
+            pass
 
         import random
         import string
 
-        for i in range(50):
+        for i in range(50):  # create 50 members with semi-random dates
             print i
             member = C3sMember(
                 firstname=u"Firstnäme",  # includes umlaut
@@ -99,10 +103,11 @@ def main(argv=sys.argv):
                     random.choice(
                         string.ascii_uppercase + string.digits
                     ) for x in range(8)),
-                num_shares=u'10',
+                num_shares=random.randint(1, 60),
                 date_of_submission=datetime.now(),
-                invest_member=True,
-                member_of_colsoc=True,
+                #invest_member=True,
+                membership_type=random.choice((u'normal', u'investing')),
+                member_of_colsoc=random.choice((True, False)),
                 name_of_colsoc=u"GEMA",
             )
             try:
@@ -144,7 +149,8 @@ def init():
             email_confirm_code=u"ABCDEFGHIJ",
             num_shares=u'10',
             date_of_submission=datetime.now(),
-            invest_member=True,
+            #invest_member=True,
+            membership_type=u'normal',
             member_of_colsoc=True,
             name_of_colsoc=u"GEMA",
         )
@@ -192,10 +198,12 @@ def init_50():
                     ) for x in range(8)),
                 num_shares=u'10',
                 date_of_submission=datetime.now(),
-                invest_member=True,
+                #invest_member=True,
+                membership_type=random.choice((u'normal', u'investing')),
                 member_of_colsoc=True,
                 name_of_colsoc=u"GEMA",
             )
+            print member.membership_type
             try:
                 DBSession.add(member)
             except IntegrityError:

@@ -168,29 +168,27 @@ class C3sMember(Base):
     email_is_confirmed = Column(Boolean, default=False)
     email_confirm_code = Column(Unicode(255), unique=True)
     num_shares = Column(Integer())  # XXX TODO: check for number <= max_shares
-#    is_composer = Column(Boolean())
-#    is_lyricist = Column(Boolean())
-#    is_producer = Column(Boolean())
-#    is_remixer = Column(Boolean())
-#    is_dj = Column(Boolean())
     date_of_submission = Column(DateTime(), nullable=False)
     signature_received = Column(Boolean, default=False)
+    signature_received_date = Column(
+        DateTime(), default=datetime(1970, 1, 1))
     payment_received = Column(Boolean, default=False)
-    invest_member = Column(Boolean, default=False)
+    payment_received_date = Column(
+        DateTime(), default=datetime(1970, 1, 1))
+    accountant_comment = Column(Unicode(255))
+    membership_type = Column(Unicode(255))
     member_of_colsoc = Column(Boolean, default=False)
     name_of_colsoc = Column(Unicode(255))
-#    opt_band = Column(Unicode(255))
-#    opt_URL = Column(Unicode(255))
 
     def __init__(self, firstname, lastname, email, password,
                  address1, address2, postcode, city, country, locale,
                  date_of_birth, email_is_confirmed, email_confirm_code,
                  num_shares,
-                 #is_composer, is_lyricist, is_producer, is_remixer, is_dj,
                  date_of_submission,
-                 invest_member, member_of_colsoc, name_of_colsoc,
-                 #opt_band, opt_URL
+                 membership_type, member_of_colsoc, name_of_colsoc,
                  ):
+        print member_of_colsoc
+        print type(member_of_colsoc)
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -206,19 +204,15 @@ class C3sMember(Base):
         self.email_is_confirmed = email_is_confirmed
         self.email_confirm_code = email_confirm_code
         self.num_shares = num_shares
-        #self.is_composer = is_composer
-        #self.is_lyricist = is_lyricist
-        #self.is_producer = is_producer
-        #self.is_remixer = is_remixer
-        #self.is_dj = is_dj
         self.date_of_submission = datetime.now()
         self.signature_received = False
         self.payment_received = False
-        self.invest_member = invest_member
+        self.membership_type = membership_type
         self.member_of_colsoc = member_of_colsoc
-        self.name_of_colsoc = name_of_colsoc
-        #self.opt_band = opt_band
-        #self.opt_URL = opt_URL
+        if self.member_of_colsoc is True:
+            self.name_of_colsoc = name_of_colsoc
+        else:
+            self.name_of_colsoc = u''
 
     def _get_password(self):
         return self._password
@@ -238,8 +232,8 @@ class C3sMember(Base):
         and clicking on a link containing the confirmation code.
         as the code is unique, one record is returned.
         """
-        dbSession = DBSession  # ()
-        return dbSession.query(cls).filter(
+        #dbSession = DBSession  # ()
+        return DBSession.query(cls).filter(
             cls.email_confirm_code == email_confirm_code).first()
 
     @classmethod
@@ -247,8 +241,8 @@ class C3sMember(Base):
         """
         check if a code is already present
         """
-        dbSession = DBSession  # ()
-        check = dbSession.query(cls).filter(
+        #dbSession = DBSession  # ()
+        check = DBSession.query(cls).filter(
             cls.email_confirm_code == email_confirm_code).first()
         if check:  # pragma: no cover
             return True

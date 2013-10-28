@@ -1,5 +1,8 @@
+/* part one: the form */
+
 /* the background: green */
-#bottom{background-color:#d9f0c8;}
+#bottom,
+#wrap {background-color:#d9f0c8;}
 /* subheadings: bright green */
 h2.deform {color:#4dbd38;font-weight:bold;padding-top:10px;}
 /* date of birth display with DatePartsWidget: control sizes */
@@ -8,7 +11,7 @@ input#date_of_birth { width:50px!important;}
 /* form subparts: /fieldset/legend */
 #item-deformField1 > fieldset > legend {color:#4dbd38;font-weight:bold;}
 #item-deformField13 > fieldset > legend {color:#4dbd38;font-weight:bold;}
-#item-deformField18 > fieldset > legend {color:#4dbd38;font-weight:bold;}
+#item-deformField17 > fieldset > legend {color:#4dbd38;font-weight:bold;}
 /* general text imput fields: enlarge font a bit */
 input[type=text],
 select {
@@ -53,4 +56,18 @@ input #password {
     /* background-position:center center; */
     /* background-attachment:scroll; */
     vertical-align: bottom!important;
+}
+
+/* part 2 : the success page */
+
+.c3s-subheading-4 {
+    margin-top:20px;
+    color:#4dbd38;
+    font-weight:bold;}
+.greenButton {
+    color:#4dbd38;
+    padding: 10px;
+    border-color:#4dbd38;
+    font-size:140%;
+    font-weight:bold;
 }
