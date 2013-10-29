@@ -14,6 +14,7 @@ from pkg_resources import resource_filename
 import colander
 import deform
 from deform import ValidationFailure
+from colander import Invalid
 
 from pyramid.i18n import (
     #TranslationStringFactory,
@@ -659,21 +660,30 @@ def join_c3s(request):
                 colsoc_validator,
             )
         )
-        # invest_member = colander.SchemaNode(
-        #     colander.String(),
-        #     title=_(
-        #         u'I am considering to join C3S as a supporting member only. '
-        #         'This option is also available to members of other collecting '
-        #         'societies without quitting those.'),
-        #     description=_(
-        #         u'Normal members are typically musicians '
-        #         'with at least three works they produced themselves. '
-        #         'If you are not a musician but still want to join '
-        #         'and support C3S, become a suporting/investing member.'),
-        #     validator=colander.OneOf([x[0] for x in yes_no]),
-        #     widget=deform.widget.RadioChoiceWidget(values=yes_no),
-        #     oid="investing_member",
-        # )
+
+        def statute_validator(node, value):
+            if not value:
+                raise Invalid(
+                    node,
+                    _(u'You must confirm to have access '
+                      u'to the C3S SCE statute'))
+
+        got_statute = colander.SchemaNode(
+            #colander.String(),
+            colander.Bool(true_val=u'yes'),
+            title=_(
+                u'I got to read an electronic copy of the '
+                u'C3S SCE statute'),
+            description=_(
+                u'You must confirm to have access to the statute.'),
+            #widget=deform.widget.CheckboxChoiceWidget(
+            #    values=(('yes', _(u'Yes')),)),
+            widget=deform.widget.CheckboxWidget(),
+            #validator=colander.OneOf(['yes', ]),
+            validator=statute_validator,
+            required=True,
+            label=_('Yes'),
+        )
 
     class Shares(colander.Schema):
         """

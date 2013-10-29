@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: c3smembership 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-10-28 10:04+0100\n"
-"PO-Revision-Date: 2013-10-28 10:06+0100\n"
+"POT-Creation-Date: 2013-10-29 16:21+0100\n"
+"PO-Revision-Date: 2013-10-29 16:24+0100\n"
 "Last-Translator: Christoph Scheid <christoph.scheid@c3s.cc>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -19,44 +19,44 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: c3smembership/accountants_views.py:79
+#: c3smembership/accountants_views.py:82
 msgid "login"
 msgstr "login"
 
 #. Default: Password
-#: c3smembership/accountants_views.py:86
-#: c3smembership/templates/verify_password.pt:31
+#: c3smembership/accountants_views.py:89
+#: c3smembership/templates/verify_password.pt:23
 msgid "password"
 msgstr "Passwort"
 
-#: c3smembership/accountants_views.py:95
-#: c3smembership/accountants_views.py:312 c3smembership/views.py:725
+#: c3smembership/accountants_views.py:98
+#: c3smembership/accountants_views.py:335 c3smembership/views.py:736
 msgid "Submit"
 msgstr "Absenden"
 
-#: c3smembership/accountants_views.py:96
-#: c3smembership/accountants_views.py:313 c3smembership/views.py:726
+#: c3smembership/accountants_views.py:99
+#: c3smembership/accountants_views.py:336 c3smembership/views.py:737
 msgid "Reset"
 msgstr "Löschen"
 
-#: c3smembership/accountants_views.py:112
-#: c3smembership/accountants_views.py:333 c3smembership/views.py:757
+#: c3smembership/accountants_views.py:115
+#: c3smembership/accountants_views.py:356 c3smembership/views.py:768
 msgid "Please note: There were errors, please check the form below."
 msgstr "Bitte beachten: Es gab Fehler. Bitte Eingaben unten korrigieren."
 
-#: c3smembership/accountants_views.py:301
+#: c3smembership/accountants_views.py:324
 msgid "Have we received a good signature?"
 msgstr "Ist ein unterschriebenes Formular eingegangen?"
 
-#: c3smembership/accountants_views.py:305
+#: c3smembership/accountants_views.py:328
 msgid "Have we received payment for the shares?"
 msgstr "Gab es einen Geldeingang in Höhe der Anteile?"
 
-#: c3smembership/views.py:186
+#: c3smembership/views.py:187
 msgid "hello"
 msgstr "Hallo"
 
-#: c3smembership/views.py:190
+#: c3smembership/views.py:191
 msgid ""
 "please use this link to verify your email address and download your "
 "personalised PDF:"
@@ -64,19 +64,19 @@ msgstr ""
 "bitte benutze diesen Link um Deine Email-Adresse zu bestätigen und Dein "
 "Formular zu laden:"
 
-#: c3smembership/views.py:198
+#: c3smembership/views.py:199
 msgid "thanks!"
 msgstr "Danke!"
 
-#: c3smembership/views.py:201
+#: c3smembership/views.py:202
 msgid "your C3S team"
 msgstr "Dein C3S Team"
 
-#: c3smembership/views.py:205
+#: c3smembership/views.py:206
 msgid "C3S: confirm your email address and load your PDF"
 msgstr "C3S: Bestätige deine Email-Adresse und lade Dein PDF"
 
-#: c3smembership/views.py:290
+#: c3smembership/views.py:291
 msgid ""
 "Not found. check URL.\n"
 "                              If all seems right, please use the form again."
@@ -84,147 +84,147 @@ msgstr ""
 "Nicht gefunden. Bitte URL überprüfen. Wenn alles richtig sein müsste, bitte "
 "das Formular nochmals benutzen."
 
-#: c3smembership/views.py:341
+#: c3smembership/views.py:343
 msgid "Success. Load your PDF!"
 msgstr "Erfolg. Lade Dein PDF!"
 
-#: c3smembership/views.py:346
+#: c3smembership/views.py:348
 msgid "Please enter your password."
 msgstr "Bitte das Passwort eingeben."
 
-#: c3smembership/views.py:429
+#: c3smembership/views.py:431
 msgid "Austria"
 msgstr "Österreich"
 
-#: c3smembership/views.py:430
+#: c3smembership/views.py:432
 msgid "Belgium"
 msgstr "Belgien"
 
-#: c3smembership/views.py:431
+#: c3smembership/views.py:433
 msgid "Bulgaria"
 msgstr "Bulgarien"
 
-#: c3smembership/views.py:432
+#: c3smembership/views.py:434
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: c3smembership/views.py:433
+#: c3smembership/views.py:435
 msgid "Czech Republic"
 msgstr "Tschechische Republik"
 
-#: c3smembership/views.py:434
+#: c3smembership/views.py:436
 msgid "Germany"
 msgstr "Deutschland"
 
-#: c3smembership/views.py:435
+#: c3smembership/views.py:437
 msgid "Denmark"
 msgstr "Dänemark"
 
-#: c3smembership/views.py:436
+#: c3smembership/views.py:438
 msgid "Spain"
 msgstr "Spanien"
 
-#: c3smembership/views.py:437
+#: c3smembership/views.py:439
 msgid "Estonia"
 msgstr "Estland"
 
-#: c3smembership/views.py:438
+#: c3smembership/views.py:440
 msgid "Finland"
 msgstr "Finnland"
 
-#: c3smembership/views.py:439
+#: c3smembership/views.py:441
 msgid "France"
 msgstr "Frankreich"
 
-#: c3smembership/views.py:440
+#: c3smembership/views.py:442
 msgid "United Kingdom"
 msgstr "Großbritannien"
 
-#: c3smembership/views.py:441
+#: c3smembership/views.py:443
 msgid "Greece"
 msgstr "Griechenland"
 
-#: c3smembership/views.py:442
+#: c3smembership/views.py:444
 msgid "Hungary"
 msgstr "Ungarn"
 
-#: c3smembership/views.py:443
+#: c3smembership/views.py:445
 msgid "Croatia"
 msgstr "Kroatien"
 
-#: c3smembership/views.py:444
+#: c3smembership/views.py:446
 msgid "Israel"
 msgstr "Israel"
 
-#: c3smembership/views.py:445
+#: c3smembership/views.py:447
 msgid "Ireland"
 msgstr "Irland"
 
-#: c3smembership/views.py:446
+#: c3smembership/views.py:448
 msgid "Italy"
 msgstr "Italien"
 
-#: c3smembership/views.py:447
+#: c3smembership/views.py:449
 msgid "Lithuania"
 msgstr "Litauen"
 
-#: c3smembership/views.py:448
+#: c3smembership/views.py:450
 msgid "Latvia"
 msgstr "Lettland"
 
-#: c3smembership/views.py:449
+#: c3smembership/views.py:451
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: c3smembership/views.py:450
+#: c3smembership/views.py:452
 msgid "Malta"
 msgstr "Malta"
 
-#: c3smembership/views.py:451
+#: c3smembership/views.py:453
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: c3smembership/views.py:452
+#: c3smembership/views.py:454
 msgid "Poland"
 msgstr "Polen"
 
-#: c3smembership/views.py:453
+#: c3smembership/views.py:455
 msgid "Portugal"
 msgstr "Portugal"
 
-#: c3smembership/views.py:454
+#: c3smembership/views.py:456
 msgid "Slovakia"
 msgstr "Slowakei"
 
-#: c3smembership/views.py:455
+#: c3smembership/views.py:457
 msgid "Slovenia"
 msgstr "Slovenien"
 
-#: c3smembership/views.py:456
+#: c3smembership/views.py:458
 msgid "Sweden"
 msgstr "Schweden"
 
-#: c3smembership/views.py:457
+#: c3smembership/views.py:459
 msgid "other"
 msgstr "anderes"
 
-#: c3smembership/views.py:479 c3smembership/templates/success.pt:25
+#: c3smembership/views.py:481 c3smembership/templates/success.pt:25
 msgid "(Real) First Name"
 msgstr "Vorname"
 
-#: c3smembership/views.py:484 c3smembership/templates/success.pt:26
+#: c3smembership/views.py:486 c3smembership/templates/success.pt:26
 msgid "(Real) Last Name"
 msgstr "Nachname"
 
-#: c3smembership/views.py:489 c3smembership/templates/success.pt:27
+#: c3smembership/views.py:491 c3smembership/templates/success.pt:27
 msgid "Email"
 msgstr "Email"
 
-#: c3smembership/views.py:497
+#: c3smembership/views.py:499
 msgid "Password"
 msgstr "Passwort"
 
-#: c3smembership/views.py:498
+#: c3smembership/views.py:500
 msgid ""
 "We need a password to protect your data. After verifying your email you will "
 "have to enter it."
@@ -232,55 +232,55 @@ msgstr ""
 "Wir brauchen ein Passwort, um deine Daten zu schützen. Nach der Bestätigung "
 "der Email-Adresse wird es abgefragt."
 
-#: c3smembership/views.py:505 c3smembership/templates/success.pt:28
+#: c3smembership/views.py:507 c3smembership/templates/success.pt:28
 msgid "Address Line 1"
 msgstr "Straße & Nr."
 
-#: c3smembership/views.py:510 c3smembership/templates/success.pt:29
+#: c3smembership/views.py:512 c3smembership/templates/success.pt:29
 msgid "Address Line 2"
 msgstr "Adresszusatz"
 
-#: c3smembership/views.py:514 c3smembership/templates/success.pt:30
+#: c3smembership/views.py:516 c3smembership/templates/success.pt:30
 msgid "Post Code"
 msgstr "Postleitzahl"
 
-#: c3smembership/views.py:519 c3smembership/templates/success.pt:31
+#: c3smembership/views.py:521 c3smembership/templates/success.pt:31
 msgid "City"
 msgstr "Ort"
 
-#: c3smembership/views.py:528 c3smembership/templates/success.pt:32
+#: c3smembership/views.py:530 c3smembership/templates/success.pt:32
 msgid "Country"
 msgstr "Land"
 
-#: c3smembership/views.py:540 c3smembership/templates/success.pt:33
+#: c3smembership/views.py:542 c3smembership/templates/success.pt:33
 msgid "Date of Birth"
 msgstr "Geburtsdatum"
 
-#: c3smembership/views.py:547
+#: c3smembership/views.py:549
 msgid "${val} is earlier than earliest date ${min}"
 msgstr "${val} liegt vor dem frühesten Datum ${min}"
 
-#: c3smembership/views.py:548
+#: c3smembership/views.py:550
 msgid "${val} is later than latest date ${max}"
 msgstr "${val} liegt nach dem spätesten Datum ${max}"
 
-#: c3smembership/views.py:576
+#: c3smembership/views.py:578 c3smembership/views.py:685
 msgid "Yes"
 msgstr "Ja"
 
-#: c3smembership/views.py:577
+#: c3smembership/views.py:579
 msgid "No"
 msgstr "Nein"
 
-#: c3smembership/views.py:607
+#: c3smembership/views.py:609
 msgid "I want to become a ... (choose membership type)"
 msgstr "Ich möchte ... (Art der Mitgliedschaft auswählen)"
 
-#: c3smembership/views.py:608
+#: c3smembership/views.py:610
 msgid "choose the type of membership."
 msgstr "Wähle die Art der Mitgliedschaft."
 
-#: c3smembership/views.py:612
+#: c3smembership/views.py:614
 msgid ""
 "normal member. Normal members have to be natural persons who register at "
 "least three works with C3S they created themselves. This applies to "
@@ -291,7 +291,7 @@ msgstr ""
 "Wahrnehmung bei der C3S registrieren. Dies trifft z.B. auf Komponist_innen, "
 "Liedtexter_innen oder Remixer_innen zu. Sie erhalten volles Stimmrecht."
 
-#: c3smembership/views.py:618
+#: c3smembership/views.py:620
 msgid ""
 "investing member. Investing members can be natural persons or legal bodies "
 "that do not register works with C3S. They do not get a vote, but may counsel."
@@ -302,16 +302,16 @@ msgstr ""
 "Rechtsnachfolger von  Uhrheber_innen zu. Sie erhalten kein Stimmrecht, "
 "können aber beraten."
 
-#: c3smembership/views.py:641
+#: c3smembership/views.py:643
 msgid "Currently, I am a member of (at least) one other collecting society."
 msgstr ""
 "Ich bin derzeit Mitglied (mindestens) einer anderen Verwertungsgesellschaft."
 
-#: c3smembership/views.py:650
+#: c3smembership/views.py:652
 msgid "If so, which one(s)? (comma separated)"
 msgstr "Falls ja, welche? Mehrere Nennungen bitte durch Komma getrennt"
 
-#: c3smembership/views.py:651
+#: c3smembership/views.py:653
 msgid ""
 "Please tell us which collecting societies you are a member of. If more than "
 "one, please separate them by comma(s)."
@@ -319,31 +319,47 @@ msgstr ""
 "Bitte nenne uns die Verwertungsgesellschaft(en), in denen du Mitglied bist. "
 "Mehrere Nennungen bitte durch Komma getrennt"
 
-#: c3smembership/views.py:686
+#: c3smembership/views.py:668
+msgid "You must confirm to have access to the C3S SCE statute"
+msgstr ""
+"Du musst bestätigen, die Satzung der C3S SCE in elektronischer Form zur "
+"Verfügung gestellt bekommen zu haben. (Link zun Download siehe unten)"
+
+#: c3smembership/views.py:674
+msgid "I got to read an electronic copy of the C3S SCE statute"
+msgstr ""
+"Ich habe die Satzung der C3S SCE in elektronischer Form zu Verfügung "
+"gestellt bekommen."
+
+#: c3smembership/views.py:677
+msgid "You must confirm to have access to the statute."
+msgstr "Du musst bestätigen, Zugriff auf die Satzung gehabt zu haben."
+
+#: c3smembership/views.py:697
 msgid "I want to buy the following number of Shares (50€ each, up to 3000€)"
 msgstr "Anzahl Anteile (50€ pro Anteil, höchstens 3000€)"
 
-#: c3smembership/views.py:688
+#: c3smembership/views.py:699
 msgid "You can choose any amount of shares between 1 and 60."
 msgstr "Du kannst eine Anzahl von Anteilen zwischen 1 und 60 auswählen."
 
-#: c3smembership/views.py:696
+#: c3smembership/views.py:707
 msgid "You need at least one share of 50 Euro."
 msgstr "Du brauchst mindestens einen Anteil zu 50 Euro."
 
-#: c3smembership/views.py:697
+#: c3smembership/views.py:708
 msgid "You may choose 60 shares at most. (3000 Euro)"
 msgstr "Du darfst höchstens 60 Anteile auswählen (3000€)."
 
-#: c3smembership/views.py:709 c3smembership/templates/success.pt:23
+#: c3smembership/views.py:720 c3smembership/templates/success.pt:23
 msgid "Personal Data"
 msgstr "Persönliche Angaben"
 
-#: c3smembership/views.py:714 c3smembership/templates/success.pt:35
+#: c3smembership/views.py:725 c3smembership/templates/success.pt:35
 msgid "Membership Requirements"
 msgstr "Vorraussetzungen der Mitgliedschaft"
 
-#: c3smembership/views.py:717 c3smembership/templates/success.pt:43
+#: c3smembership/views.py:728 c3smembership/templates/success.pt:43
 msgid "Shares"
 msgstr "Genossenschaftsanteile"
 
@@ -469,8 +485,8 @@ msgstr "Füll mich"
 
 #. Default: Join the Cultural Commons Collecting Society (C3S)
 #. Default: Join Cultural Commons Collecting Society (C3S)
-#: c3smembership/templates/join.pt:18 c3smembership/templates/login.pt:14
-#: c3smembership/templates/verify_password.pt:14
+#: c3smembership/templates/join.pt:18 c3smembership/templates/login.pt:12
+#: c3smembership/templates/verify_password.pt:12
 msgid "join-form-title"
 msgstr "Werde Mitglied in der Cultural Commons Collecting Society"
 
@@ -608,12 +624,10 @@ msgid "success-headline-data-received"
 msgstr "Wir haben folgende Daten erhalten"
 
 #: c3smembership/templates/success.pt:37
-#| msgid "choose the type of membership."
 msgid "Type of Membership"
 msgstr "Art der Mitgliedschaft"
 
 #: c3smembership/templates/success.pt:38
-#| msgid "Currently, I am a member of (at least) one other collecting society."
 msgid "Member of other Collecting Society"
 msgstr "Mitglied anderer Verwertungsgesellschaft(en)"
 
@@ -680,19 +694,19 @@ msgid "verified-email-paragraph"
 msgstr "Da Seine Email-Adresse nun bestätigt ist, darfst Du Dein PDF laden."
 
 #. Default: Get your PDF...
-#: c3smembership/templates/verify_password.pt:29
+#: c3smembership/templates/verify_password.pt:21
 msgid "get your pdf"
 msgstr "Hier geht es zum PDF..."
 
 #. Default: Load your PDF...
-#: c3smembership/templates/verify_password.pt:37
+#: c3smembership/templates/verify_password.pt:29
 msgid "load-your-PDF"
 msgstr "Lade dein PDF..."
 
 #. Default: To make your membership valid, please print the PDF, sign it and
 #. send
 #. it back to us. Please read it carefully!
-#: c3smembership/templates/verify_password.pt:43
+#: c3smembership/templates/verify_password.pt:35
 msgid "load-pdf-further-instructions"
 msgstr ""
 "Um den Beitritt als Mitglied zu vollziehen, musst Du das Formular ausdrucken "
