@@ -54,7 +54,7 @@ class C3sMembershipModelTests(unittest.TestCase):
                  email=u'some@email.de',
                  address1=u"addr one",
                  address2=u"addr two",
-                 postcode="12345",
+                 postcode=u"12345",
                  city=u"Footown Mäh",
                  country=u"Foocountry",
                  locale=u"DE",
@@ -89,6 +89,37 @@ class C3sMembershipModelTests(unittest.TestCase):
             #opt_band, opt_URL
             )
 
+    def _makeAnotherOne(self,
+                        firstname=u'SomeFirstname',
+                        lastname=u'SomeLastname',
+                        email=u'some@email.de',
+                        address1=u"addr one",
+                        address2=u"addr two",
+                        postcode=u"12345",
+                        city=u"Footown Muh",
+                        country=u"Foocountry",
+                        locale=u"DE",
+                        date_of_birth=date.today(),
+                        email_is_confirmed=False,
+                        email_confirm_code=u'0987654321',
+                        password=u'arandompassword',
+                        date_of_submission=date.today(),
+                        membership_type=u'investing',
+                        member_of_colsoc=False,
+                        name_of_colsoc=u"deletethis",
+                        num_shares=u'23',
+                        ):
+        return self._getTargetClass()(  # order of params DOES matter
+            firstname, lastname, email,
+            password,
+            address1, address2, postcode,
+            city, country, locale,
+            date_of_birth, email_is_confirmed, email_confirm_code,
+            num_shares,
+            date_of_submission,
+            membership_type, member_of_colsoc, name_of_colsoc,
+        )
+
     def test_constructor(self):
         instance = self._makeOne()
         #print(instance.address1)
@@ -107,7 +138,7 @@ class C3sMembershipModelTests(unittest.TestCase):
         #session = DBSession()
         self.session.add(instance)
         myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_code('ABCDEFGHIK')
+        instance_from_DB = myMembershipSigneeClass.get_by_code(u'ABCDEFGHIK')
         #self.session.commit()
         #self.session.remove()
         #print instance_from_DB.email
@@ -169,10 +200,24 @@ class C3sMembershipModelTests(unittest.TestCase):
         myMembershipSigneeClass = self._getTargetClass()
 
         result1 = myMembershipSigneeClass.check_for_existing_confirm_code(
-            'ABCDEFGHIK')
+            u'ABCDEFGHIK')
         #print result1  # True
         self.assertEqual(result1, True)
         result2 = myMembershipSigneeClass.check_for_existing_confirm_code(
-            'ABCDEFGHIK0000000000')
+            u'ABCDEFGHIK0000000000')
         #print result2  # False
         self.assertEqual(result2, False)
+
+    def test_member_listing(self):
+        instance = self._makeOne()
+        self.session.add(instance)
+        instance2 = self._makeAnotherOne()
+        self.session.add(instance2)
+        myMembershipSigneeClass = self._getTargetClass()
+
+        result1 = myMembershipSigneeClass.member_listing(
+            myMembershipSigneeClass.id.desc())
+        #import pdb; pdb.set_trace()
+        #print (foo for foo in result1)
+        self.failUnless(result1[0].firstname == u"Firstnäme")
+        self.failUnless(result1[1].firstname == u"SomeFirstnäme")

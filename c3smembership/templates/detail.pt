@@ -10,7 +10,7 @@
       <p>
         Please <a href="${request.route_url('logout')}">log out</a>
         when you are done.
-        Or go <a href="${request.route_url('dashboard')}">back to dashboard</a>.
+        Or go <a href="${request.route_url('dashboard', number=0)}">back to dashboard</a>.
       </p>
 
       <h1>Details for Member Application #${member.id}</h1>
@@ -61,8 +61,8 @@
 	  <td>${member.date_of_submission}</td>
         </tr>
 	<tr>
-          <td>investing member</td>
-	  <td>${member.invest_member}</td>
+          <td>membership type</td>
+	  <td>${member.membership_type}</td>
         </tr>
 	<tr>
           <td>member_of_colsoc</td>

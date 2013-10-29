@@ -167,6 +167,7 @@ def generate_csv(appstruct):
 
     csv = tempfile.TemporaryFile()
     csvw = unicodecsv.writer(csv, encoding='utf-8')
+    #import pdb; pdb.set_trace()
     fields = (
         date.today().strftime("%Y-%m-%d"),  # e.g. 2012-09-02 date of subm.
         'pending...',  # #                  # has signature ?
@@ -245,7 +246,7 @@ address cont'd                  %s
 postcode:                       %s
 city:                           %s
 country:                        %s
-investing member:               %s
+membership type:                %s
 number of shares                %s
 
 member of coll. soc.:           %s

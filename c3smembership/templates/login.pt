@@ -6,9 +6,7 @@
       metal:use-macro="base"
       i18n:domain="c3smembership">
   <tal:block metal:fill-slot="deform-js-css">
-    <link rel="stylesheet" href="${request.static_url('c3smembership:static/deform/form.css')}" type="text/css" media="screen" charset="utf-8" />
-    <script type="text/javascript" src="/static/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="/static/deform/deform.js"></script>
+    <link rel="stylesheet" href="${request.static_url('c3smembership:static/c3sM.css')}" type="text/css" media="screen" charset="utf-8" />
   </tal:block>
   <tal:block metal:fill-slot="middle">
     <h1 i18n:translate="join-form-title">Join Cultural Commons Collecting Society (C3S)</h1>

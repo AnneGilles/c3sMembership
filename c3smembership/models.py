@@ -187,8 +187,6 @@ class C3sMember(Base):
                  date_of_submission,
                  membership_type, member_of_colsoc, name_of_colsoc,
                  ):
-        print member_of_colsoc
-        print type(member_of_colsoc)
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -266,8 +264,10 @@ class C3sMember(Base):
 
     @classmethod
     def member_listing(cls, order_by, how_many=10, offset=0):
-        print("offset: %s" % offset)
-        q = DBSession.query(cls).all()[offset:offset+how_many]
+        #print("offset: %s" % offset)
+        _how_many = int(offset) + int(how_many)
+        _offset = int(offset)
+        q = DBSession.query(cls).all()[_offset:_how_many]
         #return q.order_by(order_by)[:how_many]
         return q
 

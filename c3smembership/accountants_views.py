@@ -24,6 +24,8 @@ from pyramid.security import (
 from pyramid.url import route_url
 from translationstring import TranslationStringFactory
 
+from datetime import datetime
+
 deform_templates = resource_filename('deform', 'templates')
 c3smembership_templates = resource_filename('c3smembership', 'templates')
 
@@ -68,7 +70,8 @@ def accountants_login(request):
 
     if logged_in is not None:  # if user is already authenticated
         return HTTPFound(  # redirect her to the dashboard
-            request.route_url('dashboard'))
+            request.route_url('dashboard',
+                              number=0,))
 
     class AccountantLogin(colander.MappingSchema):
         """
@@ -126,10 +129,11 @@ def accountants_login(request):
         if checked:
             log.info("password check for %s: good!" % login)
             headers = remember(request, login)
-            log.info("logging in %s" % logged_in)
+            log.info("logging in %s" % login)
             return HTTPFound(  # redirect to accountants dashboard
                 location=route_url(  # after successful login
                     'dashboard',
+                    number=0,
                     request=request),
                 headers=headers)
         else:
@@ -155,6 +159,11 @@ def accountants_desk(request):
         # print("page to show: %s" % _page_to_show)
     except:
         _page_to_show = 0
+    # is it a number?
+    if not isinstance(_page_to_show, type(1)):
+        _page_to_show = 0
+
+
     # how many to display on one page
     if 'num_display' in request.session:
         num_display = request.session['num_display']
@@ -163,7 +172,7 @@ def accountants_desk(request):
 
     try:
         base_offset = int(_page_to_show) * num_display
-        print("base offset: %s" % base_offset)
+        #print("base offset: %s" % base_offset)
     except:
         #base_offset = 0
         if 'base_offset' in request.session:
@@ -203,8 +212,10 @@ def switch_sig(request):
     _member = C3sMember.get_by_id(memberid)
     if _member.signature_received is True:
         _member.signature_received = False
+        _member.signature_received_date = datetime(1970, 1, 1)
     elif _member.signature_received is False:
         _member.signature_received = True
+        _member.signature_received_date = datetime.now()
 
     log.info(
         "signature status of member.id %s changed by %s to %s" % (
@@ -214,7 +225,9 @@ def switch_sig(request):
         )
     )
 
-    return HTTPFound(request.route_url('dashboard'))
+    return HTTPFound(
+        request.route_url('dashboard',
+                          number=0,))
 
 
 @view_config(permission='manage',
@@ -235,7 +248,9 @@ def delete_entry(request):
         )
     )
 
-    return HTTPFound(request.route_url('dashboard'))
+    return HTTPFound(
+        request.route_url('dashboard',
+                          number=0,))
 
 
 @view_config(permission='manage',
@@ -248,10 +263,14 @@ def switch_pay(request):
     memberid = request.matchdict['memberid']
     _member = C3sMember.get_by_id(memberid)
 
-    if _member.payment_received is True:
+    if _member.payment_received is True:  # change to NOT SET
         _member.payment_received = False
-    elif _member.payment_received is False:
+        _member_payment_received_date = datetime(1970, 1, 1)
+    elif _member.payment_received is False:  # set to NOW
         _member.payment_received = True
+        _member.payment_received_date = datetime.now()
+
+    _member_payment_received_date
 
     log.info(
         "payment info of member.id %s changed by %s to %s" % (
@@ -260,7 +279,9 @@ def switch_pay(request):
             _member.payment_received
         )
     )
-    return HTTPFound(request.route_url('dashboard'))
+    return HTTPFound(
+        request.route_url('dashboard',
+                          number=0,))
 
 
 @view_config(renderer='templates/detail.pt',
@@ -290,7 +311,9 @@ def member_detail(request):
 
     #print(_member)
     if _member is None:  # that memberid did not produce good results
-        return HTTPFound(request.route_url('dashboard'))  # back to base
+        return HTTPFound(  # back to base
+            request.route_url('dashboard',
+                              number=0,))
 
     class ChangeDetails(colander.MappingSchema):
         """
