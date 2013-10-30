@@ -32,7 +32,7 @@ class AccountantsFunctionalTests(unittest.TestCase):
         my_settings = {
             'sqlalchemy.url': 'sqlite://',  # where the database is
             'available_languages': 'da de en es fr',
-            'c3smembership.offset': '30'}
+            'c3smembership.dashboard_number': '30'}
         #my_other_settings = {'sqlalchemy.url': 'sqlite:///test.db',
         #                     'available_languages': 'da de en es fr'}
                         # mock, not even used!?

@@ -1,26 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="base">
-  <!-- metal : use-macro="loggedinpt" -->
-  
-  <tal:block metal:fill-slot="bottom">
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+<head>
+  <title i18n:translate="membership-form-title">Membership Application for Cultural Commons Collecting Society (C3S SCE)</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta name="keywords" content="Membership Application to join C3S SCE" />
+  <meta name="description" content="" />
+  <link rel="shortcut icon" href="${request.static_url('c3smembership:static/favicon.ico')}" />
+  <link rel="stylesheet" href="${request.static_url('c3smembership:static/pylons.css')}" type="text/css" media="screen" charset="utf-8" />
+  <tal:block metal:define-slot="deform-js-css"></tal:block>
+  <!--[if lte IE 6]>
+  <link rel="stylesheet" href="${request.static_url('c3smembership:static/ie6.css')}"
+	type="text/css" media="screen" charset="utf-8" />
+  <![endif]-->
+</head>
+<body>
+  <div id="wrap">
     <div id="main">
       <h1>Dashboard</h1>
-      
+
       <p>Number of data sets: ${_number_of_datasets}</p>
-      
       <p>
-        Please <a href="${request.route_url('logout')}">log out</a>
-        when you are done.
-      </p>
-      
-      <p>Showing (up to) ${num_display} at a time.       
         <a href="${request.route_url('dashboard', number=previous)}">&lt;previous</a>
         <a href="${request.route_url('dashboard', number=next)}">next&gt;</a>
       </p>
-      
       <table border="1" cellpadding="10" width="90%">
 	<tr>
           <td>id</td>
@@ -69,10 +74,21 @@
 	  <td><a href="/delete/${member.id}">delete</a></td>
 	</tr>
       </table>
-      <p>&nbsp;</p>
-      <a href="${request.route_url('dashboard', number=previous)}">&lt;previous</a>
-      <a href="${request.route_url('dashboard', number=next)}">next&gt;</a>
-      <p>&nbsp;</p>
+      <p>
+        <a href="${request.route_url('dashboard', number=previous)}">&lt;previous</a>
+        <a href="${request.route_url('dashboard', number=next)}">next&gt;</a>
+      </p>
+      <p>Showing (up to) ${num_display} at a time. Change to
+        <form action="${request.route_url('dashboard', number=0)}" method="post">
+          <input name="num_to_show" type="text"
+                 size="3" maxlength="3"
+                 value="${num_display}">
+        </form>
+      </p>
+      <p>
+        Please <a href="${request.route_url('logout')}">log out</a>
+        when you are done.
+      </p>
+
     </div>
-  </tal:block>
 </html>

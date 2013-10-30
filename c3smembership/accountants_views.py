@@ -154,27 +154,40 @@ def accountants_desk(request):
     _number_of_datasets = C3sMember.get_number()
 
     try:  # check if
-        # a number us supplied with the URL
-        _page_to_show = request.matchdict['number']
-        # print("page to show: %s" % _page_to_show)
+        # a page number was supplied with the URL
+        _page_to_show = int(request.matchdict['number'])
+        #print("page to show: %s" % _page_to_show)
     except:
         _page_to_show = 0
     # is it a number?
     if not isinstance(_page_to_show, type(1)):
         _page_to_show = 0
+    #print("_page_to_show: %s" % _page_to_show)
 
-
-    # how many to display on one page
-    if 'num_display' in request.session:
-        num_display = request.session['num_display']
+    # how many to display on one page?
+    #print request.POST
+    if 'num_to_show' in request.POST:
+        #print("found it in POST")
+        try:
+            _num = int(request.POST['num_to_show'])
+            if isinstance(_num, type(1)):
+                num_display = _num
+        except:
+            pass
+    elif 'num_display' in request.cookies:
+        #print("found it in cookie")
+        num_display = int(request.cookies['num_display'])
     else:
-        num_display = 20
+        #print("setting default")
+        num_display = request.registry.settings[
+            'c3smembership.dashboard_number']
+    #print("num_display: %s " % num_display)
 
     try:
-        base_offset = int(_page_to_show) * num_display
+        base_offset = int(_page_to_show) * int(num_display)
         #print("base offset: %s" % base_offset)
     except:
-        #base_offset = 0
+        base_offset = 0
         if 'base_offset' in request.session:
             base_offset = request.session['base_offset']
         else:
@@ -190,6 +203,11 @@ def accountants_desk(request):
         previous_page = int(_page_to_show) - 1
     else:
         previous_page = int(_page_to_show)
+
+    # store info about current page in cookie
+    request.response.set_cookie('on_page', value=str(_page_to_show))
+    #print("num_display: %s" % num_display)
+    request.response.set_cookie('num_display', value=str(num_display))
 
     return {'_number_of_datasets': _number_of_datasets,
             'members': _members,
@@ -209,6 +227,9 @@ def switch_sig(request):
     memberid = request.matchdict['memberid']
     #log.info("the id: %s" % memberid)
 
+    # store the dashboard page the admin came from
+    dashboard_page = request.cookies['on_page']
+
     _member = C3sMember.get_by_id(memberid)
     if _member.signature_received is True:
         _member.signature_received = False
@@ -227,7 +248,7 @@ def switch_sig(request):
 
     return HTTPFound(
         request.route_url('dashboard',
-                          number=0,))
+                          number=dashboard_page,))
 
 
 @view_config(permission='manage',
@@ -237,7 +258,7 @@ def delete_entry(request):
     This view lets accountants delete entries (doublettes)
     """
     memberid = request.matchdict['memberid']
-
+    dashboard_page = request.cookies['on_page']
     _member = C3sMember.get_by_id(memberid)
 
     C3sMember.delete_by_id(_member.id)
@@ -250,7 +271,7 @@ def delete_entry(request):
 
     return HTTPFound(
         request.route_url('dashboard',
-                          number=0,))
+                          number=dashboard_page,))
 
 
 @view_config(permission='manage',
@@ -261,16 +282,15 @@ def switch_pay(request):
     has their signature arrived?
     """
     memberid = request.matchdict['memberid']
+    dashboard_page = request.cookies['on_page']
     _member = C3sMember.get_by_id(memberid)
 
     if _member.payment_received is True:  # change to NOT SET
         _member.payment_received = False
-        _member_payment_received_date = datetime(1970, 1, 1)
+        _member.payment_received_date = datetime(1970, 1, 1)
     elif _member.payment_received is False:  # set to NOW
         _member.payment_received = True
         _member.payment_received_date = datetime.now()
-
-    _member_payment_received_date
 
     log.info(
         "payment info of member.id %s changed by %s to %s" % (
@@ -281,7 +301,7 @@ def switch_pay(request):
     )
     return HTTPFound(
         request.route_url('dashboard',
-                          number=0,))
+                          number=dashboard_page,))
 
 
 @view_config(renderer='templates/detail.pt',
