@@ -1,4 +1,18 @@
-/* part one: the form */
+/*  global: override settings from pylons.css */
+
+html, body, #top {
+    background-color:#d9f0c8;
+}
+#wrap {
+min-height: 80%;
+}
+#middle {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+
+/* the form */
 
 /* the background: green */
 #bottom,
@@ -11,7 +25,7 @@ input#date_of_birth { width:50px!important;}
 /* form subparts: /fieldset/legend */
 #item-deformField1 > fieldset > legend {color:#4dbd38;font-weight:bold;}
 #item-deformField13 > fieldset > legend {color:#4dbd38;font-weight:bold;}
-#item-deformField17 > fieldset > legend {color:#4dbd38;font-weight:bold;}
+#item-deformField18 > fieldset > legend {color:#4dbd38;font-weight:bold;}
 /* general text imput fields: enlarge font a bit */
 input[type=text],
 select {
@@ -19,7 +33,7 @@ select {
     border-color:#4dbd38;
     padding: 10px;
     width:50%;} /* 320px!imp */
-input #password {
+#password {
     font-size:120%;
     border-color:#4dbd38;
     padding: 10px;

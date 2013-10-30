@@ -9,7 +9,7 @@ from c3smembership.models import (
     #C3sStaff,
     DBSession,
 )
-
+from types import NoneType
 from pkg_resources import resource_filename
 import colander
 import deform
@@ -277,27 +277,33 @@ def success_verify_email(request):
 
         # get matching dataset from DB
         member = C3sMember.get_by_code(confirm_code)  # returns member or None
-        correct = C3sMember.check_password(member.id, _passwd)
 
-        #print('! '*35)
-        #print("member: %s" % member)
-        #print("passwd correct? %s" % correct)
-        # check if info from DB makes sense
-        # -member
-        from types import NoneType
         if isinstance(member, NoneType):
             # member not found: FAIL!
             # print("a matching entry for this code was not found.")
-            not_found_msg = _(u"""Not found. check URL.
-                              If all seems right, please use the form again.""")
+            not_found_msg = _(
+                u"""Not found. Check verification URL.
+                If all seems right, please use the form again.""")
             return {
-                #'firstname': '',
-                #'lastname': '',
                 'correct': False,
                 'namepart': '',
                 'result_msg': not_found_msg,
             }
-        elif ((member.email == user_email) and correct):
+
+        # check if the password is valid
+        try:
+            correct = C3sMember.check_password(member.id, _passwd)
+        except AttributeError:
+            correct = False
+            request.session.flash(
+                _(u'Wrong Password!'),
+                'message_above_form')
+        #print("member: %s" % member)
+        #print("passwd correct? %s" % correct)
+        # check if info from DB makes sense
+        # -member
+
+        if ((member.email == user_email) and correct):
             #print("-- found member, code matches, password too. COOL!")
             # set the email_is_confirmed flag in the DB for this signee
             member.email_is_confirmed = True
@@ -324,7 +330,7 @@ def success_verify_email(request):
                 #'activity': set(activities),
                 #'invest_member': u'yes' if member.invest_member else u'no',
                 'membership_type': member.membership_type,
-                'member_of_colsoc': u'yes' if member.member_of_colsoc else 'no',
+                'member_of_colsoc': u'yes' if member.member_of_colsoc else u'no',
                 'name_of_colsoc': member.name_of_colsoc,
                 #'opt_band': signee.opt_band,
                 #'opt_URL': signee.opt_URL,
