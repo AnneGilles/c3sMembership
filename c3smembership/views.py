@@ -282,8 +282,8 @@ def success_verify_email(request):
             # member not found: FAIL!
             # print("a matching entry for this code was not found.")
             not_found_msg = _(
-                u"""Not found. Check verification URL.
-                If all seems right, please use the form again.""")
+                u"Not found. Check verification URL. "
+                "If all seems right, please use the form again.")
             return {
                 'correct': False,
                 'namepart': '',
@@ -745,6 +745,10 @@ def join_c3s(request):
         use_ajax=True,
         renderer=zpt_renderer
     )
+
+    # if the form has NOT been used and submitted, remove error messages if any
+    if not 'submit' in request.POST:
+        request.session.pop_flash()
 
     # if the form has been used and SUBMITTED, check contents
     if 'submit' in request.POST:

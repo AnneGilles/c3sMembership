@@ -87,7 +87,7 @@ def accountants_login(request):
             validator=colander.Length(min=5, max=100),
             widget=deform.widget.PasswordWidget(size=20),
             title=_(u"password"),
-            oid="lastname",
+            oid="password",
         )
 
     schema = AccountantLogin()

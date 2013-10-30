@@ -6,7 +6,8 @@
       metal:use-macro="base"
       i18n:domain="c3smembership">
   <tal:block metal:fill-slot="deform-js-css">
-    <link rel="stylesheet" href="${request.static_url('c3smembership:static/c3sM.css')}" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="${request.static_url('c3smembership:static/c3sM.css')}"
+          type="text/css" media="screen" charset="utf-8" />
   </tal:block>
   <tal:block metal:fill-slot="middle">
     <h1 i18n:translate="join-form-title">Join Cultural Commons Collecting Society (C3S)</h1>
@@ -16,12 +17,6 @@
       <strong style="color:red;" tal:repeat="message request.session.peek_flash('message_above_form')">
 	${message}
       </strong>
-    </div> &nbsp;
-    <div style="text-align:right;">
-      <a href="/?en"><img src="static/images/en.png" title="English"
-			  alt="switch to English language" /></a>
-      <a href="/?de"><img src="static/images/de.png" title="Deutsch"
-			  alt="auf deutsche Sprache umschalten" /></a>
     </div>
     <h2>login</h2>
     <div id="form" tal:content="structure form"/>
