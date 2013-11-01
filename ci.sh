@@ -15,6 +15,9 @@ env/bin/python setup.py develop
 env/bin/initialize_c3sMembership_db development.ini
 # prepare for tests
 env/bin/pip install nose coverage pep8 pylint pyflakes
+# customized TextInputSliderWidget needs to be copied in place
+cp  deform/widget.py env/lib/python2.7/site-packages/deform-0.9.8-py2.7.egg/deform/widget.py
+cp  deform/slider.pt env/lib/python2.7/site-packages/deform-0.9.8-py2.7.egg/deform/templates/slider.pt
 # run the tests
 env/bin/nosetests c3smembership/   --with-coverage --cover-html --with-xunit
 # this is how you can run individial tests:

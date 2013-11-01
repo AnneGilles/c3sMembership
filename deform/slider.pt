@@ -1,0 +1,48 @@
+<span tal:define="name name|field.name;
+                  size size|field.widget.size;
+                  css_class css_class|field.widget.css_class;
+                  oid oid|field.oid;
+                  mask mask|field.widget.mask;
+                  mask_placeholder mask_placeholder|field.widget.mask_placeholder;
+                  style style|field.widget.style|None;
+                  "
+      tal:omit-tag="">
+<script type="text/javascript">
+$(function() {
+  $( "#slider-div-num_shares" ).slider({
+    range: "max",
+    min: 1,
+    max: 60,
+    value: ${cstruct},
+    slide: function( event, ui ) {
+      $( "#num_shares" ).val( ui.value );
+      $( "#num_shares-calculated" ).val( ui.value * 50 );
+    }
+  });
+  $( "#num_shares" ).val( $( "#slider-div-num_shares" ).slider( "value" ) );
+});
+</script>
+  <input type="text" name="${name}" value="${cstruct}" 
+         tal:attributes="size size;
+                         class css_class;
+                         style style"
+         id="${oid}"/>
+  (= <input type="text" name="${name}-calculated" value="${int(cstruct)*50}" 
+         tal:attributes="size size;
+                         class css_class;
+                         style style"
+         id="${oid}-calculated"/>€)
+  
+  <div id="slider-div-${oid}"></div><br />
+  <script tal:condition="mask" type="text/javascript">
+    deform.addCallback(
+    '${oid}',
+    function (oid) {
+    $("#" + oid).mask("${mask}", 
+    {placeholder:"${mask_placeholder}"});
+    });
+  </script>
+</span>
+
+
+
