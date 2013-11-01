@@ -7,7 +7,7 @@
 # create a virtualenv, preferrably with the python 2.7 variant:
 virtualenv env
 # update setuptools if neccessary
-env/bin/pip install --upgrade setuptools
+env/bin/pip install --upgrade setuptools pip
 # set it up
 # this will take a little while and install all necessary dependencies.
 env/bin/python setup.py develop

@@ -16,7 +16,7 @@ requires = [
     'pyramid_beaker',
     'pyramid_mailer',
     'zope.sqlalchemy',
-    'deform<2',
+    'deform<2.0',
     'cryptacular',
     'pycountry',  # replacing 'webhelpers',
     'fdfgen',
