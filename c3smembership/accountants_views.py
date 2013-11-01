@@ -152,19 +152,22 @@ def accountants_desk(request):
     has their signature arrived? how about the payment?
     """
     _number_of_datasets = C3sMember.get_number()
-
+    #print("request.matchdict['number']: %s" % request.matchdict['number'])
     try:  # check if
         # a page number was supplied with the URL
         _page_to_show = int(request.matchdict['number'])
         #print("page to show: %s" % _page_to_show)
     except:
         _page_to_show = 0
-    # is it a number?
-    if not isinstance(_page_to_show, type(1)):
-        _page_to_show = 0
+    # is it a number? yes, cast above
+    #if not isinstance(_page_to_show, type(1)):
+    #    _page_to_show = 0
     #print("_page_to_show: %s" % _page_to_show)
 
     # how many to display on one page?
+    """
+    num_display determines how many items are to be shown on one page
+    """
     #print request.POST
     if 'num_to_show' in request.POST:
         #print("found it in POST")
@@ -173,7 +176,8 @@ def accountants_desk(request):
             if isinstance(_num, type(1)):
                 num_display = _num
         except:
-            pass
+            # choose default
+            num_display = 20
     elif 'num_display' in request.cookies:
         #print("found it in cookie")
         num_display = int(request.cookies['num_display'])
@@ -183,15 +187,20 @@ def accountants_desk(request):
             'c3smembership.dashboard_number']
     #print("num_display: %s " % num_display)
 
-    try:
-        base_offset = int(_page_to_show) * int(num_display)
-        #print("base offset: %s" % base_offset)
-    except:
-        base_offset = 0
-        if 'base_offset' in request.session:
-            base_offset = request.session['base_offset']
-        else:
-            base_offset = request.registry.settings['c3smembership.offset']
+    """
+    base_offset helps us to minimize impact on the database
+    when querying for results.
+    we can choose just those results we need for the page to show
+    """
+    #try:
+    base_offset = int(_page_to_show) * int(num_display)
+    #print("base offset: %s" % base_offset)
+    #except:
+    #    base_offset = 0
+    #    if 'base_offset' in request.session:
+    #        base_offset = request.session['base_offset']
+    #    else:
+    #        base_offset = request.registry.settings['c3smembership.offset']
 
     # get data sets from DB
     _members = C3sMember.member_listing(
@@ -399,11 +408,19 @@ def member_detail(request):
                     request.user.login,
                     appstruct['payment_received']))
             _member.payment_received = appstruct['payment_received']
+        # store appstruct in session
+        request.session['appstruct'] = appstruct
 
         # show the updated details
         HTTPFound(route_url('detail', request, memberid=memberid))
 
     # else: form was not submitted: just show member info and form
+    else:
+        appstruct = {  # populate form with values from DB
+            'signature_received': _member.signature_received,
+            'payment_received': _member.payment_received}
+        form.set_appstruct(appstruct)
+        #print("the appstruct: %s") % appstruct
     html = form.render()
 
     return {'member': _member,

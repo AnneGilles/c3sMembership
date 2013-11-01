@@ -109,6 +109,12 @@ class AccountantsFunctionalTests(unittest.TestCase):
         #print('res6a:')
         #print res6a
         self.failUnless('<h1>Dashboard</h1>' in res6a.body)
+        res6a = self.testapp.get(
+            '/dashboard/1', status=200,
+        )
+        #print('res6a:')
+        #print res6a
+        self.failUnless('<h1>Dashboard</h1>' in res6a.body)
         # try an invalid page number
         res6b = self.testapp.get(
             '/dashboard/foo',
@@ -119,6 +125,16 @@ class AccountantsFunctionalTests(unittest.TestCase):
         self.failUnless(
             '<p>Number of data sets: 1</p>' in res6b.body)
         #
+        # change the number oof items to show
+        form = res6b.form
+        form['num_to_show'] = "42"  # post a number: OK
+        resX = form.submit('submit', status=200)
+
+        form = resX.form
+        form['num_to_show'] = "mooo"  # post a string: no good
+        resY = form.submit('submit', status=200)
+
+        #import pdb; pdb.set_trace()
         # member details
         #
         # now look at some members details with nonexistant id
@@ -143,11 +159,54 @@ class AccountantsFunctionalTests(unittest.TestCase):
             "<td>signature received?</td><td>True</td>" in res8.body)
         self.failUnless(
             "<td>payment received?</td><td>True</td>" in res8.body)
-        # finally log out
+        ################################################################
+        # now we change some of the details: switch signature status
+        # via http-request rather than the form
+        resD1 = self.testapp.get('/detail/1', status=200)  # look at details
+        self.assertTrue(
+            "<td>signature received?</td><td>True</td>" in resD1.body)
+        self.assertTrue(
+            "<td>payment received?</td><td>True</td>" in resD1.body)
+        #
+        # switch signature
+        resD2a = self.testapp.get('/switch_sig/1', status=302)  # # # # # OFF
+        resD2b = resD2a.follow()  # we are taken to the dashboard
+        resD2b = self.testapp.get('/detail/1', status=200)
+        self.assertTrue(
+            "<td>signature received?</td><td>No</td>" in resD2b.body)
+        resD2a = self.testapp.get('/switch_sig/1', status=302)  # # # # # ON
+        resD2b = resD2a.follow()  # we are taken to the dashboard
+        resD2b = self.testapp.get('/detail/1', status=200)
+        self.assertTrue(
+            "<td>signature received?</td><td>True</td>" in resD2b.body)
+        #
+        # switch payment
+        resD3a = self.testapp.get('/switch_pay/1', status=302)  # # # # OFF
+        resD3b = resD3a.follow()  # we are taken to the dashboard
+        resD3b = self.testapp.get('/detail/1', status=200)
+        self.assertTrue(
+            "<td>payment received?</td><td>No</td>" in resD3b.body)
+        resD3a = self.testapp.get('/switch_pay/1', status=302)  # # # # ON
+        resD3b = resD3a.follow()  # we are taken to the dashboard
+        resD3b = self.testapp.get('/detail/1', status=200)
+        self.assertTrue(
+            "<td>payment received?</td><td>True</td>" in resD3b.body)
+        #
+        ####################################################################
+        # delete an entry
+        resDel1 = self.testapp.get('/dashboard/0', status=200)
+        self.failUnless(
+            '      <p>Number of data sets: 1</p>' in resDel1.body.splitlines())
+        resDel2 = self.testapp.get('/delete/1', status=302)
+        resDel3 = resDel2.follow()
+        self.failUnless(
+            '      <p>Number of data sets: 0</p>' in resDel3.body.splitlines())
+
+        # finally log out ##################################################
         res9 = self.testapp.get('/logout', status=302)  # redirects to login
         res10 = res9.follow()
         self.failUnless('login' in res10.body)
-#    def test_detail_wrong_id(self):
+        # def test_detail_wrong_id(self):
 
 
 class FunctionalTests(unittest.TestCase):
