@@ -54,6 +54,11 @@ select {
 .ui-slider-handle {
     border:#d9f0c8;
     background:#4dbd38!important;}
+
+/* https://redmine.c-3-s.org/issues/156 */
+input {margin-right: 8px;}
+a {text-decoration: underline;}
+
 /* footer with image */
 #footer {
     background-color:#d9f0c8!important;
