@@ -30,7 +30,7 @@ class AccountantsFunctionalTests(unittest.TestCase):
     """
     def setUp(self):
         my_settings = {
-            'sqlalchemy.url': 'sqlite://',  # where the database is
+            'sqlalchemy.url': 'sqlite:///webtest.db',  # where the database is
             'available_languages': 'da de en es fr',
             'c3smembership.dashboard_number': '30'}
         #my_other_settings = {'sqlalchemy.url': 'sqlite:///test.db',
@@ -38,9 +38,9 @@ class AccountantsFunctionalTests(unittest.TestCase):
                         # mock, not even used!?
         #from sqlalchemy import engine_from_config
         #engine = engine_from_config(my_settings)
-       # DBSession = _initTestingDB()
-        from c3smembership.scripts.initialize_db import init
-        init()
+        # DBSession = _initTestingDB()
+        from c3smembership.scripts.initialize_db import main
+        main(['', 'development.ini'])
         from c3smembership import main
         #try:
         app = main({}, **my_settings)
@@ -398,7 +398,7 @@ class FunctionalTests(unittest.TestCase):
 # checking the success page that sends out email with verification link
 
     def test_check_email_en_wo_context(self):
-        """load the page in english, be redirected to the form (data is missing)
+        """try to access the 'check_email' page and be redirected
         check english string exists"""
         res = self.testapp.reset()
         res = self.testapp.get('/check_email?en', status=302)
@@ -411,13 +411,35 @@ class FunctionalTests(unittest.TestCase):
                 res1.body),
             'expected string was not found in web UI')
 
+###########################################################################
+# checking the view that gets code and mail, asks for a password
+    def test_verify_email_en_w_bad_code(self):
+        """load the page in english,
+        be redirected to the form (data is missing)
+        check english string exists"""
+        res = self.testapp.reset()
+        res = self.testapp.get('/verify/foo@shri.de/ABCD-----', status=200)
+        self.failUnless(
+            'Password' in res.body)
+        form = res.form
+        form['password'] = 'foobar'
+        res2 = form.submit('submit')
+        self.failUnless(
+            'Password' in res2.body)
+
     def test_verify_email_en_w_good_code(self):
-        """load the page in english, be redirected to the form (data is missing)
+        """
         check english string exists"""
         res = self.testapp.reset()
         res = self.testapp.get('/verify/foo@shri.de/ABCDEFGHIJ', status=200)
         self.failUnless(
             'Password' in res.body)
+        form = res.form
+        form['password'] = 'berries'
+        res2 = form.submit('submit')
+        self.failUnless('C3S_SCE_AFM_Firstn_meLastname.pdf' in res2.body)
+#        import pdb
+#        pdb.set_trace()
             #'Your Email has been confirmed, Firstnäme Lastname!' in res.body)
         #res2 = self.testapp.get(
         #    '/C3S_SCE_AFM_Firstn_meLastname.pdf', status=200)
@@ -578,45 +600,46 @@ class FunctionalTests(unittest.TestCase):
     #     self.failUnless(
     #         'An email was sent, TheFirstName TheLastName!' in res3.body)
 
-    # def test_success_and_reedit(self):
-    #     """
-    #     submit form, check success, re-edit: are the values pre-filled?
-    #     """
-    #     res = self.testapp.reset()
-    #     #res = self.testapp.get('/', status=200)
-    #     res = self.testapp.post(
-    #         '/',  # where the form is served
-    #         {
-    #             'submit': True,
-    #             'firstname': 'TheFirstNäme',
-    #             'lastname': 'TheLastNäme',
-    #             'date_of_birth': '1987-06-05',
-    #             'address1': 'addr one',
-    #             'address2': 'addr two',
-    #             'postcode': '98765 xyz',
-    #             'city': 'Devilstöwn',
-    #             'email': 'email@example.com',
-    #             'num_shares': '23',
-    #             '_LOCALE_': 'en',
-    #             #'activity': set(
-    #             #    [
-    #             #        'composer',
-    #             #        #u'dj'
-    #             #    ]
-    #             #),
-    #             'country': 'AF',
-    #             'invest_member': 'yes',
-    #             'member_of_colsoc': 'yes',
-    #             'name_of_colsoc': 'schmoö',
-    #             #'opt_band': 'yes bänd',
-    #             #'opt_URL': 'http://yes.url',
-    #             #'noticed_dataProtection': 'yes'
+#     def test_success_and_reedit(self):
+#         """
+#         submit form, check success, re-edit: are the values pre-filled?
+#         """
+#         res = self.testapp.reset()
+#         res = self.testapp.get('/', status=200)
+#         form = res.form
+#         form['firstname'] = 'TheFirstNäme'
+#         form['lastname'] = 'TheLastNäme'
+#         form['address1'] = 'addr one'
+#         form['address2'] = 'addr two'
+#         res2 = form.submit('submit')
+#         print res2.body
+# #                'submit': True,
+# #                'date_of_birth': '1987-06-05',
+# #                'address2': 'addr two',
+# #                'postcode': '98765 xyz',
+# #                'city': 'Devilstöwn',
+# #                'email': 'email@example.com',
+# #                'num_shares': '23',
+# #                '_LOCALE_': 'en',
+# #                #'activity': set(
+#                 #    [
+#                 #        'composer',
+#                 #        #u'dj'
+#                 #    ]
+#                 #),
+# #                'country': 'AF',
+# #                'membership_type': 'investing',
+# #                'member_of_colsoc': 'yes',
+# #                'name_of_colsoc': 'schmoö',
+#                 #'opt_band': 'yes bänd',
+#                 #'opt_URL': 'http://yes.url',
+#                 #'noticed_dataProtection': 'yes'
 
-    #         },
-    #         status=302,  # expect redirection to success page
-    #     )
+# #            },
+# #            status=302,  # expect redirection to success page
+# #        )
 
-    #     #print(res.body)
+    #    print(res.body)
     #     self.failUnless('The resource was found at' in res.body)
     #     # we are being redirected...
     #     res2 = res.follow()
@@ -641,7 +664,7 @@ class FunctionalTests(unittest.TestCase):
         # print(res.body)
         form = res.form
         form['password'] = 'berries'
-        res2 =  form.submit('submit')
+        res2 = form.submit('submit')
         #print res2.body
         self.failUnless("Load your PDF..." in res2.body)
         res3 = self.testapp.get(

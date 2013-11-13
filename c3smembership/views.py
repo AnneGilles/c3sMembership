@@ -209,7 +209,7 @@ def success_check_email(request):
             body=the_mail_body
         )
         mailer.send(the_mail)
-        print(the_mail.body)
+        #print(the_mail.body)
 
         # make the session go away
         request.session.invalidate()
@@ -271,9 +271,9 @@ def success_verify_email(request):
         if 'password' in request.POST:
             _passwd = request.POST['password']
             #print("The password: %s" % _passwd)
-        else:
+        #else:
             # message: missing password!
-            print('# message: missing password!')
+        #    print('# message: missing password!')
 
         # get matching dataset from DB
         member = C3sMember.get_by_code(confirm_code)  # returns member or None
@@ -593,7 +593,7 @@ def join_c3s(request):
 
         ## TODO: inColSocName if member_of_colsoc = yes
         ## css/jquery: fixed; TODO: validator
-        def colsoc_validator(node, form):
+        #def colsoc_validator(node, form):
             #log.info("validating...........................................")
             #print(value['member_of_colsoc'])
             #log.info(node.get('other_colsoc'))
@@ -608,7 +608,7 @@ def join_c3s(request):
             #    form, "if colsoc, give name!")
             #exc['name_of_colsoc'] = "if colsoc, give name!"
             #log.info("end----------------------------------------")
-            pass
+            #pass
 
         membership_type = colander.SchemaNode(
             colander.String(),
@@ -662,9 +662,9 @@ def join_c3s(request):
                 'If more than one, please separate them by comma(s).'),
             missing=unicode(''),
             oid="colsoc_name",
-            validator=colander.All(
-                colsoc_validator,
-            )
+            #validator=colander.All(
+            #    colsoc_validator,
+            #)
         )
 
         def statute_validator(node, value):

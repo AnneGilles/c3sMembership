@@ -1,7 +1,9 @@
 # -*- coding: utf-8  -*-
 import unittest
-from pyramid.config import Configurator
-from pyramid import testing
+#from pyramid.config import Configurator
+#from pyramid import testing
+from datetime import date
+from sqlalchemy.exc import IntegrityError
 
 DEBUG = False
 
@@ -12,6 +14,8 @@ def _initTestingDB():
     from c3smembership.models import Base
     #from c3smembership.models import initialize_sql
     from c3smembership.scripts.initialize_db import init
+    #import pdb
+    #pdb.set_trace()
     init()
     #engine = create_engine('sqlite:///:memory:')
     ##session = initialize_sql(create_engine('sqlite:///:memory:'))
@@ -36,6 +40,9 @@ class C3sMembershipModelTests(unittest.TestCase):
 
     def tearDown(self):
         #print dir(self.session)
+        #import pdb
+        #pdb.set_trace()
+        self.session.close()
         self.session.remove()
         #pass
 
@@ -43,15 +50,10 @@ class C3sMembershipModelTests(unittest.TestCase):
         from c3smembership.models import C3sMember
         return C3sMember
 
-    from datetime import (
-        date,
-        datetime
-    )
-
     def _makeOne(self,
                  firstname=u'SomeFirstnäme',
                  lastname=u'SomeLastnäme',
-                 email=u'some@email.de',
+                 email=u'some@shri.de',
                  address1=u"addr one",
                  address2=u"addr two",
                  postcode=u"12345",
@@ -62,17 +64,10 @@ class C3sMembershipModelTests(unittest.TestCase):
                  email_is_confirmed=False,
                  email_confirm_code=u'ABCDEFGHIK',
                  password=u'arandompassword',
-                 #is_composer=True,
-                 #is_lyricist=True,
-                 #is_producer=True,
-                 #is_remixer=True,
-                 #is_dj=True,
                  date_of_submission=date.today(),
-                 invest_member=True,
+                 membership_type=u'normal',
                  member_of_colsoc=True,
                  name_of_colsoc=u"GEMA",
-                 #opt_band=u"Moin Meldon",
-                 #opt_URL=u"http://moin.meldon",
                  num_shares=u'23',
                  ):
         #print "type(self.session): " + str(type(self.session))
@@ -85,14 +80,16 @@ class C3sMembershipModelTests(unittest.TestCase):
             num_shares,
             #is_composer, is_lyricist, is_producer, is_remixer, is_dj,
             date_of_submission,
-            invest_member, member_of_colsoc, name_of_colsoc,
+            #invest_member,
+            membership_type,
+            member_of_colsoc, name_of_colsoc,
             #opt_band, opt_URL
             )
 
     def _makeAnotherOne(self,
                         firstname=u'SomeFirstname',
                         lastname=u'SomeLastname',
-                        email=u'some@email.de',
+                        email=u'some@shri.de',
                         address1=u"addr one",
                         address2=u"addr two",
                         postcode=u"12345",
@@ -125,13 +122,14 @@ class C3sMembershipModelTests(unittest.TestCase):
         #print(instance.address1)
         self.assertEqual(instance.firstname, u'SomeFirstnäme', "No match!")
         self.assertEqual(instance.lastname, u'SomeLastnäme', "No match!")
-        self.assertEqual(instance.email, u'some@email.de', "No match!")
+        self.assertEqual(instance.email, u'some@shri.de', "No match!")
         self.assertEqual(instance.address1, u'addr one', "No match!")
         self.assertEqual(instance.address2, u'addr two', "No match!")
-        self.assertEqual(instance.email, u'some@email.de', "No match!")
+        self.assertEqual(instance.email, u'some@shri.de', "No match!")
         self.assertEqual(
             instance.email_confirm_code, u'ABCDEFGHIK', "No match!")
         self.assertEqual(instance.email_is_confirmed, False, "expected False")
+        self.assertEqual(instance.membership_type, u'normal', "No match!")
 
     def test_get_by_code(self):
         instance = self._makeOne()
@@ -149,14 +147,18 @@ class C3sMembershipModelTests(unittest.TestCase):
             #        foo = myUserClass.get_by_username(instance.username)
             #        print "test_get_by_username: type(foo): " + str(type(foo))
         self.assertEqual(instance.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'some@email.de')
+        self.assertEqual(instance_from_DB.email, u'some@shri.de')
 
     def test_get_by_id(self):
         instance = self._makeOne()
         #session = DBSession()
         self.session.add(instance)
+        self.session.flush()
+        _id = instance.id
+        _date_of_birth = instance.date_of_birth
+        _date_of_submission = instance.date_of_submission
         myMembershipSigneeClass = self._getTargetClass()
-        instance_from_DB = myMembershipSigneeClass.get_by_id('1')
+        instance_from_DB = myMembershipSigneeClass.get_by_id(_id)
         #self.session.commit()
         #self.session.remove()
         #print instance_from_DB.email
@@ -166,8 +168,23 @@ class C3sMembershipModelTests(unittest.TestCase):
             # + str(myUserClass.get_by_username('SomeUsername'))
             #        foo = myUserClass.get_by_username(instance.username)
             #        print "test_get_by_username: type(foo): " + str(type(foo))
-        self.assertEqual(instance.firstname, u'SomeFirstnäme')
-        self.assertEqual(instance_from_DB.email, u'foo@shri.de')
+        self.assertEqual(instance_from_DB.firstname, u'SomeFirstnäme')
+        self.assertEqual(instance_from_DB.lastname, u'SomeLastnäme')
+        self.assertEqual(instance_from_DB.email, u'some@shri.de')
+        self.assertEqual(instance_from_DB.address1, u'addr one')
+        self.assertEqual(instance_from_DB.address2, u'addr two')
+        self.assertEqual(instance_from_DB.postcode, u'12345')
+        self.assertEqual(instance_from_DB.city, u'Footown Mäh')
+        self.assertEqual(instance_from_DB.country, u'Foocountry')
+        self.assertEqual(instance_from_DB.locale, u'DE')
+        self.assertEqual(instance_from_DB.date_of_birth, _date_of_birth)
+        self.assertEqual(instance_from_DB.email_is_confirmed, False)
+        self.assertEqual(instance_from_DB.email_confirm_code, u'ABCDEFGHIK')
+        self.assertEqual(instance_from_DB.date_of_submission, _date_of_submission)
+        self.assertEqual(instance_from_DB.membership_type, u'normal')
+        self.assertEqual(instance_from_DB.member_of_colsoc, True)
+        self.assertEqual(instance_from_DB.name_of_colsoc, u'GEMA')
+        self.assertEqual(instance_from_DB.num_shares, u'23')
 
     def test_delete_by_id(self):
         instance = self._makeOne()
@@ -195,8 +212,11 @@ class C3sMembershipModelTests(unittest.TestCase):
         self.assertEqual(None, result2)
 
     def test_check_for_existing_confirm_code(self):
-        instance = self._makeOne()
-        self.session.add(instance)
+        try:
+            instance = self._makeOne()
+            self.session.add(instance)
+        except IntegrityError:
+            pass
         myMembershipSigneeClass = self._getTargetClass()
 
         result1 = myMembershipSigneeClass.check_for_existing_confirm_code(
@@ -217,7 +237,5 @@ class C3sMembershipModelTests(unittest.TestCase):
 
         result1 = myMembershipSigneeClass.member_listing(
             myMembershipSigneeClass.id.desc())
-        #import pdb; pdb.set_trace()
-        #print (foo for foo in result1)
-        self.failUnless(result1[0].firstname == u"Firstnäme")
-        self.failUnless(result1[1].firstname == u"SomeFirstnäme")
+        self.failUnless(result1[0].firstname == u"SomeFirstnäme")
+        self.failUnless(result1[1].firstname == u"SomeFirstname")

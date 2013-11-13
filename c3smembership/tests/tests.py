@@ -29,6 +29,168 @@ class TestViews(unittest.TestCase):
         DBSession.remove()
         testing.tearDown()
 
+    def test_show_success(self):
+        """
+        test the success page
+        """
+        from c3smembership.views import show_success
+        self.config.add_route('join', '/')
+        request = testing.DummyRequest(
+            params={
+                'appstruct': {
+                    'firstname': 'foo',
+                    'lastname': 'bar',
+                }
+            }
+        )
+        request.session['appstruct'] = {
+            'person': {
+                'firstname': 'foo',
+                'lastname': 'bar',
+            }
+        }
+        result = show_success(request)
+        #print result
+        self.assertTrue(result['lastname'] is 'bar')
+        self.assertTrue(result['firstname'] is 'foo')
+
+    def test_success_check_email(self):
+        """
+        test the success_check_email view
+        """
+        from c3smembership.views import success_check_email
+        self.config.add_route('join', '/')
+        from pyramid_mailer import get_mailer
+        request = testing.DummyRequest(
+            params={
+                'appstruct': {
+                    'firstname': 'foo',
+                    'lastname': 'bar',
+                }
+            }
+        )
+        request.session['appstruct'] = {
+            'person': {
+                'firstname': 'foo',
+                'lastname': 'bar',
+                'email': 'bar@shri.de',
+            },
+            'email_confirm_code': '12345678',
+        }
+        mailer = get_mailer(request)
+        result = success_check_email(request)
+        print result
+        self.assertTrue(result['lastname'] is 'bar')
+        self.assertTrue(result['firstname'] is 'foo')
+
+        self.assertEqual(len(mailer.outbox), 1)
+        self.assertEqual(
+            mailer.outbox[0].subject,
+            'C3S: confirm your email address and load your PDF')
+        #self.assertEqual(mailer.outbox[0]., "hello world")
+
+        verif_link = "https://pretest.c3s.cc/verify/bar@shri.de/12345678"
+        self.assertTrue("hello foo bar !" in mailer.outbox[0].body)
+        self.assertTrue(verif_link in mailer.outbox[0].body)
+
+    def test_success_check_email_redirect(self):
+        """
+        test the success_check_email view redirection when appstruct is missing
+        """
+        from c3smembership.views import success_check_email
+        self.config.add_route('join', '/')
+        from pyramid_mailer import get_mailer
+        request = testing.DummyRequest()
+        result = success_check_email(request)
+
+        self.assertEqual('302 Found', result._status)
+        self.assertEqual('http://example.com/', result.location)
+        #import pdb
+        #pdb.set_trace()
+
+    def test_success_verify_email(self):
+        """
+        test the success_verify_email view
+        """
+        from c3smembership.views import success_verify_email
+        self.config.add_route('join', '/')
+        from pyramid_mailer import get_mailer
+        # without submitting
+        request = testing.DummyRequest()
+        request.matchdict['email'] = 'foo@shri.de'
+        request.matchdict['code'] = '12345678'
+        result = success_verify_email(request)
+        self.assertEqual(
+            request.session.peek_flash('message_above_form'),
+            [u'Please enter your password.'])
+        self.assertEqual(result['result_msg'], 'something went wrong.')
+        self.assertEqual(result['firstname'], '')
+        self.assertEqual(result['lastname'], '')
+        self.assertEqual(result['post_url'], '/verify/foo@shri.de/12345678')
+        self.assertEqual(result['namepart'], '')
+        self.assertEqual(result['correct'], False)
+
+        # TODO: try to submit, maybe in webtest?
+
+    # def test_success_verify_email_(self):
+    #     """
+    #     test the success_verify_email view
+    #     """
+    #     from c3smembership.views import success_verify_email
+    #     self.config.add_route('join', '/')
+    #     #from pyramid_mailer import get_mailer
+    #     # without submitting
+    #     request = testing.DummyRequest()
+    #     request.matchdict['email'] = 'MMMMMMMMMMMMMMMMM@shri.de'
+    #     request.matchdict['code'] = '12345678'
+    #     request.POST['submit'] = True
+    #     result = success_verify_email(request)
+    #     self.assertEqual(
+    #         request.session.peek_flash('message_above_form'),
+    #         [u'Please enter your password.'])
+    #     self.assertEqual(result['result_msg'], 'something went wrong.')
+    #     self.assertEqual(result['firstname'], '')
+    #     self.assertEqual(result['lastname'], '')
+    #     self.assertEqual(result['post_url'], '/verify/MMMMMMMMMMMMMMMMM@shri.de/ABCDEFGHIJ')
+    #     self.assertEqual(result['namepart'], '')
+    #     self.assertEqual(result['correct'], False)
+
+        # TODO: try to submit, maybe in webtest?
+
+#    def _makeLocalizer(self, *arg, **kw):
+#        from pyramid.i18n import Localizer
+#        return Localizer(*arg, **kw)
+
+#     def test_join_c3s(self):
+#         """
+#         test the join form
+#         """
+#         from c3smembership.views import join_c3s
+#         request = testing.DummyRequest()
+#         from pyramid.i18n import get_localizer
+#         from pyramid.threadlocal import get_current_request
+#         from pkg_resources import resource_filename
+#         import deform
+
+#         def translator(term):
+#             return get_localizer(get_current_request()).translate(term)
+
+#         my_template_dir = resource_filename('c3smembership', 'templates/')
+#         deform_template_dir = resource_filename('deform', 'templates/')
+#         zpt_renderer = deform.ZPTRendererFactory(
+#             [
+#                 my_template_dir,
+#                 deform_template_dir,
+#             ],
+#             translator=translator,
+#         )
+#         request.localizer = self._makeLocalizer('en_US', None)
+
+# #        import pdb
+# #        pdb.set_trace()
+
+#         #result = join_c3s(request)
+
     # def test_dashboard_view(self):
     #     from c3smembership.accountants_views import accountants_desk
     #     request = testing.DummyRequest(
@@ -40,6 +202,8 @@ class TestViews(unittest.TestCase):
     #     print("request.params: " + str(request.params.get('_LOCALE_')))
     #     result = accountants_desk(request)
     #     self.assertTrue('form' in result)
+        #import pdb
+        #pdb.set_trace()
 
 #     def test_join_membership_view_nosubmit(self):
 #         from c3sintent.views import join_membership

@@ -8,3 +8,5 @@ env/
 python-eggs/
 *.log
 *.wsgi
+cover/
+nosetests.xml
